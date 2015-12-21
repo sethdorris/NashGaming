@@ -189,6 +189,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\NashGamingContext.cs" />
+    <Compile Include="Models\NashGamingRepository.cs" />
     <Compile Include="Models\Posts.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
