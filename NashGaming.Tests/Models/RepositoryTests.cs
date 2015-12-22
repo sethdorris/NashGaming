@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NashGaming.Models;
-using System.Data.Sql;
+using System.Data.Entity;
 
 namespace NashGaming.Tests.Models
 {
