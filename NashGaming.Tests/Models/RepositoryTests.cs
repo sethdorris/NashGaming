@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NashGaming.Models;
 using System.Data.Entity;
+using Moq;
 
 namespace NashGaming.Tests.Models
 {
@@ -27,7 +28,9 @@ namespace NashGaming.Tests.Models
         public void RepositoryTestsEnsureICanGetAllUsers()
         {
             NashGamingRepository Repo = new NashGamingRepository();
-            Assert.AreEqual(null, Repo.GetAllGamers());
+            var mock_context = new Mock<NashGamingContext>();
+            var mock_users = new Mock<DbSet<Gamer>>();
+            
         }
     }
 }
