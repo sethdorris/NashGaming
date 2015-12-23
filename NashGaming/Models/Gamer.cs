@@ -6,7 +6,7 @@ using System.Web;
 
 namespace NashGaming.Models
 {
-    public class Gamer
+    public class Gamer : IComparable
     {
         [Key]
         public int GamerID { get; set; }
@@ -14,6 +14,10 @@ namespace NashGaming.Models
         public string Handle { get; set; }
         public string Platform { get; set; }
         public virtual Team MemberOf { get; set; }
-        
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
