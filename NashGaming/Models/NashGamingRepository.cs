@@ -25,5 +25,17 @@ namespace NashGaming.Models
             var query = from gamers in context.Gamers select gamers;
             return query.ToList();
         }
+       
+        public List<Team> GetAllTeams()
+        {
+            var query = from teams in context.Teams select teams;
+            return query.ToList();
+        }
+
+        public List<Match> GetAllMatches()
+        {
+            var query = from matches in context.Matches select matches;
+            return query.ToList();
+        }
     }
 }
