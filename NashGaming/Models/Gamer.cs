@@ -14,6 +14,7 @@ namespace NashGaming.Models
         public string Handle { get; set; }
         public string Platform { get; set; }
         public virtual Team MemberOf { get; set; }
+        public List<Posts> Comments { get; set; }
 
         public int CompareTo(object obj)
         {
