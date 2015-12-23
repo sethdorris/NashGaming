@@ -25,6 +25,12 @@ namespace NashGaming.Models
             var query = from gamers in context.Gamers select gamers;
             return query.ToList();
         }
+
+        public Gamer GetGamerByHandle(string handle)
+        {
+            var query = from gamers in context.Gamers where gamers.Handle == handle select gamers;
+            return query.SingleOrDefault();
+        }
        
         public List<Team> GetAllTeams()
         {

@@ -129,5 +129,22 @@ namespace NashGaming.Tests.Models
             Assert.AreEqual(1, actual[0].MatchID);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepositoryTestsEnsureICanGetGamerByHandle()
+        {
+            List<Gamer> expected = new List<Gamer>
+            {
+                new Gamer { Handle = "StiffNasty" },
+                new Gamer {Handle = "Bro" }
+            };
+            
+
+            _gamerSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            var actual = _repo.GetGamerByHandle("StiffNasty");
+            Assert.AreEqual("StiffNasty", actual.Handle);
+        }
     }
 }
