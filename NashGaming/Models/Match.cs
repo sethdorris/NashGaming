@@ -12,6 +12,8 @@ namespace NashGaming.Models
         public int MatchID { get; set; }
         public DateTime Date { get; set; }
         public DateTime Time { get; set; }
+        public virtual Team Team1 { get; set; }
+        public virtual Team Team2 { get; set; }
         public string Result { get; set; }
         public int Team1Score { get; set; }
         public int Team2Score { get; set; }
