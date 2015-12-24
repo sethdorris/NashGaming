@@ -113,8 +113,8 @@ namespace NashGaming.Migrations
                         Team2_TeamID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.MatchID)
-                .ForeignKey("dbo.Teams", t => t.Team1_TeamID, cascadeDelete: true)
-                .ForeignKey("dbo.Teams", t => t.Team2_TeamID, cascadeDelete: true)
+                .ForeignKey("dbo.Teams", t => t.Team1_TeamID, cascadeDelete: false)
+                .ForeignKey("dbo.Teams", t => t.Team2_TeamID, cascadeDelete: false)
                 .Index(t => t.Team1_TeamID)
                 .Index(t => t.Team2_TeamID);
             
