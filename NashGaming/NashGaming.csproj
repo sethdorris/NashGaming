@@ -183,11 +183,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <None Include="Migrations\201512220047570_InitialSchema.cs" />
+    <Compile Include="Migrations\201512220047570_InitialSchema.cs" />
     <Compile Include="Migrations\201512220047570_InitialSchema.Designer.cs">
       <DependentUpon>201512220047570_InitialSchema.cs</DependentUpon>
     </Compile>
-    <None Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\201512242234142_forced_disable_cascadeDelete.cs" />
+    <Compile Include="Migrations\201512242234142_forced_disable_cascadeDelete.Designer.cs">
+      <DependentUpon>201512242234142_forced_disable_cascadeDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Gamer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -270,6 +274,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201512220047570_InitialSchema.resx">
       <DependentUpon>201512220047570_InitialSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512242234142_forced_disable_cascadeDelete.resx">
+      <DependentUpon>201512242234142_forced_disable_cascadeDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
