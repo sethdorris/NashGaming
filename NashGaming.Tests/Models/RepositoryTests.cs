@@ -136,7 +136,7 @@ namespace NashGaming.Tests.Models
             List<Gamer> expected = new List<Gamer>
             {
                 new Gamer { Handle = "StiffNasty" },
-                new Gamer {Handle = "Bro" }
+                new Gamer { Handle = "Bro" }
             };
             
 
