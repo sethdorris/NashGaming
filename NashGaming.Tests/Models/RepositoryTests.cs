@@ -146,5 +146,29 @@ namespace NashGaming.Tests.Models
             var actual = _repo.GetGamerByHandle("StiffNasty");
             Assert.AreEqual("StiffNasty", actual.Handle);
         }
+
+        [TestMethod]
+        public void RepositoryTestsEnsureICanSearchTeamByName()
+        {
+            List<Team> team_data = new List<Team>
+            {
+                new Team { TeamName = "Siege the Day" },
+                new Team { TeamName = "Day of Siege" },
+                new Team { TeamName = "Group Text" }
+            };
+
+
+            _teamSet.Object.AddRange(team_data);
+            ConnectMocksToDataStore(team_data);
+
+            List<Team> expected = new List<Team>
+            {
+                new Team { TeamName = "Day of Siege" },
+                new Team { TeamName = "Siege the Day" }
+            };
+
+            var actual = _repo.SearchTeamsByName("Siege");
+            Assert.AreEqual(expected[0].TeamName, actual[0].TeamName);
+        }
     }
 }
