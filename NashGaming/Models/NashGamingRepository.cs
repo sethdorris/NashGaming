@@ -43,5 +43,13 @@ namespace NashGaming.Models
             var query = from matches in context.Matches select matches;
             return query.ToList();
         }
+
+        public List<Team> SearchTeamsByName(string teamname)
+        {
+            var query = from team in context.Teams select team;
+            List<Team> found_teams = query.Where(t => t.TeamName.Contains(teamname)).ToList();
+            found_teams.Sort();
+            return found_teams;
+        }
     }
 }
