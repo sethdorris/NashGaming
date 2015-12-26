@@ -6,7 +6,7 @@ using System.Web;
 
 namespace NashGaming.Models
 {
-    public class Team
+    public class Team : IComparable
     {
         [Key]
         public int TeamID { get; set; }
@@ -17,5 +17,10 @@ namespace NashGaming.Models
         public int Rank { get; set; }
         public string Website { get; set; }
 
+        public int CompareTo(object obj)
+        {
+            Team team = obj as Team;
+            return this.TeamName.CompareTo(team.TeamName);
+        }
     }
 }
