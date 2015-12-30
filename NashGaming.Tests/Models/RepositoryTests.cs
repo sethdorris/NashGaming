@@ -14,6 +14,7 @@ namespace NashGaming.Tests.Models
         private Mock<NashGamingContext> _context;
         private NashGamingRepository _repo;
         private Mock<DbSet<Gamer>> _gamerSet;
+        private Mock<DbSet<Posts>> _postSet;
         private Mock<DbSet<NashGaming.Models.Match>> _matchSet;
         private Mock<DbSet<Team>> _teamSet;
         private Mock<DbSet<Gamer>> _playerSet;
@@ -48,11 +49,22 @@ namespace NashGaming.Tests.Models
             _context.Setup(a => a.Matches).Returns(_matchSet.Object);
         }
 
+        private void ConnectMocksToDataStore(IEnumerable<Posts> data_store)
+        {
+            var data_source = data_store.AsQueryable();
+            _postSet.As<IQueryable<Posts>>().Setup(data => data.Provider).Returns(data_source.Provider);
+            _postSet.As<IQueryable<Posts>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
+            _postSet.As<IQueryable<Posts>>().Setup(data => data.Expression).Returns(data_source.Expression);
+            _postSet.As<IQueryable<Posts>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
+            _context.Setup(a => a.Posts).Returns(_postSet.Object);
+        }
+
         [TestInitialize]
         public void Initialize()
         {
             _context = new Mock<NashGamingContext>();
             _gamerSet = new Mock<DbSet<Gamer>>();
+            _postSet = new Mock<DbSet<Posts>>();
             _teamSet = new Mock<DbSet<Team>>();
             _matchSet = new Mock<DbSet<NashGaming.Models.Match>>();
             _repo = new NashGamingRepository(_context.Object);
@@ -63,6 +75,9 @@ namespace NashGaming.Tests.Models
         {
             _context = null;
             _gamerSet = null;
+            _teamSet = null;
+            _matchSet = null;
+            _postSet = null;
             _repo = null;
         }
 
@@ -169,6 +184,24 @@ namespace NashGaming.Tests.Models
 
             var actual = _repo.SearchTeamsByName("Siege");
             Assert.AreEqual(expected[0].TeamName, actual[0].TeamName);
+        }
+
+        [TestMethod]
+        public void RepositoryTestsEnsureICanGetAllPosts()
+        {
+            List<Posts> expected = new List<Posts>
+            {
+                new Posts {PostID= 1, Date = new DateTime(2015, 12, 2), Content = "What??"},
+                new Posts {PostID= 2, Date = new DateTime(2015, 12, 5), Content = "Who??"  }
+            };
+
+
+            _postSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            var actual = _repo.GetAllPosts();
+            Assert.AreEqual(2, actual.Count);
+            Assert.AreEqual(2, actual[0].PostID);
         }
     }
 }
