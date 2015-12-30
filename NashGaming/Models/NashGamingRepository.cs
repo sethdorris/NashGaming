@@ -51,5 +51,12 @@ namespace NashGaming.Models
             found_teams.Sort();
             return found_teams;
         }
+
+        public List<Posts> GetAllPosts()
+        {
+            var query = from post in context.Posts orderby post.Date descending select post;
+            List<Posts> allposts = query.ToList();
+            return allposts;
+        }
     }
 }
