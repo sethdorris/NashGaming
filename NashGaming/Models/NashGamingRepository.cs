@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace NashGaming.Models
 {
@@ -26,10 +27,12 @@ namespace NashGaming.Models
             return query.ToList();
         }
 
-        public Gamer GetGamerByHandle(string handle)
+        public List<Gamer> GetGamerByHandle(string handle)
         {
-            var query = from gamers in context.Gamers where gamers.Handle == handle select gamers;
-            return query.SingleOrDefault();
+            var query = from gamers in context.Gamers select gamers;
+            List<Gamer> found_gamers = query.Where(o => Regex.IsMatch(o.Handle, handle, RegexOptions.IgnoreCase)).ToList();
+            found_gamers.Sort();
+            return found_gamers;
         }
        
         public List<Team> GetAllTeams()
@@ -47,7 +50,7 @@ namespace NashGaming.Models
         public List<Team> SearchTeamsByName(string teamname)
         {
             var query = from team in context.Teams select team;
-            List<Team> found_teams = query.Where(t => t.TeamName.Contains(teamname)).ToList();
+            List<Team> found_teams = query.Where(t => Regex.IsMatch(t.TeamName, teamname, RegexOptions.IgnoreCase)).ToList();
             found_teams.Sort();
             return found_teams;
         }
@@ -57,6 +60,13 @@ namespace NashGaming.Models
             var query = from post in context.Posts orderby post.Date descending select post;
             List<Posts> allposts = query.ToList();
             return allposts;
+        }
+
+        public List<Posts> SearchPostsByContent(string search)
+        {
+            var query = from post in context.Posts.Where(o => Regex.IsMatch(o.Content, search, RegexOptions.IgnoreCase)) orderby post.Date descending select post;
+            List<Posts> matchingposts = query.ToList();
+            return matchingposts;
         }
     }
 }
