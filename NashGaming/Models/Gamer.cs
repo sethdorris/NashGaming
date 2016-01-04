@@ -18,7 +18,8 @@ namespace NashGaming.Models
 
         public int CompareTo(object obj)
         {
-            throw new NotImplementedException();
+            Gamer gamer = obj as Gamer;
+            return this.Handle.CompareTo(gamer.Handle);
         }
     }
 }
