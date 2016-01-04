@@ -150,8 +150,9 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> expected = new List<Gamer>
             {
-                new Gamer { Handle = "StiffNasty" },
-                new Gamer { Handle = "Bro" }
+                new Gamer { GamerID = 1, Handle = "StiffNasty" },
+                new Gamer { GamerID = 2, Handle = "Bro" },
+                new Gamer { GamerID = 3, Handle = "StiffNasty45" }
             };
             
 
@@ -159,7 +160,9 @@ namespace NashGaming.Tests.Models
             ConnectMocksToDataStore(expected);
 
             var actual = _repo.GetGamerByHandle("StiffNasty");
-            Assert.AreEqual("StiffNasty", actual.Handle);
+            Assert.AreEqual(2, actual.Count);
+            Assert.AreEqual(1, actual[0].GamerID);
+            Assert.AreEqual(3, actual[1].GamerID);
         }
 
         [TestMethod]
@@ -182,7 +185,7 @@ namespace NashGaming.Tests.Models
                 new Team { TeamName = "Siege the Day" }
             };
 
-            var actual = _repo.SearchTeamsByName("Siege");
+            var actual = _repo.SearchTeamsByName("siege");
             Assert.AreEqual(expected[0].TeamName, actual[0].TeamName);
         }
 
@@ -202,6 +205,26 @@ namespace NashGaming.Tests.Models
             var actual = _repo.GetAllPosts();
             Assert.AreEqual(2, actual.Count);
             Assert.AreEqual(2, actual[0].PostID);
+        }
+
+        [TestMethod]
+        public void RepositoryTestsEnsureICanSearchPostsByContent()
+        {
+            List<Posts> expected = new List<Posts>
+            {
+                new Posts {PostID= 1, Date = new DateTime(2015, 12, 2), Content = "What is the name of the game??"},
+                new Posts {PostID= 2, Date = new DateTime(2015, 12, 5), Content = "Who??"  },
+                new Posts {PostID= 3, Date = new DateTime(2015, 12, 7, 10, 15, 00), Content = "Game Game" }
+            };
+
+
+            _postSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            var actual = _repo.SearchPostsByContent("game");
+            Assert.AreEqual(2, actual.Count);
+            Assert.AreEqual(3, actual[0].PostID);
+            Assert.AreEqual(1, actual[1].PostID);
         }
     }
 }
