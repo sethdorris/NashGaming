@@ -241,9 +241,25 @@ namespace NashGaming.Tests.Models
             _postSet.Object.AddRange(expected);
             ConnectMocksToDataStore(expected);
 
-            _repo.DeletePostById(1);
+            bool actual = _repo.DeletePostById(1);
             var numPosts = _repo.GetAllPosts();
-            Assert.AreEqual(2, numPosts.Count);
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        public void RepositoryTestsEnsureICanCreateANewPost()
+        {
+            Gamer me = new Gamer { GamerID = 1, Handle = "Stiffy" };
+            string input = "This is my post";
+            List<Posts> posts = new List<Posts> {
+                new Posts { PostID = 1, Author = me, Content = "blah"  }
+            };
+
+            _postSet.Object.AddRange(posts);
+            ConnectMocksToDataStore(posts);
+
+            bool actual = _repo.CreateAPost(me, input);
+            Assert.IsTrue(actual);
         }
     }
 }
