@@ -68,5 +68,13 @@ namespace NashGaming.Models
             List<Posts> matchingposts = query.ToList();
             return matchingposts;
         }
+
+        public void DeletePostById(int id)
+        {
+            var query = from post in context.Posts.Where(o => o.PostID == id) select post;
+            Posts result = query.Single();
+            context.Posts.Remove(result);
+            context.SaveChanges();
+        }
     }
 }
