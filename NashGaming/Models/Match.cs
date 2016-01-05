@@ -12,7 +12,6 @@ namespace NashGaming.Models
         [Key]
         public int MatchID { get; set; }
         public DateTime Date { get; set; }
-        public DateTime Time { get; set; }
         [Required]
         public virtual Team Team1 { get; set; }
         [Required]
