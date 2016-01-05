@@ -69,12 +69,34 @@ namespace NashGaming.Models
             return matchingposts;
         }
 
-        public void DeletePostById(int id)
+        public bool DeletePostById(int id)
         {
             var query = from post in context.Posts.Where(o => o.PostID == id) select post;
             Posts result = query.Single();
-            context.Posts.Remove(result);
-            context.SaveChanges();
+            try {
+                context.Posts.Remove(result);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }   
+        }
+
+        public bool CreateAPost(Gamer gamer, string content)
+        {
+            Posts new_post = new Posts { Author = gamer, Content = content, Date = DateTime.Now };
+            try
+            {
+                context.Posts.Add(new_post);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
