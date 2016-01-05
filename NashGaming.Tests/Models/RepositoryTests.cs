@@ -240,10 +240,12 @@ namespace NashGaming.Tests.Models
 
             _postSet.Object.AddRange(expected);
             ConnectMocksToDataStore(expected);
+            _postSet.Setup(o => o.Remove(It.IsAny<Posts>())).Callback((Posts p) => expected.Remove(p));
 
             bool actual = _repo.DeletePostById(1);
             var numPosts = _repo.GetAllPosts();
             Assert.IsTrue(actual);
+            Assert.AreEqual(2, numPosts.Count);
         }
 
         [TestMethod]
@@ -257,9 +259,11 @@ namespace NashGaming.Tests.Models
 
             _postSet.Object.AddRange(posts);
             ConnectMocksToDataStore(posts);
+            _postSet.Setup(o => o.Add(It.IsAny<Posts>())).Callback((Posts p) => posts.Add(p));
 
             bool actual = _repo.CreateAPost(me, input);
             Assert.IsTrue(actual);
+            Assert.AreEqual(2, posts.Count);
         }
     }
 }
