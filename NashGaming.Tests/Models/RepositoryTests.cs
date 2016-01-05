@@ -226,5 +226,24 @@ namespace NashGaming.Tests.Models
             Assert.AreEqual(3, actual[0].PostID);
             Assert.AreEqual(1, actual[1].PostID);
         }
+
+        [TestMethod]
+        public void RepositoryTestsEnsureICanDeletePostById()
+        {
+            List<Posts> expected = new List<Posts>
+            {
+                new Posts {PostID= 1, Date = new DateTime(2015, 12, 2), Content = "What is the name of the game??"},
+                new Posts {PostID= 2, Date = new DateTime(2015, 12, 5), Content = "Who??"  },
+                new Posts {PostID= 3, Date = new DateTime(2015, 12, 7, 10, 15, 00), Content = "Game Game" }
+            };
+
+
+            _postSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            _repo.DeletePostById(1);
+            var numPosts = _repo.GetAllPosts();
+            Assert.AreEqual(2, numPosts.Count);
+        }
     }
 }
