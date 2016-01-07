@@ -40,8 +40,8 @@ namespace NashGaming.Migrations
             CreateIndex("dbo.Matches", "Team1_TeamID");
             CreateIndex("dbo.Matches", "Team2_TeamID");
             AddForeignKey("dbo.Matches", "League_LeagueID", "dbo.Leagues", "LeagueID");
-            AddForeignKey("dbo.Matches", "Team1_TeamID", "dbo.Teams", "TeamID", cascadeDelete: true);
-            AddForeignKey("dbo.Matches", "Team2_TeamID", "dbo.Teams", "TeamID", cascadeDelete: true);
+            AddForeignKey("dbo.Matches", "Team1_TeamID", "dbo.Teams", "TeamID", cascadeDelete: false);
+            AddForeignKey("dbo.Matches", "Team2_TeamID", "dbo.Teams", "TeamID", cascadeDelete: false);
             DropColumn("dbo.Matches", "Time");
         }
         
