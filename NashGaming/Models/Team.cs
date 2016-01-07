@@ -16,6 +16,7 @@ namespace NashGaming.Models
         public virtual Gamer Founder { get; set; }
         public int Rank { get; set; }
         public string Website { get; set; }
+        public List<League> Leagues { get; set; }
 
         public int CompareTo(object obj)
         {
