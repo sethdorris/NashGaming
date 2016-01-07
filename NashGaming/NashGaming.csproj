@@ -195,6 +195,10 @@
     <Compile Include="Migrations\201601070057179_AddedLeague.Designer.cs">
       <DependentUpon>201601070057179_AddedLeague.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601071930471_TestingAppUser.cs" />
+    <Compile Include="Migrations\201601071930471_TestingAppUser.Designer.cs">
+      <DependentUpon>201601071930471_TestingAppUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Gamer.cs" />
@@ -285,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601070057179_AddedLeague.resx">
       <DependentUpon>201601070057179_AddedLeague.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601071930471_TestingAppUser.resx">
+      <DependentUpon>201601071930471_TestingAppUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
