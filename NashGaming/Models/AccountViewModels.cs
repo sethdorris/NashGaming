@@ -79,6 +79,11 @@ namespace NashGaming.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [MaxLength(20)]
+        [Display(Name = "Gamer Handle")]
+        public string Handle { get; set; }
     }
 
     public class ResetPasswordViewModel
