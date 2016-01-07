@@ -98,5 +98,19 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public bool AddGamer(Gamer gamer)
+        {
+            try
+            {
+                context.Gamers.Add(gamer);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

@@ -265,5 +265,20 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(actual);
             Assert.AreEqual(2, posts.Count);
         }
+
+        [TestMethod]
+        public void RepoEnsureICanAddGamerToDB()
+        {
+            List<Gamer> expected = new List<Gamer> { new Gamer { Handle = "StiffNasty" } };
+            Gamer me = new Gamer { Handle = "Plah", Platform = "PS4" };
+
+            _gamerSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+            _gamerSet.Setup(o => o.Add(It.IsAny<Gamer>())).Callback((Gamer g) => expected.Add(g));
+
+            bool actual = _repo.AddGamer(me);
+            Assert.IsTrue(actual);
+            Assert.AreEqual(2, expected.Count);
+        }
     }
 }
