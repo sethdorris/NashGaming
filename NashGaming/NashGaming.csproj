@@ -191,10 +191,15 @@
     <Compile Include="Migrations\201512242234142_forced_disable_cascadeDelete.Designer.cs">
       <DependentUpon>201512242234142_forced_disable_cascadeDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601070057179_AddedLeague.cs" />
+    <Compile Include="Migrations\201601070057179_AddedLeague.Designer.cs">
+      <DependentUpon>201601070057179_AddedLeague.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Gamer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\League.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\NashGamingContext.cs" />
@@ -277,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512242234142_forced_disable_cascadeDelete.resx">
       <DependentUpon>201512242234142_forced_disable_cascadeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601070057179_AddedLeague.resx">
+      <DependentUpon>201601070057179_AddedLeague.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
