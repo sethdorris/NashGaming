@@ -17,6 +17,7 @@ namespace NashGaming.Models
         public int Rank { get; set; }
         public string Website { get; set; }
         public List<League> Leagues { get; set; }
+        public bool Active { get; set; }
 
         public int CompareTo(object obj)
         {
