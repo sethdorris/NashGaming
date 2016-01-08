@@ -17,7 +17,7 @@ namespace NashGaming.Tests.Models
         private Mock<DbSet<Posts>> _postSet;
         private Mock<DbSet<NashGaming.Models.Match>> _matchSet;
         private Mock<DbSet<Team>> _teamSet;
-        private Mock<DbSet<Gamer>> _playerSet;
+        private Mock<DbSet<League>> _leagueSet;
 
         private void ConnectMocksToDataStore(IEnumerable<Gamer> data_store)
         {
@@ -27,6 +27,16 @@ namespace NashGaming.Tests.Models
             _gamerSet.As<IQueryable<Gamer>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
             _gamerSet.As<IQueryable<Gamer>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
             _context.Setup(a => a.Gamers).Returns(_gamerSet.Object);
+        }
+
+        private void ConnectMocksToDataStore(IEnumerable<League> data_store)
+        {
+            var data_source = data_store.AsQueryable();
+            _leagueSet.As<IQueryable<League>>().Setup(data => data.Provider).Returns(data_source.Provider);
+            _leagueSet.As<IQueryable<League>>().Setup(data => data.Expression).Returns(data_source.Expression);
+            _leagueSet.As<IQueryable<League>>().Setup(data => data.ElementType).Returns(data_source.ElementType);
+            _leagueSet.As<IQueryable<League>>().Setup(data => data.GetEnumerator()).Returns(data_source.GetEnumerator());
+            _context.Setup(a => a.Leagues).Returns(_leagueSet.Object);
         }
 
         private void ConnectMocksToDataStore(IEnumerable<Team> data_store)
@@ -68,6 +78,7 @@ namespace NashGaming.Tests.Models
             _teamSet = new Mock<DbSet<Team>>();
             _matchSet = new Mock<DbSet<NashGaming.Models.Match>>();
             _repo = new NashGamingRepository(_context.Object);
+            _leagueSet = new Mock<DbSet<League>>();
         }
 
         [TestCleanup]
@@ -79,6 +90,7 @@ namespace NashGaming.Tests.Models
             _matchSet = null;
             _postSet = null;
             _repo = null;
+            _leagueSet = null;
         }
 
         [TestMethod]
@@ -279,6 +291,24 @@ namespace NashGaming.Tests.Models
             bool actual = _repo.AddGamer(me);
             Assert.IsTrue(actual);
             Assert.AreEqual(2, expected.Count);
+        }
+
+        [TestMethod]
+        public void RepoEnsureICanGetAllLeagues()
+        {
+            List<League> expected = new List<League>
+            {
+                new League { LeagueName = "COD"},
+                new League { LeagueName = "Halo" }
+            };
+                                                    
+
+            _leagueSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            //List<League> actual = _repo.GetAllLeagues();
+            Assert.IsNotNull(expected);
+            //CollectionAssert.AreEqual(expected, actual);
         }
     }
 }
