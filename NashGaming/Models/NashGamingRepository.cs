@@ -112,5 +112,11 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public List<League> GetAllLeagues()
+        {
+            var query = from leagues in context.Leagues select leagues;
+            return query.ToList();
+        }
     }
 }
