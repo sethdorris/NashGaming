@@ -4,6 +4,8 @@ namespace NashGaming.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using NashGaming.Models;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<NashGaming.Models.NashGamingContext>
     {
@@ -26,6 +28,24 @@ namespace NashGaming.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            context.Leagues.AddRange(
+                new List<League> { new League { LeagueName = "Siege", Platform = "PS4"},
+                                   new League { LeagueName = "COD", Platform = "PS4"},
+                                   new League { LeagueName = "COD", Platform = "XB1" }
+            });
+           
+
+            context.Teams.AddRange(
+                new List<Team> { new Team { Rank = 1, Active = true, TeamName = "Siege"},
+                                 new Team { Rank = 2, Active = true, TeamName = "Seed2"}
+            });
+
+            context.Gamers.AddRange(
+                new List<Gamer> { new Gamer { Handle = "StiffNasty" },
+                                  new Gamer { Handle = "Pizzle" }
+            });
+            
+
         }
     }
 }
