@@ -12,5 +12,6 @@ namespace NashGaming.Models
         public virtual DbSet<Posts> Posts { get; set; }
         public virtual DbSet<Match> Matches { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<League> Leagues { get; set; }
     }
 }

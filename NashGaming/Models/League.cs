@@ -13,5 +13,6 @@ namespace NashGaming.Models
         public List<Team> Teams { get; set; }
         public string LeagueName { get; set; }
         public List<Match> Matches { get; set; }
+        public string Platform { get; set; }
     }
 }
