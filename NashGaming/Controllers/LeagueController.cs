@@ -9,10 +9,19 @@ namespace NashGaming.Controllers
 {
     public class LeagueController : Controller
     {
+        public NashGamingContext _context { get; set; }
+        public NashGamingRepository _repo { get; set; }
+
+        public LeagueController()
+        {
+            _context = new NashGamingContext();
+            _repo = new NashGamingRepository();
+        }
         // GET: League
         public ActionResult Index()
         {
-            return View();
+            List<League> l = _repo.GetAllLeagues();
+            return View(l);
         }
     }
 }
