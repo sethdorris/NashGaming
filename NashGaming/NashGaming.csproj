@@ -184,9 +184,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601102224088_Initial.cs" />
-    <Compile Include="Migrations\201601102224088_Initial.Designer.cs">
-      <DependentUpon>201601102224088_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201601102309467_Initialize.cs" />
+    <Compile Include="Migrations\201601102309467_Initialize.Designer.cs">
+      <DependentUpon>201601102309467_Initialize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -257,10 +257,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\League\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\League\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -271,8 +271,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601102224088_Initial.resx">
-      <DependentUpon>201601102224088_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601102309467_Initialize.resx">
+      <DependentUpon>201601102309467_Initialize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
