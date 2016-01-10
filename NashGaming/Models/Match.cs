@@ -7,7 +7,7 @@ using System.Web;
 
 namespace NashGaming.Models
 {
-    public class Match
+    public class Match : IComparable
     {
         [Key]
         public int MatchID { get; set; }
@@ -20,5 +20,11 @@ namespace NashGaming.Models
         public int Team1Score { get; set; }
         public int Team2Score { get; set; }
         public League League { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            Match m = obj as Match;
+            return -1*( this.Date.CompareTo(m.Date));
+        }
     }
 }
