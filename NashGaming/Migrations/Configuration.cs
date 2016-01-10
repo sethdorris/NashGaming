@@ -12,6 +12,7 @@ namespace NashGaming.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(NashGaming.Models.NashGamingContext context)
