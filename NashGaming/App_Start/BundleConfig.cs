@@ -26,6 +26,10 @@ namespace NashGaming
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                      "~/Content/app.js",  
+                      "~/Scripts/angular.min.js"));
         }
     }
 }
