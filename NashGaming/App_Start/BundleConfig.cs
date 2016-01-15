@@ -28,8 +28,8 @@ namespace NashGaming
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
-                      "~/Content/app.js",  
-                      "~/Scripts/angular.min.js"));
+                      "~/Scripts/angular.min.js",
+                      "~/Content/app.js"));
         }
     }
 }
