@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using NashGaming.Models;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace NashGaming.Controllers
 {
