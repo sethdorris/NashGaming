@@ -1,18 +1,10 @@
 ﻿var main = angular.module("app", [], function () { });
 
-main.controller("leaguecontroller", function ($scope, leagueservice) {
-    console.log(leagueservice.getLeagues());
-}]);
-
-main.factory("leagueservice", function ($http) {
-    var allLeagues;
-    return {
-        getLeagues: function () {
-            $http.get("/League/JsonLeagues")
-                .then(function (object) {
-                    allLeagues = object.data;
-                });
-            return allLeagues;
-        }
-    }
+main.controller("leaguecontroller", function ($scope, $http) {
+    $scope.leagues;
+    $http.get('/League/JsonLeagues')
+    .then(function (data) {
+        $scope.leagues = data.data;
+        console.log(data.data);
+    })
 });
