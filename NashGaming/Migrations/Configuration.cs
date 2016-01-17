@@ -34,7 +34,12 @@ namespace NashGaming.Migrations
                  new League { LeagueName = "Halo" },
                  new League { LeagueName = "BF4" }
             };
+            List<Gamer> seedGamer = new List<Gamer>
+            {
+                new Gamer { Handle = "Blah" }
+            };
             context.Leagues.AddRange(seedLeague);
+            context.Gamers.AddRange(seedGamer);
         }
     }
 }
