@@ -152,6 +152,7 @@ namespace NashGaming.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Handle = model.Handle };
+                Gamer gamer = new Gamer { Handle = model.Handle, RealUser = user };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
