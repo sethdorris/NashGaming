@@ -17,9 +17,13 @@ namespace NashGaming.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        public NashGamingRepository _repo { get; set; }
+        public NashGamingContext _context { get; set; }
 
         public AccountController()
         {
+            _repo = new NashGamingRepository();
+            _context = new NashGamingContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -152,7 +156,6 @@ namespace NashGaming.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Handle = model.Handle };
-                Gamer gamer = new Gamer { Handle = model.Handle, RealUser = user };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
