@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201601102309467_Initialize.Designer.cs">
       <DependentUpon>201601102309467_Initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601170204520_SeedGamer.cs" />
+    <Compile Include="Migrations\201601170204520_SeedGamer.Designer.cs">
+      <DependentUpon>201601170204520_SeedGamer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Gamer.cs" />
@@ -278,6 +282,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201601102309467_Initialize.resx">
       <DependentUpon>201601102309467_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601170204520_SeedGamer.resx">
+      <DependentUpon>201601170204520_SeedGamer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
