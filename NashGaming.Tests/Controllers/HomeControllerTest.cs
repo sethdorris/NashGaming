@@ -50,5 +50,13 @@ namespace NashGaming.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void EnsureICanCreateAHomeController()
+        {
+            HomeController h = new HomeController();
+            Assert.IsNotNull(h._context);
+            Assert.IsNotNull(h._repo);
+        }
     }
 }
