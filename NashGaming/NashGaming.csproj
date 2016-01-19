@@ -192,6 +192,18 @@
     <Compile Include="Migrations\201601170204520_SeedGamer.Designer.cs">
       <DependentUpon>201601170204520_SeedGamer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601182315336_SeededTeam.cs" />
+    <Compile Include="Migrations\201601182315336_SeededTeam.Designer.cs">
+      <DependentUpon>201601182315336_SeededTeam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601182326037_noseed.cs" />
+    <Compile Include="Migrations\201601182326037_noseed.Designer.cs">
+      <DependentUpon>201601182326037_noseed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601182330239_League_Team_ModelChange.cs" />
+    <Compile Include="Migrations\201601182330239_League_Team_ModelChange.Designer.cs">
+      <DependentUpon>201601182330239_League_Team_ModelChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Gamer.cs" />
@@ -285,6 +297,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601170204520_SeedGamer.resx">
       <DependentUpon>201601170204520_SeedGamer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601182315336_SeededTeam.resx">
+      <DependentUpon>201601182315336_SeededTeam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601182326037_noseed.resx">
+      <DependentUpon>201601182326037_noseed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601182330239_League_Team_ModelChange.resx">
+      <DependentUpon>201601182330239_League_Team_ModelChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

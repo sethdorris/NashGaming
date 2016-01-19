@@ -14,9 +14,11 @@ namespace NashGaming.Models
         public List<Gamer> Roster { get; set; }
         public DateTime DateFounded { get; set; }
         public virtual Gamer Founder { get; set; }
-        public int Rank { get; set; }
         public string Website { get; set; }
-        public List<League> Leagues { get; set; }
+        public int Wins { get; set; }
+        public int Losses { get; set; }
+        public int Rank { get; set; }
+        public List<League> League { get; set; }
         public bool Active { get; set; }
 
         public int CompareTo(object obj)
