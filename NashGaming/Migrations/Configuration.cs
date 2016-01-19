@@ -28,18 +28,6 @@ namespace NashGaming.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            List<League> seedLeague = new List<League>
-            {
-                 new League { LeagueName = "COD" },
-                 new League { LeagueName = "Halo" },
-                 new League { LeagueName = "BF4" }
-            };
-            List<Gamer> seedGamer = new List<Gamer>
-            {
-                new Gamer { Handle = "Blah" }
-            };
-            context.Leagues.AddRange(seedLeague);
-            context.Gamers.AddRange(seedGamer);
         }
     }
 }
