@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NashGaming.Models;
+using Microsoft.AspNet.Identity;
 
 namespace NashGaming.Controllers
 {
@@ -32,9 +33,10 @@ namespace NashGaming.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            string user_id = User.Identity.GetUserId();
+            Gamer me = _repo.GetAllGamers().Where(o => o.RealUser.Id == user_id).Single();
 
-            return View();
+            return View(me);
         }
     }
 }
