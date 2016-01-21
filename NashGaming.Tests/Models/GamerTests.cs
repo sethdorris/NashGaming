@@ -17,13 +17,13 @@ namespace NashGaming.Tests.Models
                 Handle = "StiffNasty",
                 MemberOf = new_team,
                 Platform = "PS4",
-                RealUser = null
+                RealUserID = null
             };
             Assert.AreEqual(1, new_gamer.GamerID);
             Assert.AreEqual("StiffNasty", new_gamer.Handle);
             Assert.AreEqual(new_team, new_gamer.MemberOf);
             Assert.AreEqual("PS4", new_gamer.Platform);
-            Assert.AreEqual(null, new_gamer.RealUser);
+            Assert.AreEqual(null, new_gamer.RealUserID);
 
         }
     }

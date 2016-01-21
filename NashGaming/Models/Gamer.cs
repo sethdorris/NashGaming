@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace NashGaming.Models
 {
-    public class Gamer : IComparable
+    public class Gamer : IdentityUser, IComparable
     {
         [Key]
         public int GamerID { get; set; }
-        public virtual ApplicationUser RealUser { get; set; }
+        public virtual string RealUserID { get; set; }
         public string Handle { get; set; }
         public string Platform { get; set; }
         public virtual Team MemberOf { get; set; }
