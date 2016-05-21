@@ -34,9 +34,9 @@ namespace NashGaming.Controllers
         public ActionResult Contact()
         {
             string user_id = User.Identity.GetUserId();
-            Gamer me = _repo.GetAllGamers().Where(o => o.RealUser.Id == user_id).Single();
+            //Gamer me = _repo.GetAllGamers().Where(o => o.RealUser.Id == user_id).Single();
 
-            return View(me);
+            return View();
         }
     }
 }

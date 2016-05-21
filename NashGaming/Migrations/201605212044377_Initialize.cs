@@ -12,19 +12,45 @@ namespace NashGaming.Migrations
                 c => new
                     {
                         GamerID = c.Int(nullable: false, identity: true),
+                        RealUserID = c.String(),
                         Handle = c.String(),
                         Platform = c.String(),
+                        Email = c.String(),
+                        EmailConfirmed = c.Boolean(nullable: false),
+                        PasswordHash = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
+                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(nullable: false),
+                        AccessFailedCount = c.Int(nullable: false),
+                        Id = c.String(),
+                        UserName = c.String(),
                         Team_TeamID = c.Int(),
                         MemberOf_TeamID = c.Int(),
-                        RealUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.GamerID)
                 .ForeignKey("dbo.Teams", t => t.Team_TeamID)
                 .ForeignKey("dbo.Teams", t => t.MemberOf_TeamID)
-                .ForeignKey("dbo.AspNetUsers", t => t.RealUser_Id)
                 .Index(t => t.Team_TeamID)
-                .Index(t => t.MemberOf_TeamID)
-                .Index(t => t.RealUser_Id);
+                .Index(t => t.MemberOf_TeamID);
+            
+            CreateTable(
+                "dbo.AspNetUserClaims",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        ClaimType = c.String(),
+                        ClaimValue = c.String(),
+                        Gamer_GamerID = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Gamers", t => t.Gamer_GamerID)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.Gamer_GamerID);
             
             CreateTable(
                 "dbo.Posts",
@@ -40,14 +66,31 @@ namespace NashGaming.Migrations
                 .Index(t => t.Author_GamerID);
             
             CreateTable(
+                "dbo.AspNetUserLogins",
+                c => new
+                    {
+                        LoginProvider = c.String(nullable: false, maxLength: 128),
+                        ProviderKey = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        Gamer_GamerID = c.Int(),
+                    })
+                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
+                .ForeignKey("dbo.Gamers", t => t.Gamer_GamerID)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.Gamer_GamerID);
+            
+            CreateTable(
                 "dbo.Teams",
                 c => new
                     {
                         TeamID = c.Int(nullable: false, identity: true),
                         TeamName = c.String(),
                         DateFounded = c.DateTime(nullable: false),
-                        Rank = c.Int(nullable: false),
                         Website = c.String(),
+                        Wins = c.Int(nullable: false),
+                        Losses = c.Int(nullable: false),
+                        Rank = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
                         Founder_GamerID = c.Int(),
                     })
@@ -61,7 +104,7 @@ namespace NashGaming.Migrations
                     {
                         LeagueID = c.Int(nullable: false, identity: true),
                         LeagueName = c.String(),
-                        Platform = c.String(),
+                        Platform = c.String(maxLength: 3),
                     })
                 .PrimaryKey(t => t.LeagueID);
             
@@ -87,6 +130,32 @@ namespace NashGaming.Migrations
                 .Index(t => t.Team2_TeamID);
             
             CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                        Gamer_GamerID = c.Int(),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.Gamers", t => t.Gamer_GamerID)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId)
+                .Index(t => t.Gamer_GamerID);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -108,54 +177,6 @@ namespace NashGaming.Migrations
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
-                "dbo.AspNetUserClaims",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        ClaimType = c.String(),
-                        ClaimValue = c.String(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.AspNetUserLogins",
-                c => new
-                    {
-                        LoginProvider = c.String(nullable: false, maxLength: 128),
-                        ProviderKey = c.String(nullable: false, maxLength: 128),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
                 "dbo.LeagueTeams",
                 c => new
                     {
@@ -172,11 +193,11 @@ namespace NashGaming.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Gamers", "RealUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.AspNetUserRoles", "Gamer_GamerID", "dbo.Gamers");
             DropForeignKey("dbo.Gamers", "MemberOf_TeamID", "dbo.Teams");
             DropForeignKey("dbo.Gamers", "Team_TeamID", "dbo.Teams");
             DropForeignKey("dbo.LeagueTeams", "Team_TeamID", "dbo.Teams");
@@ -185,33 +206,37 @@ namespace NashGaming.Migrations
             DropForeignKey("dbo.Matches", "Team1_TeamID", "dbo.Teams");
             DropForeignKey("dbo.Matches", "League_LeagueID", "dbo.Leagues");
             DropForeignKey("dbo.Teams", "Founder_GamerID", "dbo.Gamers");
+            DropForeignKey("dbo.AspNetUserLogins", "Gamer_GamerID", "dbo.Gamers");
             DropForeignKey("dbo.Posts", "Author_GamerID", "dbo.Gamers");
+            DropForeignKey("dbo.AspNetUserClaims", "Gamer_GamerID", "dbo.Gamers");
             DropIndex("dbo.LeagueTeams", new[] { "Team_TeamID" });
             DropIndex("dbo.LeagueTeams", new[] { "League_LeagueID" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "Gamer_GamerID" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Matches", new[] { "Team2_TeamID" });
             DropIndex("dbo.Matches", new[] { "Team1_TeamID" });
             DropIndex("dbo.Matches", new[] { "League_LeagueID" });
             DropIndex("dbo.Teams", new[] { "Founder_GamerID" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "Gamer_GamerID" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.Posts", new[] { "Author_GamerID" });
-            DropIndex("dbo.Gamers", new[] { "RealUser_Id" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "Gamer_GamerID" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.Gamers", new[] { "MemberOf_TeamID" });
             DropIndex("dbo.Gamers", new[] { "Team_TeamID" });
             DropTable("dbo.LeagueTeams");
+            DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
             DropTable("dbo.Matches");
             DropTable("dbo.Leagues");
             DropTable("dbo.Teams");
+            DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.Posts");
+            DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.Gamers");
         }
     }

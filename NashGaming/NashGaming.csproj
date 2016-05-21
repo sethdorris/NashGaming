@@ -184,25 +184,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601102309467_Initialize.cs" />
-    <Compile Include="Migrations\201601102309467_Initialize.Designer.cs">
-      <DependentUpon>201601102309467_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601170204520_SeedGamer.cs" />
-    <Compile Include="Migrations\201601170204520_SeedGamer.Designer.cs">
-      <DependentUpon>201601170204520_SeedGamer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601182315336_SeededTeam.cs" />
-    <Compile Include="Migrations\201601182315336_SeededTeam.Designer.cs">
-      <DependentUpon>201601182315336_SeededTeam.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601182326037_noseed.cs" />
-    <Compile Include="Migrations\201601182326037_noseed.Designer.cs">
-      <DependentUpon>201601182326037_noseed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601182330239_League_Team_ModelChange.cs" />
-    <Compile Include="Migrations\201601182330239_League_Team_ModelChange.Designer.cs">
-      <DependentUpon>201601182330239_League_Team_ModelChange.cs</DependentUpon>
+    <Compile Include="Migrations\201605212044377_Initialize.cs" />
+    <Compile Include="Migrations\201605212044377_Initialize.Designer.cs">
+      <DependentUpon>201605212044377_Initialize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -292,20 +276,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601102309467_Initialize.resx">
-      <DependentUpon>201601102309467_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601170204520_SeedGamer.resx">
-      <DependentUpon>201601170204520_SeedGamer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601182315336_SeededTeam.resx">
-      <DependentUpon>201601182315336_SeededTeam.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601182326037_noseed.resx">
-      <DependentUpon>201601182326037_noseed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601182330239_League_Team_ModelChange.resx">
-      <DependentUpon>201601182330239_League_Team_ModelChange.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605212044377_Initialize.resx">
+      <DependentUpon>201605212044377_Initialize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

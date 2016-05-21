@@ -116,7 +116,7 @@ namespace NashGaming.Tests.Models
             };
 
             _gamerSet.Object.AddRange(gamers);
-            ConnectMocksToDataStore(gamers);
+            //ConnectMocksToDataStore(gamers);
 
             var actual = _repo.GetAllGamers();
             Assert.AreEqual(1, actual[0].GamerID);
@@ -169,7 +169,7 @@ namespace NashGaming.Tests.Models
             
 
             _gamerSet.Object.AddRange(expected);
-            ConnectMocksToDataStore(expected);
+            //ConnectMocksToDataStore(expected);
 
             var actual = _repo.GetGamerByHandle("StiffNasty");
             Assert.AreEqual(2, actual.Count);
@@ -285,7 +285,7 @@ namespace NashGaming.Tests.Models
             Gamer me = new Gamer { Handle = "Plah", Platform = "PS4" };
 
             _gamerSet.Object.AddRange(expected);
-            ConnectMocksToDataStore(expected);
+            //ConnectMocksToDataStore(expected);
             _gamerSet.Setup(o => o.Add(It.IsAny<Gamer>())).Callback((Gamer g) => expected.Add(g));
 
             bool actual = _repo.AddGamer(me);

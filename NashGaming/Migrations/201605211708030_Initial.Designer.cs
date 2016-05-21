@@ -7,13 +7,13 @@ namespace NashGaming.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class League_Team_ModelChange : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(League_Team_ModelChange));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201601182330239_League_Team_ModelChange"; }
+            get { return "201605211708030_Initial"; }
         }
         
         string IMigrationMetadata.Source
