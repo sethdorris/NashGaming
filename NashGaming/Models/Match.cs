@@ -19,7 +19,7 @@ namespace NashGaming.Models
         public string Result { get; set; }
         public int Team1Score { get; set; }
         public int Team2Score { get; set; }
-        public League League { get; set; }
+        public virtual League League { get; set; }
 
         public int CompareTo(object obj)
         {

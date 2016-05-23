@@ -14,6 +14,7 @@ namespace NashGaming.Models
         [Required]
         public string Content { get; set; }
         public DateTime Date { get; set; }
+        public virtual int LeagueID { get; set; }
 
         public int CompareTo(object obj)
         {
