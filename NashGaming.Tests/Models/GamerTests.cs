@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NashGaming.Models;
+using System.Collections.Generic;
 
 namespace NashGaming.Tests.Models
 {
