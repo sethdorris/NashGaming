@@ -160,6 +160,11 @@ namespace NashGaming.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    Gamer createdGamer = new Gamer();
+                    createdGamer.Email = user.Email;
+                    createdGamer.Handle = user.Handle;
+                    _context.Gamers.Add(createdGamer);
+                    _context.SaveChanges();
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
