@@ -6,6 +6,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace NashGaming.Tests.Models
 {
     [TestClass]
@@ -285,7 +286,7 @@ namespace NashGaming.Tests.Models
             Gamer me = new Gamer { Handle = "Plah", Platform = "PS4" };
 
             _gamerSet.Object.AddRange(expected);
-            //ConnectMocksToDataStore(expected);
+            ConnectMocksToDataStore(expected);
             _gamerSet.Setup(o => o.Add(It.IsAny<Gamer>())).Callback((Gamer g) => expected.Add(g));
 
             bool actual = _repo.AddGamer(me);
