@@ -307,9 +307,33 @@ namespace NashGaming.Tests.Models
             _leagueSet.Object.AddRange(expected);
             ConnectMocksToDataStore(expected);
 
-            //List<League> actual = _repo.GetAllLeagues();
+            List<League> actual = _repo.GetAllLeagues();
             Assert.IsNotNull(expected);
-            //CollectionAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RepoEnsureICanGetTeamsFromGamerTeamsProp()
+        {
+
+            //Setup the Team DB
+            List<Team> TeamDB = new List<Team>
+            {
+                new Team { TeamID = 0, TeamName = "BLAH"},
+                new Team { TeamID = 1, TeamName = "blllll"}
+            };
+
+
+            _teamSet.Object.AddRange(TeamDB);
+            ConnectMocksToDataStore(TeamDB);
+
+            List<Team> actual = _repo.GetAllTeams();
+            Assert.IsNotNull(TeamDB);
+            CollectionAssert.AreEqual(TeamDB, actual);
+
+            //Setup the Gamer DB
+            List<Gamer> GamerDB = new List<Gamer>();
+            Gamer a = new Gamer { Handle = "Seth", GamerID = 0 };
         }
     }
 }
