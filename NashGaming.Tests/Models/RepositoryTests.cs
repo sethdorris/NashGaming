@@ -112,12 +112,12 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> gamers = new List<Gamer>()
             {
-                new Gamer {GamerID = 1, Handle = "Stiffy", Platform = "PS4" },
-                new Gamer {GamerID = 2, Handle = "Michael", Platform = "XB1" }
+                new Gamer {GamerID = 1, Handle = "Stiffy"},
+                new Gamer {GamerID = 2, Handle = "Michael"}
             };
 
             _gamerSet.Object.AddRange(gamers);
-            //ConnectMocksToDataStore(gamers);
+            ConnectMocksToDataStore(gamers);
 
             var actual = _repo.GetAllGamers();
             Assert.AreEqual(1, actual[0].GamerID);
@@ -170,7 +170,7 @@ namespace NashGaming.Tests.Models
             
 
             _gamerSet.Object.AddRange(expected);
-            //ConnectMocksToDataStore(expected);
+            ConnectMocksToDataStore(expected);
 
             var actual = _repo.GetGamerByHandle("StiffNasty");
             Assert.AreEqual(2, actual.Count);
@@ -283,7 +283,7 @@ namespace NashGaming.Tests.Models
         public void RepoEnsureICanAddGamerToDB()
         {
             List<Gamer> expected = new List<Gamer> { new Gamer { Handle = "StiffNasty" } };
-            Gamer me = new Gamer { Handle = "Plah", Platform = "PS4" };
+            Gamer me = new Gamer { Handle = "Plah"};
 
             _gamerSet.Object.AddRange(expected);
             ConnectMocksToDataStore(expected);
