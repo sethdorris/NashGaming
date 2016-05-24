@@ -120,5 +120,11 @@ namespace NashGaming.Models
             var query = from leagues in context.Leagues select leagues;
             return query.ToList();
         }
+
+        public Team getTeamById(int teamID)
+        {
+            var query = from teams in context.Teams.Where(o => o.TeamID == teamID) select teams;
+            return query.FirstOrDefault();
+        }
     }
 }

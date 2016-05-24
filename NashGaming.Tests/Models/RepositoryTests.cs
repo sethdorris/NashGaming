@@ -344,8 +344,9 @@ namespace NashGaming.Tests.Models
             _gamerSet.Object.AddRange(GamerDB);
             ConnectMocksToDataStore(GamerDB);
             List<Gamer> actualGamers = _repo.GetAllGamers();
+            Team grabbedTeam = _repo.getTeamById(1);
+            Assert.AreEqual("blllll", grabbedTeam.TeamName);
             Assert.AreEqual(2, actualGamers.Count);
-
         }
     }
 }
