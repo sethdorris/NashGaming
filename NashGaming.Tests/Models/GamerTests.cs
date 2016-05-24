@@ -9,23 +9,19 @@ namespace NashGaming.Tests.Models
     public class GamerTests
     {
         [TestMethod]
-        public void GamerTestsEnsureAGamerHasAllFields()
+        public void GamerTestsEnsureAGamerIsNotNull()
         {
-            Team new_team = new Team();
-            Gamer new_gamer = new Gamer
-            {
-                GamerID = 1,
-                Handle = "StiffNasty",
-                MemberOf = new_team,
-                Platform = "PS4",
-                RealUserID = null
-            };
-            Assert.AreEqual(1, new_gamer.GamerID);
-            Assert.AreEqual("StiffNasty", new_gamer.Handle);
-            Assert.AreEqual(new_team, new_gamer.MemberOf);
-            Assert.AreEqual("PS4", new_gamer.Platform);
-            Assert.AreEqual(null, new_gamer.RealUserID);
+            Gamer new_gamer = new Gamer();
+            Assert.IsNotNull(new_gamer);
+        }
 
+        [TestMethod]
+        public void GamerTestsEnsurePropAssignmentsWork()
+        {
+            Gamer actual = new Gamer { Handle = "Seth", GamerID = 0, PSNID = "Stiff" };
+            Assert.AreEqual("Seth", actual.Handle);
+            Assert.AreEqual(0, actual.GamerID);
+            Assert.AreEqual("Stiff", actual.PSNID);
         }
     }
 }
