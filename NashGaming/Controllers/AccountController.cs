@@ -155,7 +155,7 @@ namespace NashGaming.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Handle = model.Handle };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Handle = model.Handle  };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -163,6 +163,7 @@ namespace NashGaming.Controllers
                     Gamer createdGamer = new Gamer();
                     createdGamer.Email = user.Email;
                     createdGamer.Handle = user.Handle;
+                    createdGamer.RealUserID = user.Id;
                     _context.Gamers.Add(createdGamer);
                     _context.SaveChanges();
                     
