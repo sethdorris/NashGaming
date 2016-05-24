@@ -333,7 +333,19 @@ namespace NashGaming.Tests.Models
 
             //Setup the Gamer DB
             List<Gamer> GamerDB = new List<Gamer>();
-            Gamer a = new Gamer { Handle = "Seth", GamerID = 0 };
+            Gamer a = new Gamer { Handle = "Seth", GamerID = 0, Teams = new Dictionary<int, DateTime>() };
+            Gamer b = new Gamer { Handle = "John", GamerID = 1 };
+            DateTime now = new DateTime().Date;
+            a.Teams.Add(1, now);
+            b.Teams.Add(0, now);
+            GamerDB.Add(a);
+            GamerDB.Add(b);
+
+            _gamerSet.Object.AddRange(GamerDB);
+            ConnectMocksToDataStore(GamerDB);
+            List<Gamer> actualGamers = _repo.GetAllGamers();
+            Assert.AreEqual(2, actualGamers.Count);
+
         }
     }
 }
