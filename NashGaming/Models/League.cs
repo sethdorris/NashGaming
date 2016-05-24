@@ -12,6 +12,7 @@ namespace NashGaming.Models
         public int LeagueID { get; set; }
         public List<Team> Teams { get; set; }
         public string LeagueName { get; set; }
+        public string GameTitle { get; set; }
         public List<Match> Matches { get; set; }
         [MaxLength(3)]
         [MinLength(2)]
