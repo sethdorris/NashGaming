@@ -16,7 +16,7 @@ namespace NashGaming.Models
         public string Handle { get; set; }
         public string XB1Gamertag { get; set; }
         public string PSNID { get; set; }
-        public virtual List<Dictionary<int, DateTime>> Teams { get; set; }
+        public virtual Dictionary<int, DateTime> Teams { get; set; }
         public List<Posts> Comments { get; set; }
 
         public int CompareTo(object obj)
