@@ -315,12 +315,11 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void RepoEnsureICanGetTeamsFromGamerTeamsProp()
         {
-
             //Setup the Team DB
             List<Team> TeamDB = new List<Team>
             {
                 new Team { TeamID = 0, TeamName = "BLAH"},
-                new Team { TeamID = 1, TeamName = "blllll"}
+                new Team { TeamID = 1, TeamName = "Sweet"}
             };
 
 
@@ -334,18 +333,27 @@ namespace NashGaming.Tests.Models
             //Setup the Gamer DB
             List<Gamer> GamerDB = new List<Gamer>();
             Gamer a = new Gamer { Handle = "Seth", GamerID = 0, Teams = new Dictionary<int, DateTime>() };
-            Gamer b = new Gamer { Handle = "John", GamerID = 1 };
+            Gamer b = new Gamer { Handle = "John", GamerID = 1, Teams = new Dictionary<int, DateTime>() };
             DateTime now = new DateTime().Date;
+            DateTime bTime = new DateTime().Date;
             a.Teams.Add(1, now);
             b.Teams.Add(0, now);
+            
             GamerDB.Add(a);
             GamerDB.Add(b);
 
             _gamerSet.Object.AddRange(GamerDB);
             ConnectMocksToDataStore(GamerDB);
+            List<int> aGamerTeams = new List<int>();
+
+            foreach(KeyValuePair<int, DateTime> item in a.Teams)
+            {
+                aGamerTeams.Add(item.Key);
+            }
+
             List<Gamer> actualGamers = _repo.GetAllGamers();
-            Team grabbedTeam = _repo.getTeamById(1);
-            Assert.AreEqual("blllll", grabbedTeam.TeamName);
+            Team grabbedTeam = _repo.getTeamById(aGamerTeams[0]);
+            Assert.AreEqual("Sweet", grabbedTeam.TeamName);
             Assert.AreEqual(2, actualGamers.Count);
         }
     }
