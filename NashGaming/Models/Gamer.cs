@@ -18,6 +18,7 @@ namespace NashGaming.Models
         public string PSNID { get; set; }
         public virtual Dictionary<int, DateTime> Teams { get; set; }
         public List<Posts> Comments { get; set; }
+        public virtual List<TeamInvite> TeamInvites { get; set; }
 
         public int CompareTo(object obj)
         {
