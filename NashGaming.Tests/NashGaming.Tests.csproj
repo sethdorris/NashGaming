@@ -107,6 +107,7 @@
     <Compile Include="Models\GamerTests.cs" />
     <Compile Include="Models\LeagueModelTests.cs" />
     <Compile Include="Models\RepositoryTests.cs" />
+    <Compile Include="Models\TeamInviteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
