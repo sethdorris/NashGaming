@@ -21,5 +21,14 @@ namespace NashGaming.Models
             Posts Other_Post = obj as Posts;
             return -1 * (this.Date.CompareTo(Other_Post.Date));
         }
+        public override bool Equals(object obj)
+        {
+            Posts a = obj as Posts;
+            if (obj == null)
+            {
+                return false;
+            }
+            return a.PostID == this.PostID;
+        }
     }
 }
