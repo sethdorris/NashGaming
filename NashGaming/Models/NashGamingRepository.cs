@@ -32,7 +32,7 @@ namespace NashGaming.Models
         public List<Gamer> GetGamerByHandle(string handle)
         {
             var query = from gamers in context.Gamers select gamers;
-            List<Gamer> found_gamers = query.Where(o => Regex.IsMatch(o.Handle, handle, RegexOptions.IgnoreCase)).ToList();
+            List<Gamer> found_gamers = query.Where(o => Regex.IsMatch(o.Username, handle, RegexOptions.IgnoreCase)).ToList();
             found_gamers.Sort();
             return found_gamers;
         }
