@@ -58,5 +58,27 @@ namespace NashGaming.Tests.Models
             Assert.IsNotNull(expected);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepoLeagueGetLeaguesByGamesPerWeek()
+        {
+            List<League> LeagueDB = new List<League>
+            {
+                new League { LeagueID = 0, GamesPerWeek = 2 },
+                new League { LeagueID = 1, GamesPerWeek = 1, GameTitle = "Halo"},
+                new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "COD" },
+                new League { LeagueID = 3, GamesPerWeek = 1, GameTitle = "Halo" }
+            };
+            List<League> expected = new List<League>
+            {
+                new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "COD" },
+                new League { LeagueID = 1, GamesPerWeek = 1, GameTitle = "Halo"},
+                new League { LeagueID = 3, GamesPerWeek = 1, GameTitle = "Halo" }
+            };
+            _leagueSet.Object.AddRange(LeagueDB);
+            ConnectMocksToDataStore(LeagueDB);
+            List<League> actual = _repo.GetLeaguesByGamesPerWeek(1);
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
