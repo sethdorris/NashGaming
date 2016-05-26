@@ -11,7 +11,7 @@ namespace NashGaming.Models
     {
         [Key]
         public int MatchID { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DatePlayed { get; set; }
         [Required]
         public virtual SubTeam Team1 { get; set; }
         [Required]
@@ -24,7 +24,7 @@ namespace NashGaming.Models
         public int CompareTo(object obj)
         {
             Match m = obj as Match;
-            return -1*( this.Date.CompareTo(m.Date));
+            return -1*( this.DatePlayed.CompareTo(m.DatePlayed));
         }
     }
 }
