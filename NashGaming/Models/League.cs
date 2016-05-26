@@ -11,6 +11,8 @@ namespace NashGaming.Models
         [Key]
         public int LeagueID { get; set; }
         public virtual List<SubTeam> Teams { get; set; }
+        public int MinPlayers { get; set; }
+        public int MaxPlayers { get; set; }
         public string LeagueName { get; set; }
         public string GameTitle { get; set; }
         public virtual List<Match> Matches { get; set; }
