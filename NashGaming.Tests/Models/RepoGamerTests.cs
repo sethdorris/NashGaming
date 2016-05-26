@@ -60,8 +60,8 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> gamers = new List<Gamer>()
             {
-                new Gamer {GamerID = 1, Handle = "Stiffy"},
-                new Gamer {GamerID = 2, Handle = "Michael"}
+                new Gamer {GamerID = 1, Username = "Stiffy"},
+                new Gamer {GamerID = 2, Username = "Michael"}
             };
 
             _gamerSet.Object.AddRange(gamers);
@@ -77,9 +77,9 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> expected = new List<Gamer>
             {
-                new Gamer { GamerID = 1, Handle = "StiffNasty" },
-                new Gamer { GamerID = 2, Handle = "Bro" },
-                new Gamer { GamerID = 3, Handle = "StiffNasty45" }
+                new Gamer { GamerID = 1, Username = "StiffNasty" },
+                new Gamer { GamerID = 2, Username = "Bro" },
+                new Gamer { GamerID = 3, Username = "StiffNasty45" }
             };
             
 
@@ -95,8 +95,8 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void RepoEnsureICanAddGamerToDB()
         {
-            List<Gamer> expected = new List<Gamer> { new Gamer { Handle = "StiffNasty" } };
-            Gamer me = new Gamer { Handle = "Plah"};
+            List<Gamer> expected = new List<Gamer> { new Gamer { Username = "StiffNasty" } };
+            Gamer me = new Gamer { Username = "Plah"};
 
             _gamerSet.Object.AddRange(expected);
             ConnectMocksToDataStore(expected);
