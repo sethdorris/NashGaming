@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace NashGaming.Tests.Models
 {
     [TestClass]
-    public class RepoMainTeamTests
+    public class RepoTeamTests
     {
         private Mock<DbSet<MainTeam>> _teamSet;
         private Mock<NashGamingContext> _context;
