@@ -37,7 +37,7 @@ namespace NashGaming.Models
             return found_gamers;
         }
        
-        public List<Team> GetAllTeams()
+        public List<MainTeam> GetAllMainTeams()
         {
             var query = from teams in context.Teams select teams;
             return query.ToList();
@@ -49,10 +49,10 @@ namespace NashGaming.Models
             return query.ToList();
         }
 
-        public List<Team> SearchTeamsByName(string teamname)
+        public List<MainTeam> SearchTeamsByName(string teamname)
         {
             var query = from team in context.Teams select team;
-            List<Team> found_teams = query.Where(t => Regex.IsMatch(t.TeamName, teamname, RegexOptions.IgnoreCase)).ToList();
+            List<MainTeam> found_teams = query.Where(t => Regex.IsMatch(t.TeamName, teamname, RegexOptions.IgnoreCase)).ToList();
             found_teams.Sort();
             return found_teams;
         }
@@ -121,9 +121,15 @@ namespace NashGaming.Models
             return query.ToList();
         }
 
-        public Team getTeamById(int teamID)
+        public MainTeam getTeamById(int teamID)
         {
             var query = from teams in context.Teams.Where(o => o.TeamID == teamID) select teams;
+            return query.FirstOrDefault();
+        }
+
+        public List<SubTeam> getTeamsByLeagueId(int LeagueID)
+        {
+            var query = from teams in context.Leagues.Where(o => o.LeagueID == LeagueID) select teams.Teams;
             return query.FirstOrDefault();
         }
     }
