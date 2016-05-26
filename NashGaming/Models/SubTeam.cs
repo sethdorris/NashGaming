@@ -23,5 +23,14 @@ namespace NashGaming.Models
             SubTeam subteam = obj as SubTeam;
             return this.SubTeamName.CompareTo(subteam.SubTeamName);
         }
+        public override bool Equals(object obj)
+        {
+            SubTeam a = obj as SubTeam;
+            if (obj == null)
+            {
+                return false;
+            }
+            return a.SubTeamID == this.SubTeamID;
+        }
     }
 }
