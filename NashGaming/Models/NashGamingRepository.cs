@@ -107,6 +107,12 @@ namespace NashGaming.Models
             return query.ToList();
         }
 
+        public List<League> GetLeaguesBySeasonLength(int SeasonLength)
+        {
+            var query = from leagues in context.Leagues.Where(o => o.SeasonLength == SeasonLength) orderby leagues.GameTitle select leagues;
+            return query.ToList();
+        }
+
         public List<Match> GetMatchesByTeamID(int MainTeamID)
         {
             var query = from matches in context.Matches.Where(o => o.Team1.MainTeam.TeamID == MainTeamID || o.Team2.MainTeam.TeamID == MainTeamID) orderby matches.League.GameTitle select matches;
