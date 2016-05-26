@@ -198,7 +198,8 @@
     <Compile Include="Models\NashGamingContext.cs" />
     <Compile Include="Models\NashGamingRepository.cs" />
     <Compile Include="Models\Posts.cs" />
-    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\MainTeam.cs" />
+    <Compile Include="Models\SubTeam.cs" />
     <Compile Include="Models\TeamInvite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

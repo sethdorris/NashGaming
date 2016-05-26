@@ -106,7 +106,11 @@
   <ItemGroup>
     <Compile Include="Models\GamerTests.cs" />
     <Compile Include="Models\LeagueModelTests.cs" />
-    <Compile Include="Models\RepositoryTests.cs" />
+    <Compile Include="Models\RepoGamerTests.cs" />
+    <Compile Include="Models\RepoLeagueTests.cs" />
+    <Compile Include="Models\RepoMainTeamTests.cs" />
+    <Compile Include="Models\RepoMatchTests.cs" />
+    <Compile Include="Models\RepoPostTests.cs" />
     <Compile Include="Models\TeamInviteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

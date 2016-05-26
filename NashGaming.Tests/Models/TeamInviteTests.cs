@@ -16,7 +16,7 @@ namespace NashGaming.Tests.Models
                 TeamInviteID = 0,
                 DateSent = new DateTime().Date,
                 InvitedGamer = new Gamer { Handle = "Seth" },
-                Team = new Team { TeamName = "Sudsy" }
+                Team = new MainTeam { TeamName = "Sudsy" }
             };
 
             Assert.IsNotNull(invite);
