@@ -25,5 +25,14 @@ namespace NashGaming.Models
             Gamer gamer = obj as Gamer;
             return this.Username.CompareTo(gamer.Username);
         }
+        public override bool Equals(object obj)
+        {
+            Gamer a = obj as Gamer;
+            if (obj == null)
+            {
+                return false;
+            }
+            return a.GamerID == this.GamerID;
+        }
     }
 }
