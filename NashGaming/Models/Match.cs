@@ -26,5 +26,14 @@ namespace NashGaming.Models
             Match m = obj as Match;
             return -1*( this.DatePlayed.CompareTo(m.DatePlayed));
         }
+        public override bool Equals(object obj)
+        {
+            Match o = obj as Match;
+            if (o == null)
+            {
+                return false;
+            }
+            return o.MatchID == this.MatchID;
+        }
     }
 }
