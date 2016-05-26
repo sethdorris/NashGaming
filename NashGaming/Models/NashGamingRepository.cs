@@ -101,6 +101,12 @@ namespace NashGaming.Models
             }
         }
 
+        public List<Match> GetMatchesByTeamID(int MainTeamID)
+        {
+            var query = from matches in context.Matches.Where(o => o.Team1.MainTeam.TeamID == MainTeamID || o.Team2.MainTeam.TeamID == MainTeamID) orderby matches.League.GameTitle select matches;
+            return query.ToList();
+        }
+
         public bool AddGamer(Gamer gamer)
         {
             try
