@@ -150,5 +150,11 @@ namespace NashGaming.Models
             var query = from teams in context.Leagues.Where(o => o.LeagueID == LeagueID) select teams.Teams;
             return query.FirstOrDefault();
         }
+
+        public List<TeamInvite> getInvitesByTeamID(int TeamID)
+        {
+            var query = from invites in context.Invites.Where(o => o.Team.TeamID == TeamID) select invites;
+            return query.ToList();
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace NashGaming.Models
         public virtual DbSet<Match> Matches { get; set; }
         public virtual DbSet<MainTeam> Teams { get; set; }
         public virtual DbSet<League> Leagues { get; set; }
+
+        public virtual DbSet<TeamInvite> Invites { get; set; }
     }
 }
