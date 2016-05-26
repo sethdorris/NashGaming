@@ -11,7 +11,7 @@ namespace NashGaming.Models
     {
         [Key]
         public int TeamInviteID { get; set; }
-        public virtual Team Team { get; set; }
+        public virtual MainTeam Team { get; set; }
         public virtual Gamer InvitedGamer { get; set; }
         public DateTime DateSent { get; set; }
         public bool Accepted { get; set; }
