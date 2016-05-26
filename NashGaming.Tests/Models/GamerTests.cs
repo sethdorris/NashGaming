@@ -18,8 +18,8 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void GamerTestsEnsurePropAssignmentsWork()
         {
-            Gamer actual = new Gamer { Handle = "Seth", GamerID = 0, PSNID = "Stiff" };
-            Assert.AreEqual("Seth", actual.Handle);
+            Gamer actual = new Gamer { Username = "Seth", GamerID = 0, PSNID = "Stiff" };
+            Assert.AreEqual("Seth", actual.Username);
             Assert.AreEqual(0, actual.GamerID);
             Assert.AreEqual("Stiff", actual.PSNID);
         }
