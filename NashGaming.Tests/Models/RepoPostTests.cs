@@ -104,7 +104,7 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void RepositoryTestsEnsureICanCreateANewPost()
         {
-            Gamer me = new Gamer { GamerID = 1, Handle = "Stiffy" };
+            Gamer me = new Gamer { GamerID = 1, Username = "Stiffy" };
             string input = "This is my post";
             List<Posts> posts = new List<Posts> {
                 new Posts { PostID = 1, Author = me, Content = "blah"  }
