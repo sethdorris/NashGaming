@@ -82,8 +82,8 @@ namespace NashGaming.Models
 
         [Required]
         [MaxLength(20)]
-        [Display(Name = "Gamer Handle")]
-        public string Handle { get; set; }
+        [Display(Name = "Username")]
+        public string Username { get; set; }
     }
 
     public class ResetPasswordViewModel
