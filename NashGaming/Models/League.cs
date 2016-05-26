@@ -10,13 +10,13 @@ namespace NashGaming.Models
     {
         [Key]
         public int LeagueID { get; set; }
-        public List<Team> Teams { get; set; }
+        public virtual List<SubTeam> Teams { get; set; }
         public string LeagueName { get; set; }
         public string GameTitle { get; set; }
-        public List<Match> Matches { get; set; }
+        public virtual List<Match> Matches { get; set; }
         [MaxLength(3)]
         [MinLength(2)]
         public string Platform { get; set; }
-        public List<Posts> Feed { get; set; }
+        public virtual List<Posts> Feed { get; set; }
     }
 }
