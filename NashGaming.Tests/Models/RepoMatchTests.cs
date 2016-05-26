@@ -56,5 +56,28 @@ namespace NashGaming.Tests.Models
             Assert.AreEqual(1, actual[0].MatchID);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepoMatchTestsGetMatchesByMainTeamID()
+        {
+            MainTeam MT1 = new MainTeam { TeamID = 0, Active = true };
+            MainTeam MT2 = new MainTeam { TeamID = 1, Active = true };
+            SubTeam ST1 = new SubTeam { MainTeam = MT1, SubTeamName = "ST1" };
+            SubTeam ST2 = new SubTeam { MainTeam = MT1, SubTeamName = "ST2" };
+            SubTeam ST3 = new SubTeam { MainTeam = MT2, SubTeamName = "ST3" };
+            SubTeam ST4 = new SubTeam { MainTeam = MT2, SubTeamName = "ST4" };
+            List<NashGaming.Models.Match> expected = new List<NashGaming.Models.Match>
+            {
+                new NashGaming.Models.Match { Team1 = ST1, Team2 = ST3, League = new League { GameTitle = "Halo"} },
+                new NashGaming.Models.Match { Team1 = ST2, Team2 = ST4, League = new League { GameTitle = "Halo"} },
+                new NashGaming.Models.Match { Team1 = ST1, Team2 = ST4, League = new League { GameTitle = "COD"} }
+            };
+            _matchSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+            List<NashGaming.Models.Match> actual = _repo.GetMatchesByTeamID(0);
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(3, actual.Count);
+            Assert.AreEqual(expected[2], actual[0]);
+        }
     }
 }
