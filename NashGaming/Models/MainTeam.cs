@@ -22,5 +22,14 @@ namespace NashGaming.Models
             MainTeam team = obj as MainTeam;
             return this.TeamName.CompareTo(team.TeamName);
         }
+        public override bool Equals(object obj)
+        {
+            MainTeam a = obj as MainTeam;
+            if (obj == null)
+            {
+                return false;
+            }
+            return a.TeamID == this.TeamID;
+        }
     }
 }
