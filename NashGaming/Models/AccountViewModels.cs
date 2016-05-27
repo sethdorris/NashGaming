@@ -84,7 +84,15 @@ namespace NashGaming.Models
         [MaxLength(20)]
         [Display(Name = "Username")]
         public string Username { get; set; }
-    }
+
+		[MaxLength(20)]
+		[Display(Name = "Xbox Gamer Tag")]
+		public string XbGamertag { get; set; }
+
+		[MaxLength(20)]
+		[Display(Name = "PlayStation Network ID")]
+		public string PSID { get; set; }
+	}
 
     public class ResetPasswordViewModel
     {
