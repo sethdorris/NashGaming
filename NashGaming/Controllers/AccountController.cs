@@ -155,7 +155,15 @@ namespace NashGaming.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email  };
+                var user = new ApplicationUser {
+					UserName = model.Username,
+					Email = model.Email,
+					XbxGamertag = model.XbGamertag,
+					PSNID = model.PSID,
+
+					//to add: stuff for xbox gamer tag and psnid
+
+				};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
