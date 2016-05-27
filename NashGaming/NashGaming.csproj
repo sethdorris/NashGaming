@@ -184,12 +184,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605212044377_Initialize.cs" />
-    <Compile Include="Migrations\201605212044377_Initialize.Designer.cs">
-      <DependentUpon>201605212044377_Initialize.cs</DependentUpon>
+    <Compile Include="Migrations\201605271815011_May27.cs" />
+    <Compile Include="Migrations\201605271815011_May27.Designer.cs">
+      <DependentUpon>201605271815011_May27.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\Gamer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Ladder.cs" />
@@ -279,8 +280,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605212044377_Initialize.resx">
-      <DependentUpon>201605212044377_Initialize.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605271815011_May27.resx">
+      <DependentUpon>201605271815011_May27.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

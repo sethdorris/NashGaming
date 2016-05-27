@@ -15,7 +15,7 @@ namespace NashGaming.Tests.Models
                 Accepted = false,
                 TeamInviteID = 0,
                 DateSent = new DateTime().Date,
-                InvitedGamer = new Gamer { Username = "Seth" },
+                InvitedGamer = new Gamer { GamerID = 0},
                 Team = new MainTeam { TeamName = "Sudsy" }
             };
 

@@ -17,6 +17,7 @@ namespace NashGaming.Models
         public virtual List<Posts> Feed { get; set; }
         public virtual List<SubTeam> Teams { get; set; }
         public virtual List<Match> Matches { get; set; }
+        public virtual List<Challenge> Challenges { get; set; }
         public override bool Equals(object obj)
         {
             Ladder a = obj as Ladder;

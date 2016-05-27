@@ -104,6 +104,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ChallengeTests.cs" />
     <Compile Include="Models\GamerTests.cs" />
     <Compile Include="Models\LadderTests.cs" />
     <Compile Include="Models\LeagueModelTests.cs" />

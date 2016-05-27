@@ -61,6 +61,33 @@ namespace NashGaming.Tests.Models
             ConnectMocksToDataStore(inviteDB);
             List<TeamInvite> actual = _repo.getInvitesByTeamID(0);
             Assert.AreEqual(2, actual.Count);
+            Assert.IsNotNull(_inviteSet.Object);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void RepoTeamInviteTestsGetInvitesByGamerID()
+        {
+            Gamer g = new Gamer { GamerID = 0 };
+            Gamer g2 = new Gamer { GamerID = 1 };
+            MainTeam t = new MainTeam { TeamID = 0 };
+            List<TeamInvite> db = new List<TeamInvite>
+            {
+                new TeamInvite { TeamInviteID = 0, Team = t, InvitedGamer = g },
+                new TeamInvite { TeamInviteID = 1, Team = t, InvitedGamer = g2 }
+            };
+            
+
+            _inviteSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+
+            List<TeamInvite> expected = new List<TeamInvite>
+            {
+                new TeamInvite { TeamInviteID = 0, Team = t, InvitedGamer = g }
+            };
+
+            List<TeamInvite> actual = _repo.GetTeamInvitesByGamerID(0);
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(1, actual.Count);
             CollectionAssert.AreEqual(expected, actual);
         }
     }
