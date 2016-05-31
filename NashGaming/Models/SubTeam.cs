@@ -14,6 +14,7 @@ namespace NashGaming.Models
         public virtual Gamer Captain { get; set; }
         public virtual League League { get; set; }
         public int Rank { get; set; }
+        public int Points { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }
         public virtual List<Gamer> Roster { get; set; }
@@ -21,7 +22,7 @@ namespace NashGaming.Models
         public int CompareTo(object obj)
         {
             SubTeam subteam = obj as SubTeam;
-            return this.SubTeamName.CompareTo(subteam.SubTeamName);
+            return this.Points.CompareTo(subteam.Points);
         }
         public override bool Equals(object obj)
         {

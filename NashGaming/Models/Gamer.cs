@@ -13,7 +13,6 @@ namespace NashGaming.Models
         [Key]
         public int GamerID { get; set; }
         public virtual string RealUserID { get; set; }
-        public string Username { get; set; }
         public string XB1Gamertag { get; set; }
         public string PSNID { get; set; }
         public virtual MainTeam MainTeam { get; set; }
@@ -23,7 +22,7 @@ namespace NashGaming.Models
         public int CompareTo(object obj)
         {
             Gamer gamer = obj as Gamer;
-            return this.Username.CompareTo(gamer.Username);
+            return this.GamerID.CompareTo(gamer.GamerID);
         }
         public override bool Equals(object obj)
         {

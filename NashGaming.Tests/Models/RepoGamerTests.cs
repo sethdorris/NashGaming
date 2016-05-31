@@ -60,8 +60,8 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> gamers = new List<Gamer>()
             {
-                new Gamer {GamerID = 1, Username = "Stiffy"},
-                new Gamer {GamerID = 2, Username = "Michael"}
+                new Gamer {GamerID = 1},
+                new Gamer {GamerID = 2}
             };
 
             _gamerSet.Object.AddRange(gamers);
@@ -72,31 +72,31 @@ namespace NashGaming.Tests.Models
             CollectionAssert.AreEqual(gamers, actual);
         }
 
-        [TestMethod]
-        public void RepositoryTestsEnsureICanGetGamerByHandle()
-        {
-            List<Gamer> expected = new List<Gamer>
-            {
-                new Gamer { GamerID = 1, Username = "StiffNasty" },
-                new Gamer { GamerID = 2, Username = "Bro" },
-                new Gamer { GamerID = 3, Username = "StiffNasty45" }
-            };
+        //[TestMethod]
+        //public void RepositoryTestsEnsureICanGetGamerByHandle()
+        //{
+        //    List<Gamer> expected = new List<Gamer>
+        //    {
+        //        new Gamer { GamerID = 1, Username = "StiffNasty" },
+        //        new Gamer { GamerID = 2, Username = "Bro" },
+        //        new Gamer { GamerID = 3, Username = "StiffNasty45" }
+        //    };
             
 
-            _gamerSet.Object.AddRange(expected);
-            ConnectMocksToDataStore(expected);
+        //    _gamerSet.Object.AddRange(expected);
+        //    ConnectMocksToDataStore(expected);
 
-            var actual = _repo.GetGamerByHandle("StiffNasty");
-            Assert.AreEqual(2, actual.Count);
-            Assert.AreEqual(1, actual[0].GamerID);
-            Assert.AreEqual(3, actual[1].GamerID);
-        }
+        //    var actual = _repo.GetGamerByHandle("StiffNasty");
+        //    Assert.AreEqual(2, actual.Count);
+        //    Assert.AreEqual(1, actual[0].GamerID);
+        //    Assert.AreEqual(3, actual[1].GamerID);
+        //}
 
         [TestMethod]
         public void RepoEnsureICanAddGamerToDB()
         {
-            List<Gamer> expected = new List<Gamer> { new Gamer { Username = "StiffNasty" } };
-            Gamer me = new Gamer { Username = "Plah"};
+            List<Gamer> expected = new List<Gamer> { new Gamer { GamerID = 0} };
+            Gamer me = new Gamer { GamerID = 1};
 
             _gamerSet.Object.AddRange(expected);
             ConnectMocksToDataStore(expected);

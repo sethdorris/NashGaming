@@ -29,13 +29,13 @@ namespace NashGaming.Models
             return query.ToList();
         }
 
-        public List<Gamer> GetGamerByHandle(string handle)
-        {
-            var query = from gamers in context.Gamers select gamers;
-            List<Gamer> found_gamers = query.Where(o => Regex.IsMatch(o.Username, handle, RegexOptions.IgnoreCase)).ToList();
-            found_gamers.Sort();
-            return found_gamers;
-        }
+        //public List<Gamer> GetGamerByHandle(string handle)
+        //{
+        //    var query = from gamers in context.Gamers select gamers;
+        //    List<Gamer> found_gamers = query.Where(o => Regex.IsMatch(o.RealUserID, handle, RegexOptions.IgnoreCase)).ToList();
+        //    found_gamers.Sort();
+        //    return found_gamers;
+        //}
        
         public List<MainTeam> GetAllMainTeams()
         {
@@ -99,6 +99,12 @@ namespace NashGaming.Models
             {
                 return false;
             }
+        }
+
+        public List<TeamInvite> GetTeamInvitesByGamerID(int GID)
+        {
+            var query = from invites in context.Invites.Where(o => o.InvitedGamer.GamerID == GID) select invites;
+            return query.ToList();
         }
 
         public List<League> GetLeaguesByGamesPerWeek(int GamesPerWeek)

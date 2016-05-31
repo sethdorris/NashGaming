@@ -164,13 +164,13 @@ namespace NashGaming.Controllers
 					//to add: stuff for xbox gamer tag and psnid
 
 				};
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     Gamer createdGamer = new Gamer();
                     createdGamer.Email = user.Email;
-                    createdGamer.Username = user.Username;
                     createdGamer.RealUserID = user.Id;
                     _context.Gamers.Add(createdGamer);
                     _context.SaveChanges();

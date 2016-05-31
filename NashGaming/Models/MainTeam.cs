@@ -13,6 +13,7 @@ namespace NashGaming.Models
         public int TeamID { get; set; }
         public string TeamName { get; set; }
         public DateTime DateFounded { get; set; }
+
         public  Gamer Founder { get; set; }
         public string Website { get; set; }
         public bool Active { get; set; }
