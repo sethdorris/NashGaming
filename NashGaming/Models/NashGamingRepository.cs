@@ -208,5 +208,11 @@ namespace NashGaming.Models
             var query = from matches in context.Matches.Where(o => Regex.IsMatch(o.League.GameTitle, title, RegexOptions.IgnoreCase)) orderby matches.DatePlayed ascending select matches;
             return query.ToList();
         }
+
+        public List<League> GetLeaguesByStartDate(DateTime start)
+        {
+            var query = from leagues in context.Leagues.Where(o => o.StartDate == start) orderby leagues.StartDate ascending select leagues;
+            return query.ToList();
+        }
     }
 }
