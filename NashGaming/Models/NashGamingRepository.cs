@@ -187,7 +187,7 @@ namespace NashGaming.Models
 
         public List<NashGaming.Models.Match> GetMatchesByTeamName(string teamname)
         {
-            var query = from matches in context.Matches.Where(o => o.Team1.MainTeam.TeamName == teamname || o.Team2.MainTeam.TeamName == teamname) select matches;
+            var query = from matches in context.Matches.Where(o => Regex.IsMatch(o.Team1.MainTeam.TeamName, teamname, RegexOptions.IgnoreCase) || Regex.IsMatch(o.Team2.MainTeam.TeamName, teamname, RegexOptions.IgnoreCase)) select matches;
             return query.ToList();
         }
 
@@ -200,6 +200,12 @@ namespace NashGaming.Models
         public List<NashGaming.Models.Match> GetMatchesByLeagueID(int LID)
         {
             var query = from matches in context.Matches.Where(o => o.League.LeagueID == LID) select matches;
+            return query.ToList();
+        }
+
+        public List<NashGaming.Models.Match> GetMatchesByGameTitle(string title)
+        {
+            var query = from matches in context.Matches.Where(o => Regex.IsMatch(o.League.GameTitle, title, RegexOptions.IgnoreCase)) orderby matches.DatePlayed ascending select matches;
             return query.ToList();
         }
     }
