@@ -90,5 +90,34 @@ namespace NashGaming.Tests.Models
             Assert.AreEqual(1, actual.Count);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepoTeamInviteTestsGetAllInvites()
+        {
+            List<TeamInvite> expected = new List<TeamInvite> {
+                new TeamInvite {TeamInviteID = 0 },
+                new TeamInvite {TeamInviteID = 1 }, 
+                new TeamInvite {TeamInviteID = 2 }
+            };
+            _inviteSet.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+            List<TeamInvite> actual = _repo.GetAllTeamInvites();
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RepoTeamInviteDeleteInviteByID()
+        {
+            List<TeamInvite> InviteDB = new List<TeamInvite>
+            {
+                new TeamInvite { TeamInviteID = 0 },
+                new TeamInvite { TeamInviteID = 1 }
+            };
+            _inviteSet.Object.AddRange(InviteDB);
+            ConnectMocksToDataStore(InviteDB);
+            _inviteSet.Setup(o => o.Remove(It.IsAny<TeamInvite>())).Callback((TeamInvite i) => InviteDB.Remove(i));
+            bool actual = _repo.DeleteTeamInviteByID(1);
+            Assert.IsTrue(actual);
+        }
     }
 }

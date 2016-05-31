@@ -162,5 +162,27 @@ namespace NashGaming.Models
             var query = from invites in context.Invites.Where(o => o.Team.TeamID == TeamID) select invites;
             return query.ToList();
         }
+
+        public List<TeamInvite> GetAllTeamInvites()
+        {
+            var query = from invites in context.Invites select invites;
+            return query.ToList();
+        }
+
+        public bool DeleteTeamInviteByID(int ID)
+        {
+            var query = from invites in context.Invites.Where(o => o.TeamInviteID == ID) select invites;
+            TeamInvite invite = query.Single();
+            try
+            {
+                context.Invites.Remove(invite);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
