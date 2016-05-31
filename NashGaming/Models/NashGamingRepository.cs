@@ -214,5 +214,11 @@ namespace NashGaming.Models
             var query = from leagues in context.Leagues.Where(o => o.StartDate == start) orderby leagues.StartDate ascending select leagues;
             return query.ToList();
         }
+
+        public List<League> GetLeaguesByEndDate(DateTime end)
+        {
+            var query = from leagues in context.Leagues.Where(o => o.EndDate == end) orderby leagues.EndDate ascending select leagues;
+            return query.ToList();
+        }
     }
 }
