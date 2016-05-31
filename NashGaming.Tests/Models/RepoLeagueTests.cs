@@ -143,5 +143,47 @@ namespace NashGaming.Tests.Models
             List<League> actual = _repo.GetLeaguesByEndDate(new DateTime(2016, 05, 01));
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepoLeagueTestsGetLeagueByMinPlayer()
+        {
+            List<League> LeagueDB = new List<League>
+            {
+                new League { LeagueID = 0, GamesPerWeek = 2, MinPlayers = 2 },
+                new League { LeagueID = 1, GamesPerWeek = 1, GameTitle = "Halo", SeasonLength = 4, MinPlayers = 4},
+                new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "COD", SeasonLength = 4, MinPlayers = 4},
+                new League { LeagueID = 3, GamesPerWeek = 1, GameTitle = "Halo", SeasonLength = 5, MinPlayers  =2 }
+            };
+            List<League> expected = new List<League>
+            {
+                new League { LeagueID = 1, GamesPerWeek = 1, GameTitle = "Halo", SeasonLength = 4, MinPlayers =4  },
+                new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "COD", SeasonLength = 4, MinPlayers = 4 }
+            };
+            _leagueSet.Object.AddRange(LeagueDB);
+            ConnectMocksToDataStore(LeagueDB);
+            List<League> actual = _repo.GetLeaguesByMinPlayers(4);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RepoLeagueTestsGetLeagueByMaxPlayer()
+        {
+            List<League> LeagueDB = new List<League>
+            {
+                new League { LeagueID = 0, GamesPerWeek = 2, MaxPlayers = 2 },
+                new League { LeagueID = 1, GamesPerWeek = 1, GameTitle = "Halo", SeasonLength = 4, MaxPlayers = 4},
+                new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "COD", SeasonLength = 4, MaxPlayers = 4},
+                new League { LeagueID = 3, GamesPerWeek = 1, GameTitle = "Halo", SeasonLength = 5, MaxPlayers  =2 }
+            };
+            List<League> expected = new List<League>
+            {
+                new League { LeagueID = 1, GamesPerWeek = 1, GameTitle = "Halo", SeasonLength = 4, MaxPlayers =4  },
+                new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "COD", SeasonLength = 4, MaxPlayers = 4 }
+            };
+            _leagueSet.Object.AddRange(LeagueDB);
+            ConnectMocksToDataStore(LeagueDB);
+            List<League> actual = _repo.GetLeaguesByMaxPlayers(4);
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }

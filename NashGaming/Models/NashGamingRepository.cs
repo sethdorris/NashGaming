@@ -220,5 +220,16 @@ namespace NashGaming.Models
             var query = from leagues in context.Leagues.Where(o => o.EndDate == end) orderby leagues.EndDate ascending select leagues;
             return query.ToList();
         }
+
+        public List<League> GetLeaguesByMinPlayers(int playercount)
+        {
+            var query = from leagues in context.Leagues.Where(o => o.MinPlayers == playercount) orderby leagues.StartDate ascending select leagues;
+            return query.ToList();
+        }
+        public List<League> GetLeaguesByMaxPlayers(int playercount)
+        {
+            var query = from leagues in context.Leagues.Where(o => o.MaxPlayers == playercount) orderby leagues.StartDate ascending select leagues;
+            return query.ToList();
+        }
     }
 }
