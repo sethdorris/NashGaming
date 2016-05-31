@@ -184,5 +184,23 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public List<NashGaming.Models.Match> GetMatchesByTeamName(string teamname)
+        {
+            var query = from matches in context.Matches.Where(o => o.Team1.MainTeam.TeamName == teamname || o.Team2.MainTeam.TeamName == teamname) select matches;
+            return query.ToList();
+        }
+
+        public List<NashGaming.Models.Match> GetMatchesByDatePlayed(DateTime played)
+        {
+            var query = from matches in context.Matches.Where(o => o.DatePlayed == played) select matches;
+            return query.ToList();
+        }
+
+        public List<NashGaming.Models.Match> GetMatchesByLeagueID(int LID)
+        {
+            var query = from matches in context.Matches.Where(o => o.League.LeagueID == LID) select matches;
+            return query.ToList();
+        }
     }
 }
