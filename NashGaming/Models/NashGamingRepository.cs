@@ -318,5 +318,38 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public Posts GetPostByID(int id)
+        {
+            var query = from posts in context.Posts.Where(o => o.PostID == id) select posts;
+            return query.Single();
+        }
+
+        public bool EditPostContent(int id, string content)
+        {
+            Posts p = GetPostByID(id);
+            p.Content = content;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddLeague(League l)
+        {
+            try
+            {
+                context.Leagues.Add(l);
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
     }
 }

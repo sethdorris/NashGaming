@@ -118,5 +118,21 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(actual);
             Assert.AreEqual(2, posts.Count);
         }
+
+        [TestMethod]
+        public void RepoPostTestsUpdatePostContent()
+        {
+            List<Posts> postdb = new List<Posts>
+            {
+                new Posts { PostID = 0, Content = "Hi" }
+            };
+            _postSet.Object.AddRange(postdb);
+            ConnectMocksToDataStore(postdb);
+            Posts expected = new Posts { PostID = 0, Content = "Bye" };
+            Posts actual = _repo.GetPostByID(0);
+            bool result = _repo.EditPostContent(0, "Bye");
+            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(result);
+        }
     }
 }

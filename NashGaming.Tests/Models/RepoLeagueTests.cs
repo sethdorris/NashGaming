@@ -185,5 +185,27 @@ namespace NashGaming.Tests.Models
             List<League> actual = _repo.GetLeaguesByMaxPlayers(4);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepoLeagueTestsCreateALeague()
+        {
+            List<League> l = new List<League>
+            {
+                new League {LeagueID = 0, GameTitle = "Halo" }
+            };
+            League added = new League { LeagueID = 1, GameTitle = "COD" };
+            _leagueSet.Object.AddRange(l);
+            _leagueSet.Setup(o => o.Add(It.IsAny<League>())).Callback((League league) => l.Add(league));
+            ConnectMocksToDataStore(l);
+            bool result = _repo.AddLeague(added);
+            List<League> expected = new List<League>
+            {
+                new League { LeagueID = 0, GameTitle = "Halo" },
+                new League { LeagueID = 1, GameTitle = "COD" }
+            };
+            List<League> actual = _repo.GetAllLeagues();
+            Assert.IsTrue(result);
+            CollectionAssert.AreEqual(expected, actual);  
+        }
     }
 }
