@@ -333,5 +333,92 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        // DB: Added GetMatchByID to use in UpdateMatch
+        public Match GetMatchById(int id)
+        {
+            var query = from matches in context.Matches.Where(o => o.MatchID == id) select matches;
+            return query.Single();
+        }
+
+        // DB: UpdateMatchDatePlayed
+        public bool UpdateMatchDatePlayed(int matchID, DateTime date)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.DatePlayed = date;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // DB: UpdateMatchResult
+        public bool UpdateMatchResult(int matchID, string result)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Result = result;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // DB: UpdateMatchTeam1Score
+        public bool UpdateMatchTeam1Score(int matchID, int score1)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Team1Score = score1;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // DB: UpdateMatchTeam2Score
+        public bool UpdateMatchTeam2Score(int matchID, int score2)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Team2Score = score2;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // DB: UpdateMatchCompletion
+        public bool UpdateMatchCompletion(int matchID, bool complete)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Completed = complete;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

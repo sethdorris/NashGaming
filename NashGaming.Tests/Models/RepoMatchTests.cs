@@ -204,7 +204,6 @@ namespace NashGaming.Tests.Models
             SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
             League l1 = new League { LeagueID = 0, GameTitle = "Halo" };
 
-
             List<NashGaming.Models.Match> db = new List<NashGaming.Models.Match>
             {
                 new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, DatePlayed = new DateTime(2016, 05, 01), League = l1 },
@@ -225,6 +224,138 @@ namespace NashGaming.Tests.Models
 
             Assert.IsTrue(actual);
             CollectionAssert.AreEqual(expected, adb);
+        }
+
+        [TestMethod]
+        public void RepoMatchTestsUpdateMatchDatePlayed()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "StK" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DD" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            League l1 = new League { LeagueID = 0, GameTitle = "Halo" };
+            League l2 = new League { LeagueID = 1, GameTitle = "CSGO" };
+
+            List<NashGaming.Models.Match> matchdb = new List<NashGaming.Models.Match>
+            {
+                new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, DatePlayed = new DateTime(2016, 05, 01), League = l1 }
+            };
+
+            _matchSet.Object.AddRange(matchdb);
+            ConnectMocksToDataStore(matchdb);
+
+            NashGaming.Models.Match expected = new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, DatePlayed = new DateTime(2016, 05, 15) };
+            bool result = _repo.UpdateMatchDatePlayed(0, new DateTime(2016, 05, 15));
+            NashGaming.Models.Match actual = _repo.GetMatchById(0);
+
+            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoMatchTestsUpdateMatchResult()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "StK" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DD" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            League l1 = new League { LeagueID = 0, GameTitle = "Halo" };
+            League l2 = new League { LeagueID = 1, GameTitle = "CSGO" };
+
+            List<NashGaming.Models.Match> matchdb = new List<NashGaming.Models.Match>
+            {
+                new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, Result = "LOSS", League = l1 }
+            };
+
+            _matchSet.Object.AddRange(matchdb);
+            ConnectMocksToDataStore(matchdb);
+
+            NashGaming.Models.Match expected = new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, Result = "WIN"};
+            bool result = _repo.UpdateMatchResult(0, "WIN");
+            NashGaming.Models.Match actual = _repo.GetMatchById(0);
+
+            Assert.AreEqual(expected.Result, actual.Result);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoMatchTestsUpdateMatchScore1()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "StK" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DD" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            League l1 = new League { LeagueID = 0, GameTitle = "Halo" };
+            League l2 = new League { LeagueID = 1, GameTitle = "CSGO" };
+
+            List<NashGaming.Models.Match> matchdb = new List<NashGaming.Models.Match>
+            {
+                new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, Team1Score = 50, League = l1 }
+            };
+
+            _matchSet.Object.AddRange(matchdb);
+            ConnectMocksToDataStore(matchdb);
+
+            NashGaming.Models.Match expected = new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, Team1Score = 63 };
+            bool result = _repo.UpdateMatchTeam1Score(0, 63);
+            NashGaming.Models.Match actual = _repo.GetMatchById(0);
+
+            Assert.AreEqual(expected.Team1Score, actual.Team1Score);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoMatchTestsUpdateMatchScore2()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "StK" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DD" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            League l1 = new League { LeagueID = 0, GameTitle = "Halo" };
+            League l2 = new League { LeagueID = 1, GameTitle = "CSGO" };
+
+            List<NashGaming.Models.Match> matchdb = new List<NashGaming.Models.Match>
+            {
+                new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, Team2Score = 60, League = l1 }
+            };
+
+            _matchSet.Object.AddRange(matchdb);
+            ConnectMocksToDataStore(matchdb);
+
+            NashGaming.Models.Match expected = new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, Team2Score = 73 };
+            bool result = _repo.UpdateMatchTeam2Score(0, 73);
+            NashGaming.Models.Match actual = _repo.GetMatchById(0);
+
+            Assert.AreEqual(expected.Team2Score, actual.Team2Score);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoMatchTestsUpdateMatchCompleted()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "StK" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DD" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            League l1 = new League { LeagueID = 0, GameTitle = "Halo" };
+            League l2 = new League { LeagueID = 1, GameTitle = "CSGO" };
+
+            List<NashGaming.Models.Match> matchdb = new List<NashGaming.Models.Match>
+            {
+                new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, DatePlayed = new DateTime(2016, 05, 01), League = l1 },
+                new NashGaming.Models.Match { MatchID = 1, Team1 = mtst2, Team2 = mtst1, DatePlayed = new DateTime(2016, 06, 01), League = l2 },
+                new NashGaming.Models.Match { MatchID = 2, Team1 = mtst1, Team2 = mtst2, DatePlayed = new DateTime(2016, 05, 31), League = l1 },
+            };
+
+            _matchSet.Object.AddRange(matchdb);
+            ConnectMocksToDataStore(matchdb);
+
+            NashGaming.Models.Match expected = new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, League = l1, Completed = true };
+            bool result = _repo.UpdateMatchCompletion(0, true);
+            NashGaming.Models.Match actual = _repo.GetMatchById(0);
+
+            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(result);
         }
     }
 }
