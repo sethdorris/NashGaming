@@ -94,5 +94,20 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(result);
             CollectionAssert.AreEqual(expected, actual);
         }
+        [TestMethod]
+        public void RepoTeamTestsRemoveAMainTeam()
+        {
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0 }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            bool result = _repo.InactivateMainTeam(db[0].TeamID);
+            List<MainTeam> expected = new List<MainTeam> { new MainTeam { TeamID = 0, Active = false } };
+            List<MainTeam> actual = _repo.GetAllMainTeams();
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected[0].Active, actual[0].Active);
+        }
     }
 }

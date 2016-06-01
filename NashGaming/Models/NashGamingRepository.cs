@@ -778,5 +778,23 @@ namespace NashGaming.Models
                 return false;
             }
         }
+        public MainTeam GetMainTeamByID(int id)
+        {
+            var query = from Teams in context.Teams.Where(o => o.TeamID == id) select Teams;
+            return query.Single();
+        }
+        public bool InactivateMainTeam(int id)
+        {
+            MainTeam team = this.GetMainTeamByID(id);
+            try
+            {
+                team.Active = false;
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
     }
 }
