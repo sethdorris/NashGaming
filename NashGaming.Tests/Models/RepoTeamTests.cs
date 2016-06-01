@@ -80,5 +80,19 @@ namespace NashGaming.Tests.Models
             var actual = _repo.SearchTeamsByName("siege");
             Assert.AreEqual(expected[0].TeamName, actual[0].TeamName);
         }
+        [TestMethod]
+        public void RepoTeamTestsAddAMainTeam()
+        {
+            List<MainTeam> db = new List<MainTeam>();
+            _teamSet.Object.AddRange(db);
+            _teamSet.Setup(o => o.Add(It.IsAny<MainTeam>())).Callback((MainTeam f) => db.Add(f));
+            ConnectMocksToDataStore(db);
+            MainTeam t = new MainTeam { TeamID = 0 };
+            bool result = _repo.AddNewMainTeam(t);
+            List<MainTeam> expected = new List<MainTeam> { t };
+            List<MainTeam> actual = _repo.GetAllMainTeams();
+            Assert.IsTrue(result);
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }

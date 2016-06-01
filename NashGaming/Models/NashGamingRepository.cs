@@ -36,7 +36,7 @@ namespace NashGaming.Models
         //    found_gamers.Sort();
         //    return found_gamers;
         //}
-       
+
         public List<MainTeam> GetAllMainTeams()
         {
             var query = from teams in context.Teams select teams;
@@ -75,7 +75,8 @@ namespace NashGaming.Models
         {
             var query = from post in context.Posts.Where(o => o.PostID == id) select post;
             Posts result = query.Single();
-            try {
+            try
+            {
                 context.Posts.Remove(result);
                 context.SaveChanges();
                 return true;
@@ -83,7 +84,7 @@ namespace NashGaming.Models
             catch
             {
                 return false;
-            }   
+            }
         }
 
         public bool CreateAPost(Gamer gamer, string content)
@@ -271,7 +272,8 @@ namespace NashGaming.Models
             {
                 context.SaveChanges();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -285,7 +287,8 @@ namespace NashGaming.Models
             {
                 context.SaveChanges();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -299,7 +302,8 @@ namespace NashGaming.Models
             {
                 context.SaveChanges();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -313,7 +317,8 @@ namespace NashGaming.Models
             {
                 context.SaveChanges();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -332,7 +337,8 @@ namespace NashGaming.Models
             {
                 context.SaveChanges();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -345,12 +351,12 @@ namespace NashGaming.Models
                 context.Leagues.Add(l);
                 context.SaveChanges();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
         }
-        // DB: Add match
         public bool AddMatch(NashGaming.Models.Match match)
         {
             try
@@ -377,6 +383,318 @@ namespace NashGaming.Models
             try
             {
                 q.Teams.Add(t);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveLeagueTeams(int leagueid, SubTeam t)
+        {
+            League l = GetLeagueByID(leagueid);
+            try
+            {
+                l.Teams.Remove(t);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool InactivateLeague(int lid)
+        {
+            League q = GetLeagueByID(lid);
+            try
+            {
+                q.Active = false;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<Ladder> GetAllLadders()
+        {
+            var query = from ladders in context.Ladders select ladders;
+            return query.ToList();
+        }
+
+        public bool AddLadder(Ladder l)
+        {
+            try
+            {
+                context.Ladders.Add(l);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateLeagueMinPlayers(int lid, int minplayers)
+        {
+            League l = this.GetLeagueByID(lid);
+            try
+            {
+                l.MinPlayers = minplayers;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateLeagueMaxPlayers(int lid, int max)
+        {
+            League l = this.GetLeagueByID(lid);
+            try
+            {
+                l.MaxPlayers = max;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateLeagueName(int id, string name)
+        {
+            League l = this.GetLeagueByID(id);
+            try
+            {
+                l.LeagueName = name;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateLeagueGamesPerWeek(int id, int games)
+        {
+            League l = this.GetLeagueByID(id);
+            try
+            {
+                l.GamesPerWeek = games;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddMatchToLeague(int id, NashGaming.Models.Match m)
+        {
+            League l = this.GetLeagueByID(id);
+            try
+            {
+                l.Matches.Add(m);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool RemoveMatchFromLeague(int id, NashGaming.Models.Match m)
+        {
+            League l = this.GetLeagueByID(id);
+            try
+            {
+                l.Matches.Remove(m);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddPostToLeague(int id, Posts p)
+        {
+            League l = this.GetLeagueByID(id);
+            try
+            {
+                l.Feed.Add(p);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RemovePostFromLeague(int id, Posts p)
+        {
+            League l = this.GetLeagueByID(id);
+            try
+            {
+                l.Feed.Remove(p);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public Ladder GetLadderById(int id)
+        {
+            var query = from ladders in context.Ladders.Where(o => o.LadderID == id) select ladders;
+            return query.Single();
+        }
+
+        public bool AddPostToLadder(int id, Posts p)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Feed.Add(p);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool RemovePostFromLadder(int id, Posts p)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Feed.Remove(p);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool RemoveTeamFromLadder(int id, SubTeam t)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Teams.Remove(t);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddTeamToLadder(int id, SubTeam t)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Teams.Add(t);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddMatchToLadder(int id, NashGaming.Models.Match m)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Matches.Add(m);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool RemoveMatchFromLadder(int id, NashGaming.Models.Match m)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Matches.Remove(m);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool RemoveChallengeFromLadder(int id, Challenge c)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Challenges.Remove(c);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddChallengeFromLadder(int id, Challenge c)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Challenges.Add(c);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool InactivateLadder(int id)
+        {
+            Ladder l = this.GetLadderById(id);
+            try
+            {
+                l.Active = false;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddNewMainTeam(MainTeam t)
+        {
+            try
+            {
+                context.Teams.Add(t);
                 context.SaveChanges();
                 return true;
             } catch
