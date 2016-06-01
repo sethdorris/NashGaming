@@ -370,7 +370,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public League GetLeagueByID(int id)
         {
             var query = from leagues in context.Leagues.Where(o => o.LeagueID == id) select leagues;
@@ -392,12 +391,48 @@ namespace NashGaming.Models
             }
         }
 
+
+        public Match GetMatchById(int id)
+        {
+            var query = from matches in context.Matches.Where(o => o.MatchID == id) select matches;
+            return query.Single();
+        }
+
+        public bool UpdateMatchDatePlayed(int matchID, DateTime date)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.DatePlayed = date;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool RemoveLeagueTeams(int leagueid, SubTeam t)
         {
             League l = GetLeagueByID(leagueid);
             try
             {
                 l.Teams.Remove(t);
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+
+        public bool UpdateMatchResult(int matchID, string result)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Result = result;
+            try
+            {
                 context.SaveChanges();
                 return true;
             }
@@ -479,19 +514,46 @@ namespace NashGaming.Models
                 l.LeagueName = name;
                 context.SaveChanges();
                 return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateMatchTeam1Score(int matchID, int score1)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Team1Score = score1;
+            try
+            {
+                context.SaveChanges();
+                return true;
             }
             catch
             {
                 return false;
             }
         }
-
         public bool UpdateLeagueGamesPerWeek(int id, int games)
         {
             League l = this.GetLeagueByID(id);
             try
             {
                 l.GamesPerWeek = games;
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateMatchTeam2Score(int matchID, int score2)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Team2Score = score2;
+            try
+            {
                 context.SaveChanges();
                 return true;
             }
@@ -640,6 +702,20 @@ namespace NashGaming.Models
             try
             {
                 l.Matches.Remove(m);
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateMatchCompletion(int matchID, bool complete)
+        {
+            Match match = this.GetMatchById(matchID);
+            match.Completed = complete;
+            try
+            {
                 context.SaveChanges();
                 return true;
             }
