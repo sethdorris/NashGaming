@@ -318,5 +318,20 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        // DB: Add match
+        public bool AddMatch(NashGaming.Models.Match match)
+        {
+            try
+            {
+                context.Matches.Add(match);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
