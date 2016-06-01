@@ -106,5 +106,77 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(actual);
             Assert.AreEqual(2, expected.Count);
         }
+
+        [TestMethod]
+        public void RepoGamerTestsDeleteGamerByID()
+        {
+            List<Gamer> gamerdb = new List<Gamer>
+            {
+                new Gamer { GamerID = 0, Active = true, UserName = "Steve" },
+                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+            };
+            _gamerSet.Object.AddRange(gamerdb);
+            ConnectMocksToDataStore(gamerdb);
+            Gamer expected = new Gamer { GamerID = 0, Active = false, UserName = "Steve" };
+            bool testcall = _repo.DeleteGamerById(0);
+            Gamer actual = _repo.GetGamerById(0);
+            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(testcall);
+        }
+        [TestMethod]
+        public void RepoGamerTestsUpdateGamerMT()
+        {
+            List<Gamer> gamerdb = new List<Gamer>
+            {
+                new Gamer { GamerID = 0, Active = true, UserName = "Steve" },
+                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+            };
+            MainTeam t = new MainTeam { TeamID = 0, TeamName = "stk" };
+            _gamerSet.Object.AddRange(gamerdb);
+            ConnectMocksToDataStore(gamerdb);
+            Gamer expected = new Gamer { GamerID = 0, Active = false, UserName = "Steve", MainTeam = t };
+            bool testcall = _repo.UpdateGamerMainTeam(0, t);
+            Gamer actual = _repo.GetGamerById(0);
+            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(testcall);
+        }
+        [TestMethod]
+        public void RepoGamerTestsUpdateGamerComments()
+        {
+            List<Gamer> gamerdb = new List<Gamer>
+            {
+                new Gamer { GamerID = 0, Active = true, UserName = "Steve", Comments = new List<Posts>() },
+                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+            };
+            Posts p = new Posts { PostID = 0, Content = "Hi" };
+
+            _gamerSet.Object.AddRange(gamerdb);
+            ConnectMocksToDataStore(gamerdb);
+            Gamer expected = new Gamer { GamerID = 0, Active = true, UserName = "Steve", Comments = new List<Posts>() };
+            expected.Comments.Add(p);
+            bool result = _repo.UpdateGamerComments(0, p);
+            Gamer actual = _repo.GetGamerById(0);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void RepoGamerTestsUpdateGamerInvites()
+        {
+            List<Gamer> gamerdb = new List<Gamer>
+            {
+                new Gamer { GamerID = 0, Active = true, UserName = "Steve", TeamInvites = new List<TeamInvite>() },
+                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+            };
+            TeamInvite i = new TeamInvite { TeamInviteID = 1, Team = new MainTeam() };
+
+            _gamerSet.Object.AddRange(gamerdb);
+            ConnectMocksToDataStore(gamerdb);
+            Gamer expected = new Gamer { GamerID = 0, Active = true, UserName = "Steve", TeamInvites = new List<TeamInvite>() };
+            expected.TeamInvites.Add(i);
+            bool result = _repo.UpdateGamerTeamInvites(0, i);
+            Gamer actual = _repo.GetGamerById(0);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

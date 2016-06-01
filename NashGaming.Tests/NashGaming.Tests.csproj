@@ -110,6 +110,7 @@
     <Compile Include="Models\LeagueModelTests.cs" />
     <Compile Include="Models\RepoChallengeTests.cs" />
     <Compile Include="Models\RepoGamerTests.cs" />
+    <Compile Include="Models\RepoLadderTests.cs" />
     <Compile Include="Models\RepoLeagueTests.cs" />
     <Compile Include="Models\RepoTeamInviteTests.cs" />
     <Compile Include="Models\RepoTeamTests.cs" />

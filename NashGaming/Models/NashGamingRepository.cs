@@ -249,5 +249,74 @@ namespace NashGaming.Models
             var query = from initiator in context.Challenges.Where(o => o.Initiator.MainTeam.TeamID == teamid) orderby initiator.Initiator select initiator;
             return query.ToList();
         }
+
+        public List<Ladder> GetLaddersByGameTitle(string title)
+        {
+            var query = from ladders in context.Ladders.Where(o => Regex.IsMatch(o.GameTitle, title, RegexOptions.IgnoreCase)) orderby ladders.GameTitle select ladders;
+            return query.ToList();
+        }
+
+        public Gamer GetGamerById(int id)
+        {
+            var query = from gamers in context.Gamers.Where(o => o.GamerID == id) select gamers;
+            return query.Single();
+        }
+
+        public bool DeleteGamerById(int id)
+        {
+            var query = from gamers in context.Gamers.Where(o => o.GamerID == id) select gamers;
+            Gamer g = query.Single();
+            g.Active = false;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateGamerMainTeam(int gamerID, MainTeam mt)
+        {
+            Gamer g = this.GetGamerById(gamerID);
+            g.MainTeam = mt;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateGamerComments(int gid, Posts post)
+        {
+            Gamer g = this.GetGamerById(gid);
+            g.Comments.Add(post);
+            try
+            {
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateGamerTeamInvites(int gid, TeamInvite inv)
+        {
+            Gamer g = this.GetGamerById(gid);
+            g.TeamInvites.Add(inv);
+            try
+            {
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
     }
 }
