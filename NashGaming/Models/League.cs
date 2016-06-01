@@ -25,6 +25,7 @@ namespace NashGaming.Models
         [MinLength(2)]
         public string Platform { get; set; }
         public virtual List<Posts> Feed { get; set; }
+        public bool Active { get; set; }
         public override bool Equals(object obj)
         {
             League o = obj as League;
