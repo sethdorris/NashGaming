@@ -40,4 +40,84 @@ namespace NashGaming.Tests.Models
             _challengeSet = null;
             _repo = null;
         }
+        [TestMethod]
+        public void RepoChallengeTestsGetChallengeByLadderID()
+        {
+            Ladder ld1 = new Ladder { LadderID = 0 };
+            Ladder ld2 = new Ladder { LadderID = 1 };
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1 },
+                new Challenge { ChallengeID = 1, Ladder = ld1 },
+                new Challenge { ChallengeID = 2, Ladder = ld2 }
+            };
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+            List<Challenge> expected = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1 },
+                new Challenge { ChallengeID = 1, Ladder = ld1 }
+            };
+            List<Challenge> actual = _repo.GetChallengesByLadderID(0);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RepoChallengeTestsGetChallengeByChallengedTeamID()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            SubTeam mtst3 = new SubTeam { SubTeamID = 2, MainTeam = mt3 };
+
+            Ladder ld1 = new Ladder { LadderID = 0 };
+            Ladder ld2 = new Ladder { LadderID = 1 };
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 },
+                new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 },
+                new Challenge { ChallengeID = 2, Ladder = ld2, Initiator = mtst2, Recipient = mtst3 }
+            };
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+            List<Challenge> expected = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 },
+                new Challenge { ChallengeID = 2, Ladder = ld2, Initiator = mtst2, Recipient = mtst3 }
+            };
+            List<Challenge> actual = _repo.GetChallengesByRecipientTeamID(2);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RepoChallengeTestsGetChallengeByChallengingTeamID()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            SubTeam mtst3 = new SubTeam { SubTeamID = 2, MainTeam = mt3 };
+
+            Ladder ld1 = new Ladder { LadderID = 0 };
+            Ladder ld2 = new Ladder { LadderID = 1 };
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 },
+                new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 },
+                new Challenge { ChallengeID = 2, Ladder = ld2, Initiator = mtst2, Recipient = mtst3 }
+            };
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+            List<Challenge> expected = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 },
+                new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 }
+            };
+            List<Challenge> actual = _repo.GetChallengesByInitiatorTeamID(0);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+    }
 }

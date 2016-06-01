@@ -231,5 +231,23 @@ namespace NashGaming.Models
             var query = from leagues in context.Leagues.Where(o => o.MaxPlayers == playercount) orderby leagues.StartDate ascending select leagues;
             return query.ToList();
         }
+
+        public List<Challenge> GetChallengesByLadderID(int ladderid)
+        {
+            var query = from challenges in context.Challenges.Where(o => o.Ladder.LadderID == ladderid) orderby challenges.Ladder select challenges;
+            return query.ToList();
+        }
+
+        public List<Challenge> GetChallengesByRecipientTeamID(int teamid)
+        {
+            var query = from recipient in context.Challenges.Where(o => o.Recipient.MainTeam.TeamID == teamid) orderby recipient.Recipient select recipient;
+            return query.ToList();
+        }
+
+        public List<Challenge> GetChallengesByInitiatorTeamID(int teamid)
+        {
+            var query = from initiator in context.Challenges.Where(o => o.Initiator.MainTeam.TeamID == teamid) orderby initiator.Initiator select initiator;
+            return query.ToList();
+        }
     }
 }
