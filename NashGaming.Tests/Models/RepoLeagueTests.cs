@@ -207,5 +207,39 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(result);
             CollectionAssert.AreEqual(expected, actual);  
         }
+
+        [TestMethod]
+        public void RepoLeagueTestsGetLeagueByID()
+        {
+            List<League> l = new List<League>
+            {
+                new League {LeagueID = 0, GameTitle = "Halo" }
+            };
+            _leagueSet.Object.AddRange(l);
+            ConnectMocksToDataStore(l);
+            League expected = l[0];
+            League actual = _repo.GetLeagueByID(0);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RepoLeagueTestsAddSubTeams()
+        {
+            List<League> l = new List<League>
+            {
+                new League {LeagueID = 0, GameTitle = "Halo", Teams = new List<SubTeam>() }
+            };
+            SubTeam t = new SubTeam { SubTeamID = 0, MainTeam = new MainTeam() };
+            _leagueSet.Object.AddRange(l);
+            ConnectMocksToDataStore(l);
+            bool result = _repo.AddLeagueTeams(0, t);
+            List<League> actual = _repo.GetAllLeagues();
+            List<League> expected = new List<League>
+            {
+                new League {LeagueID =0, GameTitle = "Halo", Teams = new List<SubTeam> { t } }
+            };
+            Assert.IsTrue(result);
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }

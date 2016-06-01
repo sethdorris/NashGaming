@@ -364,5 +364,25 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public League GetLeagueByID(int id)
+        {
+            var query = from leagues in context.Leagues.Where(o => o.LeagueID == id) select leagues;
+            return query.Single();
+        }
+
+        public bool AddLeagueTeams(int leagueid, SubTeam t)
+        {
+            League q = GetLeagueByID(leagueid);
+            try
+            {
+                q.Teams.Add(t);
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
     }
 }
