@@ -319,6 +319,7 @@ namespace NashGaming.Models
             }
         }
 
+        #region Matches
         // DB: Add match
         public bool AddMatch(NashGaming.Models.Match match)
         {
@@ -420,5 +421,33 @@ namespace NashGaming.Models
                 return false;
             }
         }
+        #endregion
+
+
+        #region Challenges
+        // DB: Get all challenges
+        public List<Challenge> GetAllChallenges()
+        {
+            var query = from challengers in context.Challenges select challengers;
+            return query.ToList();
+        }
+
+        // DB: Add challenges 
+        public bool AddChallenge(Challenge challenge)
+        {
+            try
+            {
+                context.Challenges.Add(challenge);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        #endregion
     }
 }

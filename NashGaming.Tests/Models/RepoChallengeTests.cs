@@ -119,5 +119,43 @@ namespace NashGaming.Tests.Models
             List<Challenge> actual = _repo.GetChallengesByInitiatorTeamID(0);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepoEnsureICanAddChallengeToDB()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            SubTeam mtst3 = new SubTeam { SubTeamID = 2, MainTeam = mt3 };
+            Ladder ld1 = new Ladder { LadderID = 0 };
+            Ladder ld2 = new Ladder { LadderID = 1 };
+
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 },
+                new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 },
+                new Challenge { ChallengeID = 2, Ladder = ld2, Initiator = mtst2, Recipient = mtst3 }
+            };
+            Challenge testChallenge = new Challenge { ChallengeID = 3 };
+
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+            _challengeSet.Setup(o => o.Add(It.IsAny<Challenge>())).Callback((Challenge c) => cdb.Add(c));
+
+            bool actual = _repo.AddChallenge(testChallenge);
+            List<Challenge> acdb = _repo.GetAllChallenges(); 
+            List<Challenge> expected = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 },
+                new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 },
+                new Challenge { ChallengeID = 2, Ladder = ld2, Initiator = mtst2, Recipient = mtst3 },
+                testChallenge
+            };
+
+            Assert.IsTrue(actual);
+            CollectionAssert.AreEqual(expected, acdb);
+        }
     }
 }
