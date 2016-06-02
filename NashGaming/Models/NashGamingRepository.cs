@@ -1084,5 +1084,10 @@ namespace NashGaming.Models
                 return false;
             }
         }
+        public Gamer GetGamerByAspUserName(string name)
+        {
+            var query = from gamers in Context.Gamers.Where(o => o.Email == name) select gamers;
+            return query.Single();
+        }
     }
 }
