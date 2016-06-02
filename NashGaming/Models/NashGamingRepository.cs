@@ -929,5 +929,41 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public TeamInvite GetTeamInviteById(int id)
+        {
+            var query = from invites in context.Invites.Where(o => o.TeamInviteID == id) select invites;
+            return query.Single();
+        }
+
+        public bool UpdateTeamInviteDateAccepted(int id, DateTime date)
+        {
+            TeamInvite invite = this.GetTeamInviteById(id);
+            invite.DateAccepted = date;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateTeamInviteAccepted(int id, bool accepted)
+        {
+            TeamInvite invite = this.GetTeamInviteById(id);
+            invite.Accepted = accepted;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
