@@ -15,6 +15,8 @@ namespace NashGaming.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private NashGamingContext _context;
+        private NashGamingRepository _repo;
 
         public ManageController()
         {
@@ -24,6 +26,8 @@ namespace NashGaming.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _context = new NashGamingContext();
+            _repo = new NashGamingRepository();
         }
 
         public ApplicationSignInManager SignInManager
@@ -64,6 +68,7 @@ namespace NashGaming.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
