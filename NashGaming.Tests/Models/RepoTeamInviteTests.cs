@@ -124,7 +124,7 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void RepoEnsureICanAddInviteToDB()
         {
-            List<TeamInvite> InviteDB = new List<TeamInvite>
+            List<TeamInvite> inviteDB = new List<TeamInvite>
             {
                 new TeamInvite {TeamInviteID = 0 },
                 new TeamInvite {TeamInviteID = 1 },
@@ -132,9 +132,9 @@ namespace NashGaming.Tests.Models
             };
             TeamInvite testInvite = new TeamInvite { TeamInviteID = 3 };
 
-            _inviteSet.Object.AddRange(InviteDB);
-            ConnectMocksToDataStore(InviteDB);
-            _inviteSet.Setup(o => o.Add(It.IsAny<TeamInvite>())).Callback((TeamInvite i) => InviteDB.Add(i));
+            _inviteSet.Object.AddRange(inviteDB);
+            ConnectMocksToDataStore(inviteDB);
+            _inviteSet.Setup(o => o.Add(It.IsAny<TeamInvite>())).Callback((TeamInvite i) => inviteDB.Add(i));
 
             bool result = _repo.AddTeamInvite(testInvite);
             List<TeamInvite> actual = _repo.GetAllTeamInvites();
@@ -149,5 +149,54 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(result);
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void RepoTeamInviteTestsUpdateDateAccepted()
+        {
+            Gamer g = new Gamer { GamerID = 0 };
+            Gamer g2 = new Gamer { GamerID = 1 };
+            MainTeam t = new MainTeam { TeamID = 0 };
+
+            List<TeamInvite> inviteDB = new List<TeamInvite>
+            {
+                new TeamInvite { TeamInviteID = 0, Team = t, InvitedGamer = g, DateAccepted = new DateTime(2016, 05, 01) },
+                new TeamInvite { TeamInviteID = 1, Team = t, InvitedGamer = g2, DateAccepted = new DateTime(2016, 05, 01) },
+            };
+            
+            _inviteSet.Object.AddRange(inviteDB);
+            ConnectMocksToDataStore(inviteDB);
+
+            TeamInvite expected = new TeamInvite { TeamInviteID = 0, Team = t, InvitedGamer = g, DateAccepted = new DateTime(2016, 06, 02) };
+            bool result = _repo.UpdateTeamInviteDateAccepted(0, new DateTime(2016, 06, 02));
+            TeamInvite actual = _repo.GetTeamInviteById(0);
+
+            Assert.AreEqual(expected.DateAccepted, actual.DateAccepted);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoTeamInviteTestsUpdateAccepted()
+        {
+            Gamer g = new Gamer { GamerID = 0 };
+            Gamer g2 = new Gamer { GamerID = 1 };
+            MainTeam t = new MainTeam { TeamID = 0 };
+
+            List<TeamInvite> inviteDB = new List<TeamInvite>
+            {
+                new TeamInvite { TeamInviteID = 0, Team = t, InvitedGamer = g, Accepted = false },
+                new TeamInvite { TeamInviteID = 1, Team = t, InvitedGamer = g2, Accepted = false },
+            };
+
+            _inviteSet.Object.AddRange(inviteDB);
+            ConnectMocksToDataStore(inviteDB);
+
+            TeamInvite expected = new TeamInvite { TeamInviteID = 0, Team = t, InvitedGamer = g, Accepted = true };
+            bool result = _repo.UpdateTeamInviteAccepted(0, true);
+            TeamInvite actual = _repo.GetTeamInviteById(0);
+
+            Assert.AreEqual(expected.Accepted, actual.Accepted);
+            Assert.IsTrue(result);
+        }
+
     }
 }
