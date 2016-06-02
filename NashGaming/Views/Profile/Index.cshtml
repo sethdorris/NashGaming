@@ -8,3 +8,15 @@
 <p>@Model.PSNID</p>
 @Html.ActionLink("Manage User Settings", "Index", "Manage")
 
+<div>
+    @{
+        if (Model.MainTeam != null)
+        {
+            <h1>Team: @Model.MainTeam.TeamName</h1>
+        }
+        else
+        {
+            <h1>Team: Not Assigned</h1>
+        }
+    }
+</div>

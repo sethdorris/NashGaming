@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using NashGaming.Models;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 namespace NashGaming.Controllers
 {
