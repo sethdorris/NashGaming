@@ -238,7 +238,7 @@ namespace NashGaming.Tests.Models
 
             List<NashGaming.Models.Match> matchdb = new List<NashGaming.Models.Match>
             {
-                new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, DatePlayed = new DateTime(2016, 05, 01), League = l1 }
+                new NashGaming.Models.Match { MatchID = 0, Team1 = mtst1, Team2 = mtst2, DatePlayed = new DateTime(2016, 05, 1), League = l1 }
             };
 
             _matchSet.Object.AddRange(matchdb);

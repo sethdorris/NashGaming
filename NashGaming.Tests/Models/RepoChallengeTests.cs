@@ -157,5 +157,140 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(actual);
             CollectionAssert.AreEqual(expected, acdb);
         }
+
+        [TestMethod]
+        public void RepoChallengeTestsUpdateChallengeProposedDate1()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            Ladder ld1 = new Ladder { LadderID = 0 };
+
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, ProposedDate1 = new DateTime(2016, 05, 05), Ladder = ld1, Initiator = mtst1, Recipient = mtst2 }
+            };
+
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+
+            Challenge expected = new Challenge { ChallengeID = 0, ProposedDate1 = new DateTime(2016, 05, 15), Ladder = ld1, Initiator = mtst1, Recipient = mtst2 };
+            bool result = _repo.UpdateChallengeProposedDate1(0, new DateTime(2016, 05, 15));
+            Challenge actual = _repo.GetChallengeById(0);
+
+            Assert.AreEqual(expected.ProposedDate1, actual.ProposedDate1);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoChallengeTestsUpdateChallengeProposedDate2()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            Ladder ld1 = new Ladder { LadderID = 0 };
+
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, ProposedDate2 = new DateTime(2016, 05, 05), Ladder = ld1, Initiator = mtst1, Recipient = mtst2 }
+            };
+
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+
+            Challenge expected = new Challenge { ChallengeID = 0, ProposedDate2 = new DateTime(2016, 05, 15), Ladder = ld1, Initiator = mtst1, Recipient = mtst2 };
+            bool result = _repo.UpdateChallengeProposedDate2(0, new DateTime(2016, 05, 15));
+            Challenge actual = _repo.GetChallengeById(0);
+
+            Assert.AreEqual(expected.ProposedDate2, actual.ProposedDate2);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoChallengeTestsUpdateChallengeProposedDate3()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            Ladder ld1 = new Ladder { LadderID = 0 };
+
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, ProposedDate3 = new DateTime(2016, 05, 05), Ladder = ld1, Initiator = mtst1, Recipient = mtst2 }
+            };
+
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+
+            Challenge expected = new Challenge { ChallengeID = 0, ProposedDate3 = new DateTime(2016, 05, 15), Ladder = ld1, Initiator = mtst1, Recipient = mtst2 };
+            bool result = _repo.UpdateChallengeProposedDate3(0, new DateTime(2016, 05, 15));
+            Challenge actual = _repo.GetChallengeById(0);
+
+            Assert.AreEqual(expected.ProposedDate3, actual.ProposedDate3);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoChallengeTestsUpdateChallengeAccepted()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            Ladder ld1 = new Ladder { LadderID = 0 };
+
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Accepted = false, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 }
+            };
+
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+
+            Challenge expected = new Challenge { ChallengeID = 0, Accepted = true, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 };
+            bool result = _repo.UpdateChallengeAccepted(0, true);
+            Challenge actual = _repo.GetChallengeById(0);
+
+            Assert.AreEqual(expected.Accepted, actual.Accepted);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void RepoChallengeTestsDeleteChallengeById()
+        {
+            MainTeam mt1 = new MainTeam { TeamID = 0, TeamName = "ABC" };
+            MainTeam mt2 = new MainTeam { TeamID = 1, TeamName = "DEF" };
+            MainTeam mt3 = new MainTeam { TeamID = 2, TeamName = "GHI" };
+            SubTeam mtst1 = new SubTeam { SubTeamID = 0, MainTeam = mt1 };
+            SubTeam mtst2 = new SubTeam { SubTeamID = 1, MainTeam = mt2 };
+            SubTeam mtst3 = new SubTeam { SubTeamID = 2, MainTeam = mt3 };
+            Ladder ld1 = new Ladder { LadderID = 0 };
+
+            List<Challenge> cdb = new List<Challenge>
+            {
+                new Challenge { ChallengeID = 0, Ladder = ld1, Initiator = mtst1, Recipient = mtst2 },
+                new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 }
+            };
+
+            _challengeSet.Object.AddRange(cdb);
+            ConnectMocksToDataStore(cdb);
+            _challengeSet.Setup(o => o.Remove(It.IsAny<Challenge>())).Callback((Challenge c) => cdb.Remove(c));
+
+            Challenge expected = new Challenge { ChallengeID = 1, Ladder = ld1, Initiator = mtst1, Recipient = mtst3 };
+            bool result = _repo.DeleteChallengeById(0);
+            List<Challenge> actual = _repo.GetAllChallenges();
+
+            Assert.AreEqual(expected, actual[0]);
+            Assert.IsTrue(result);
+        }
+
+
     }
 }
