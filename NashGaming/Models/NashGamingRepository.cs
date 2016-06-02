@@ -965,5 +965,49 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public bool UpdateSubTeamCaptain(int MainTeamID, int SubTeamID, Gamer Captain)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Captain = Captain;
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+        public bool UpdateSubTeamRank(int MainTeamID, int SubTeamID, int NewRank)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Rank = NewRank;
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+        public bool UpdateSubTeamPoints(int MainTeamID, int SubTeamID, int Points)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Points = Points;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

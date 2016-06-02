@@ -18,6 +18,7 @@ namespace NashGaming.Models
         public int Wins { get; set; }
         public int Losses { get; set; }
         public virtual List<Gamer> Roster { get; set; }
+        public bool Active { get; set; }
 
         public int CompareTo(object obj)
         {
