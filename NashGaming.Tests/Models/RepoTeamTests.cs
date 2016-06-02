@@ -135,11 +135,12 @@ namespace NashGaming.Tests.Models
             _teamSet.Object.AddRange(db);
             ConnectMocksToDataStore(db);
             SubTeam t = new SubTeam { SubTeamID = 0 };
-            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } };
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam>() };
+            expected.SubTeams.Add(t);
             bool result = _repo.AddSubTeamToMainTeam(0, t);
             List<MainTeam> actual = _repo.GetAllMainTeams();
             Assert.IsTrue(result);
-            Assert.AreEqual(expected, actual[0].SubTeams);
+            CollectionAssert.AreEqual(expected.SubTeams, actual[0].SubTeams);
         }
         [TestMethod]
         public void RepoTeamTestsRemoveSubTeams()
@@ -155,7 +156,7 @@ namespace NashGaming.Tests.Models
             bool result = _repo.RemoveSubTeamFromMainTeam(0, t);
             List<MainTeam> actual = _repo.GetAllMainTeams();
             Assert.IsTrue(result);
-            Assert.AreEqual(expected, actual[0].SubTeams);
+            CollectionAssert.AreEqual(expected.SubTeams, actual[0].SubTeams);
         }
     }
 }
