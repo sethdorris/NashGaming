@@ -168,12 +168,12 @@ namespace NashGaming.Controllers
 				{
 					string test = Request.Form["RbUserName"];
 					if (test == "RbXbox")
-					{	
-						user.UserName = model.XbGamertag;
+					{
+                        user.UserName = model.Email;
 					}
 					else if (test == "RbPs")
 					{
-						user.UserName = model.PSID;
+                        user.UserName = model.Email;
 					}
 				}	
 
