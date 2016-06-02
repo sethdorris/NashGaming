@@ -328,7 +328,6 @@ namespace NashGaming.Models
             var query = from posts in context.Posts.Where(o => o.PostID == id) select posts;
             return query.Single();
         }
-
         public bool EditPostContent(int id, string content)
         {
             Posts p = GetPostByID(id);
@@ -357,6 +356,8 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        #region Matches
         public bool AddMatch(NashGaming.Models.Match match)
         {
             try
@@ -390,8 +391,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
-
         public Match GetMatchById(int id)
         {
             var query = from matches in context.Matches.Where(o => o.MatchID == id) select matches;
@@ -425,8 +424,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
-
         public bool UpdateMatchResult(int matchID, string result)
         {
             Match match = this.GetMatchById(matchID);
@@ -441,7 +438,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool InactivateLeague(int lid)
         {
             League q = GetLeagueByID(lid);
@@ -455,13 +451,11 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public List<Ladder> GetAllLadders()
         {
             var query = from ladders in context.Ladders select ladders;
             return query.ToList();
         }
-
         public bool AddLadder(Ladder l)
         {
             try
@@ -475,7 +469,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool UpdateLeagueMinPlayers(int lid, int minplayers)
         {
             League l = this.GetLeagueByID(lid);
@@ -490,7 +483,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool UpdateLeagueMaxPlayers(int lid, int max)
         {
             League l = this.GetLeagueByID(lid);
@@ -505,7 +497,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool UpdateLeagueName(int id, string name)
         {
             League l = this.GetLeagueByID(id);
@@ -519,7 +510,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool UpdateMatchTeam1Score(int matchID, int score1)
         {
             Match match = this.GetMatchById(matchID);
@@ -547,7 +537,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool UpdateMatchTeam2Score(int matchID, int score2)
         {
             Match match = this.GetMatchById(matchID);
@@ -590,7 +579,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool AddPostToLeague(int id, Posts p)
         {
             League l = this.GetLeagueByID(id);
@@ -605,7 +593,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool RemovePostFromLeague(int id, Posts p)
         {
             League l = this.GetLeagueByID(id);
@@ -625,7 +612,6 @@ namespace NashGaming.Models
             var query = from ladders in context.Ladders.Where(o => o.LadderID == id) select ladders;
             return query.Single();
         }
-
         public bool AddPostToLadder(int id, Posts p)
         {
             Ladder l = this.GetLadderById(id);
@@ -709,7 +695,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
         public bool UpdateMatchCompletion(int matchID, bool complete)
         {
             Match match = this.GetMatchById(matchID);
@@ -760,6 +745,25 @@ namespace NashGaming.Models
                 l.Active = false;
                 context.SaveChanges();
                 return true;
+            } catch
+            {
+                return false;
+            }
+        }
+        #endregion
+        #region Challenges
+        public List<Challenge> GetAllChallenges()
+        {
+            var query = from challengers in context.Challenges select challengers;
+            return query.ToList();
+        }
+        public bool AddChallenge(Challenge challenge)
+        {
+            try
+            {
+                context.Challenges.Add(challenge);
+                context.SaveChanges();
+                return true;
             }
             catch
             {
@@ -796,5 +800,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
+        #endregion
     }
 }
