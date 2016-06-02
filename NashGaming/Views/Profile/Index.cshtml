@@ -1,0 +1,10 @@
+﻿@model NashGaming.Models.Gamer
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@Model.DisplayName</h2>
+<p>@Model.PSNID</p>
+@Html.ActionLink("Manage User Settings", "Index", "Manage")
+
