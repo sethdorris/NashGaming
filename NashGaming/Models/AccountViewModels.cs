@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.UI.WebControls;
 
 namespace NashGaming.Models
 {
@@ -80,19 +81,16 @@ namespace NashGaming.Models
 		[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
 		public string ConfirmPassword { get; set; }
 
-
 		[Required]
-		[MaxLength(20)]
-		[Display(Name = "Username")]
-		public string Username { get; set; }
-
 		[MaxLength(20)]
 		[Display(Name = "Xbox Gamer Tag")]
 		public string XbGamertag { get; set; }
 
+		[Required]
 		[MaxLength(20)]
 		[Display(Name = "PlayStation Network ID")]
 		public string PSID { get; set; }
+
 	}
 
     public class ResetPasswordViewModel
