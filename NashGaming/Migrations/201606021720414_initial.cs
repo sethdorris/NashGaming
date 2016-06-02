@@ -3,7 +3,7 @@ namespace NashGaming.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class May27 : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -38,6 +38,7 @@ namespace NashGaming.Migrations
                         Points = c.Int(nullable: false),
                         Wins = c.Int(nullable: false),
                         Losses = c.Int(nullable: false),
+                        Active = c.Boolean(nullable: false),
                         MainTeam_TeamID = c.Int(),
                         TeamInvite_TeamInviteID = c.Int(),
                         Captain_GamerID = c.Int(),
@@ -64,6 +65,7 @@ namespace NashGaming.Migrations
                         RealUserID = c.String(),
                         XB1Gamertag = c.String(),
                         PSNID = c.String(),
+                        Active = c.Boolean(nullable: false),
                         Email = c.String(),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -136,8 +138,8 @@ namespace NashGaming.Migrations
                 "dbo.MainTeams",
                 c => new
                     {
-                        TeamID = c.Int(nullable: false),
-                        TeamName = c.String(),
+                        TeamID = c.Int(nullable: false, identity: true),
+                        TeamName = c.String(nullable: false),
                         DateFounded = c.DateTime(nullable: false),
                         Website = c.String(),
                         Active = c.Boolean(nullable: false),
@@ -168,7 +170,7 @@ namespace NashGaming.Migrations
                     {
                         TeamInviteID = c.Int(nullable: false, identity: true),
                         DateSent = c.DateTime(nullable: false),
-                        DateAccepted = c.DateTime(nullable: false),
+                        DateAccepted = c.DateTime(),
                         Accepted = c.Boolean(nullable: false),
                         InvitedGamer_GamerID = c.Int(),
                         Team_TeamID = c.Int(),
@@ -186,14 +188,15 @@ namespace NashGaming.Migrations
                         LeagueID = c.Int(nullable: false, identity: true),
                         MinPlayers = c.Int(nullable: false),
                         MaxPlayers = c.Int(nullable: false),
-                        LeagueName = c.String(),
+                        LeagueName = c.String(nullable: false),
                         GamesPerWeek = c.Int(nullable: false),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         SeasonLength = c.Int(nullable: false),
                         LeagueType = c.String(),
-                        GameTitle = c.String(),
+                        GameTitle = c.String(nullable: false),
                         Platform = c.String(maxLength: 3),
+                        Active = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.LeagueID);
             
@@ -202,7 +205,7 @@ namespace NashGaming.Migrations
                 c => new
                     {
                         MatchID = c.Int(nullable: false, identity: true),
-                        DatePlayed = c.DateTime(nullable: false),
+                        DatePlayed = c.DateTime(),
                         Result = c.String(),
                         Team1Score = c.Int(nullable: false),
                         Team2Score = c.Int(nullable: false),
@@ -227,11 +230,12 @@ namespace NashGaming.Migrations
                 c => new
                     {
                         LadderID = c.Int(nullable: false, identity: true),
-                        LadderName = c.String(),
-                        GameTitle = c.String(),
+                        LadderName = c.String(nullable: false),
+                        GameTitle = c.String(nullable: false),
                         MinPlayers = c.Int(nullable: false),
                         MaxPlayers = c.Int(nullable: false),
-                        Platform = c.String(),
+                        Platform = c.String(nullable: false),
+                        Active = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.LadderID);
             
@@ -250,6 +254,8 @@ namespace NashGaming.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        XbxGamertag = c.String(),
+                        PSNID = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
