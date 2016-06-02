@@ -18,8 +18,9 @@ namespace NashGaming.Models
         public string Website { get; set; }
         public bool Active { get; set; }
         public List<SubTeam> SubTeams { get; set; }
+		public string LogoLink { get; set; }
 
-        public int CompareTo(object obj)
+		public int CompareTo(object obj)
         {
             MainTeam team = obj as MainTeam;
             return this.TeamName.CompareTo(team.TeamName);
