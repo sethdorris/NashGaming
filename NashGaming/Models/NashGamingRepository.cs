@@ -1024,5 +1024,65 @@ namespace NashGaming.Models
                 return false;
             }
         }
+        public bool AddSubTeamWin(int MainTeamID, int SubTeamID)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Wins++;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddSubTeamLoss(int MainTeamID, int SubTeamID)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Losses++;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool AddGamerToSubTeamRoster(int MainTeamID, int SubTeamID, Gamer g)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Roster.Add(g);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool RemoveGamerFromSubTeamRoster(int MainTeamID, int SubTeamID, Gamer g)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Roster.Remove(g);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

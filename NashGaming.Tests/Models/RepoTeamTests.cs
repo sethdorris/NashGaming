@@ -226,5 +226,75 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(result);
             Assert.AreEqual(expected.SubTeams[0].Active, actual.SubTeams[0].Active);
         }
+        [TestMethod]
+        public void RepoTeamTestsAddSubTeamWins()
+        {
+            SubTeam t = new SubTeam { SubTeamID = 0, Wins = 0 };
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            bool result = _repo.AddSubTeamWin(0, 0);
+            SubTeam expectedsub = new SubTeam { SubTeamID = 0, Wins = 1 };
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { expectedsub } };
+            MainTeam actual = _repo.GetMainTeamByID(0);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected.SubTeams[0].Wins, actual.SubTeams[0].Wins);
+        }
+        [TestMethod]
+        public void RepoTeamTestsAddSubTeamLoss()
+        {
+            SubTeam t = new SubTeam { SubTeamID = 0, Losses = 0 };
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            bool result = _repo.AddSubTeamLoss(0, 0);
+            SubTeam expectedsub = new SubTeam { SubTeamID = 0, Losses = 1 };
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { expectedsub } };
+            MainTeam actual = _repo.GetMainTeamByID(0);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected.SubTeams[0].Losses, actual.SubTeams[0].Losses);
+        }
+        [TestMethod]
+        public void RepoTeamTestsAddGamerToSubTeam()
+        {
+            SubTeam t = new SubTeam { SubTeamID = 0, Roster = new List<Gamer>() };
+            Gamer g = new Gamer { GamerID = 0 };
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            bool result = _repo.AddGamerToSubTeamRoster(0, 0, g);
+            SubTeam expectedsub = new SubTeam { SubTeamID = 0, Roster = new List<Gamer> { g } };
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { expectedsub } };
+            MainTeam actual = _repo.GetMainTeamByID(0);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected.SubTeams[0].Roster[0], actual.SubTeams[0].Roster[0]);
+        }
+        [TestMethod]
+        public void RepoTeamTestsRemoveGamerFromSubTeam()
+        {
+            Gamer g = new Gamer { GamerID = 0 };
+            SubTeam t = new SubTeam { SubTeamID = 0, Roster = new List<Gamer> { g } };
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            bool result = _repo.RemoveGamerFromSubTeamRoster(0, 0, g);
+            SubTeam expectedsub = new SubTeam { SubTeamID = 0, Roster = new List<Gamer>() };
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { expectedsub } };
+            MainTeam actual = _repo.GetMainTeamByID(0);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected.SubTeams[0].Roster.Count, actual.SubTeams[0].Roster.Count);
+        }
     }
 }
