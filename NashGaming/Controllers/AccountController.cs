@@ -183,6 +183,9 @@ namespace NashGaming.Controllers
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     Gamer createdGamer = new Gamer();
                     createdGamer.Email = user.Email;
+                    createdGamer.PSNID = user.PSNID;
+                    createdGamer.XB1Gamertag = user.XbxGamertag;
+                    createdGamer.PasswordHash = user.PasswordHash;
                     createdGamer.RealUserID = user.Id;
 					createdGamer.UserName = user.UserName;
                     _context.Gamers.Add(createdGamer);
