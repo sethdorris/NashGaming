@@ -209,5 +209,22 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(result);
             Assert.AreEqual(expected.SubTeams[0].Points, actual.SubTeams[0].Points);
         }
+        [TestMethod]
+        public void RepoTeamTestsInactivateSubTeam()
+        {
+            SubTeam t = new SubTeam { SubTeamID = 0, Active = true};
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            bool result = _repo.InactivateSubTeam(0, 0);
+            SubTeam expectedsub = new SubTeam { SubTeamID = 0, Active = false };
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { expectedsub } };
+            MainTeam actual = _repo.GetMainTeamByID(0);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected.SubTeams[0].Active, actual.SubTeams[0].Active);
+        }
     }
 }

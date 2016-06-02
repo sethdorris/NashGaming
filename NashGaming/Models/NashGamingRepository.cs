@@ -1009,5 +1009,20 @@ namespace NashGaming.Models
                 return false;
             }
         }
+        public bool InactivateSubTeam(int MainTeamID, int SubTeamID)
+        {
+            MainTeam t = this.GetMainTeamByID(MainTeamID);
+            try
+            {
+                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
+                sub.Active = false;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
