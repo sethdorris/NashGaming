@@ -11,6 +11,27 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.XbGamertag, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.XbGamertag, new { @class = "form-control", @Value = "N/A" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PSID, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PSID, new { @class = "form-control", @Value = "N/A" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="radio" name="RbUserName" id ="xb" value="RbXbox" checked /> Xbox Gamer Tag
+            <input type="radio" name="RbUserName" id ="ps" value="RbPs" /> PlayStation Network ID
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">

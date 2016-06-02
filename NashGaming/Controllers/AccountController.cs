@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using NashGaming.Models;
+using System.Web.UI.WebControls;
 
 namespace NashGaming.Controllers
 {
@@ -149,20 +150,41 @@ namespace NashGaming.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
+		
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email  };
-                var result = await UserManager.CreateAsync(user, model.Password);
+				var user = new ApplicationUser {
+					Email = model.Email,
+					XbxGamertag = model.XbGamertag,
+					PSNID = model.PSID,
+					
+				};
+				
+				if ((model.XbGamertag != "N/A") || (model.PSID != "N/A"))
+				{
+					string test = Request.Form["RbUserName"];
+					if (test == "RbXbox")
+					{	
+						user.UserName = model.XbGamertag;
+					}
+					else if (test == "RbPs")
+					{
+						user.UserName = model.PSID;
+					}
+				}	
+
+				var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     Gamer createdGamer = new Gamer();
                     createdGamer.Email = user.Email;
                     createdGamer.RealUserID = user.Id;
+					createdGamer.UserName = user.UserName;
                     _context.Gamers.Add(createdGamer);
                     _context.SaveChanges();
                     
