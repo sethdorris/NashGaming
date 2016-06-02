@@ -64,6 +64,7 @@ namespace NashGaming.Tests.Models
             Assert.IsNotNull(_inviteSet.Object);
             CollectionAssert.AreEqual(expected, actual);
         }
+
         [TestMethod]
         public void RepoTeamInviteTestsGetInvitesByGamerID()
         {
@@ -118,6 +119,35 @@ namespace NashGaming.Tests.Models
             _inviteSet.Setup(o => o.Remove(It.IsAny<TeamInvite>())).Callback((TeamInvite i) => InviteDB.Remove(i));
             bool actual = _repo.DeleteTeamInviteByID(1);
             Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        public void RepoEnsureICanAddInviteToDB()
+        {
+            List<TeamInvite> InviteDB = new List<TeamInvite>
+            {
+                new TeamInvite {TeamInviteID = 0 },
+                new TeamInvite {TeamInviteID = 1 },
+                new TeamInvite {TeamInviteID = 2 }
+            };
+            TeamInvite testInvite = new TeamInvite { TeamInviteID = 3 };
+
+            _inviteSet.Object.AddRange(InviteDB);
+            ConnectMocksToDataStore(InviteDB);
+            _inviteSet.Setup(o => o.Add(It.IsAny<TeamInvite>())).Callback((TeamInvite i) => InviteDB.Add(i));
+
+            bool result = _repo.AddTeamInvite(testInvite);
+            List<TeamInvite> actual = _repo.GetAllTeamInvites();
+            List<TeamInvite> expected = new List<TeamInvite>
+            {
+                new TeamInvite {TeamInviteID = 0 },
+                new TeamInvite {TeamInviteID = 1 },
+                new TeamInvite {TeamInviteID = 2 },
+                testInvite
+            };
+
+            Assert.IsTrue(result);
+            CollectionAssert.AreEqual(expected, actual);
         }
     }
 }

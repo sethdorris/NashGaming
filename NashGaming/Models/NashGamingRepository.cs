@@ -800,6 +800,102 @@ namespace NashGaming.Models
                 return false;
             }
         }
+
+        public Challenge GetChallengeById(int id)
+        {
+            var query = from challenges in context.Challenges.Where(o => o.ChallengeID == id) select challenges;
+            return query.Single();
+        }
+
+        public bool UpdateChallengeProposedDate1(int challengeId, DateTime date)
+        {
+            Challenge challenge = this.GetChallengeById(challengeId);
+            challenge.ProposedDate1 = date;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateChallengeProposedDate2(int challengeId, DateTime date)
+        {
+            Challenge challenge = this.GetChallengeById(challengeId);
+            challenge.ProposedDate2 = date;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateChallengeProposedDate3(int challengeId, DateTime date)
+        {
+            Challenge challenge = this.GetChallengeById(challengeId);
+            challenge.ProposedDate3 = date;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateChallengeAccepted(int challengeId, bool accepted)
+        {
+            Challenge challenge = this.GetChallengeById(challengeId);
+            challenge.Accepted = accepted;
+            try
+            {
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteChallengeById(int id)
+        {
+            var query = from challenges in context.Challenges.Where(o => o.ChallengeID == id) select challenges;
+            Challenge result = query.Single();
+            try
+            {
+                context.Challenges.Remove(result);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
+
+        public bool AddTeamInvite(TeamInvite invite)
+        {
+            try
+            {
+                context.Invites.Add(invite);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
