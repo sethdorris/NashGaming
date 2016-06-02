@@ -801,5 +801,44 @@ namespace NashGaming.Models
             }
         }
         #endregion
+        public bool UpdateMainTeamWebsite(int id, string website)
+        {
+            MainTeam t = this.GetMainTeamByID(id);
+            try
+            {
+                t.Website = website;
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+        public bool AddSubTeamToMainTeam(int id, SubTeam t)
+        {
+            MainTeam a = this.GetMainTeamByID(id);
+            try
+            {
+                a.SubTeams.Add(t);
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+        public bool RemoveSubTeamFromMainTeam(int id, SubTeam t)
+        {
+            MainTeam a = this.GetMainTeamByID(id);
+            try
+            {
+                a.SubTeams.Remove(t);
+                context.SaveChanges();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
     }
 }

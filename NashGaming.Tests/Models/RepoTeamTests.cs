@@ -109,5 +109,53 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(result);
             Assert.AreEqual(expected[0].Active, actual[0].Active);
         }
+
+        [TestMethod]
+        public void RepoTeamTestsUpdateMainTeamWebsite()
+        {
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, Website = "http://.com" }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            string expected = "http://";
+            bool result = _repo.UpdateMainTeamWebsite(0, "http://");
+            List<MainTeam> actual = _repo.GetAllMainTeams();
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual[0].Website);
+        }
+        [TestMethod]
+        public void RepoTeamTestsAddSubTeams()
+        {
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, SubTeams = new List<SubTeam>() }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            SubTeam t = new SubTeam { SubTeamID = 0 };
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } };
+            bool result = _repo.AddSubTeamToMainTeam(0, t);
+            List<MainTeam> actual = _repo.GetAllMainTeams();
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual[0].SubTeams);
+        }
+        [TestMethod]
+        public void RepoTeamTestsRemoveSubTeams()
+        {
+            SubTeam t = new SubTeam { SubTeamID = 0 };
+            List<MainTeam> db = new List<MainTeam>
+            {
+                new MainTeam { TeamID = 0, SubTeams = new List<SubTeam> { t } }
+            };
+            _teamSet.Object.AddRange(db);
+            ConnectMocksToDataStore(db);
+            MainTeam expected = new MainTeam { TeamID = 0, SubTeams = new List<SubTeam>() };
+            bool result = _repo.RemoveSubTeamFromMainTeam(0, t);
+            List<MainTeam> actual = _repo.GetAllMainTeams();
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual[0].SubTeams);
+        }
     }
 }
