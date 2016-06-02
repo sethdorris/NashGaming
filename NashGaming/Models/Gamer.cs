@@ -18,7 +18,8 @@ namespace NashGaming.Models
         public virtual MainTeam MainTeam { get; set; }
         public List<Posts> Comments { get; set; }
         public virtual List<TeamInvite> TeamInvites { get; set; }
-        public bool Active { get; set; }
+		public string DisplayName { get; set; }
+		public bool Active { get; set; }
 
         public int CompareTo(object obj)
         {
