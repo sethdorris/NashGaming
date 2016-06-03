@@ -158,6 +158,7 @@ namespace NashGaming.Controllers
         {
             if (ModelState.IsValid)
             {
+				string displayName = "";
 				var user = new ApplicationUser {
 					Email = model.Email,
 					XbxGamertag = model.XbGamertag,
@@ -171,10 +172,12 @@ namespace NashGaming.Controllers
 					if (test == "RbXbox")
 					{
                         user.UserName = model.Email;
+						displayName = model.XbGamertag;
 					}
 					else if (test == "RbPs")
 					{
                         user.UserName = model.Email;
+						displayName = model.PSID;
 					}
 				}	
 
@@ -189,6 +192,7 @@ namespace NashGaming.Controllers
                     createdGamer.PasswordHash = user.PasswordHash;
                     createdGamer.RealUserID = user.Id;
 					createdGamer.UserName = user.UserName;
+					createdGamer.DisplayName = displayName;
                     _context.Gamers.Add(createdGamer);
                     _context.SaveChanges();
                     
