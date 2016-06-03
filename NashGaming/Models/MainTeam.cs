@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 
@@ -9,14 +10,17 @@ namespace NashGaming.Models
 {
     public class MainTeam : IComparable
     {
-        [Key, ForeignKey("Founder")]
+        [Key]
         public int TeamID { get; set; }
         public string TeamName { get; set; }
         public DateTime DateFounded { get; set; }
-
-        public  Gamer Founder { get; set; }
+        [Required]
+        [ForeignKey("GamerID")]
+        public Gamer Founder { get; set; }
+        public int FounderID { get; set; }
         public string Website { get; set; }
         public bool Active { get; set; }
+        [ForeignKey("SubTeamID")]
         public List<SubTeam> SubTeams { get; set; }
 		public string LogoLink { get; set; }
 
@@ -33,6 +37,13 @@ namespace NashGaming.Models
                 return false;
             }
             return a.TeamID == this.TeamID;
+        }
+    }
+    public class MainTeamConfiguration : EntityTypeConfiguration<MainTeam>
+    {
+        public MainTeamConfiguration()
+        {
+            HasOptional(o => o.SubTeams);
         }
     }
 }

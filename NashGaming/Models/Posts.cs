@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 
@@ -10,11 +12,16 @@ namespace NashGaming.Models
     {
         [Key]
         public int PostID { get; set; }
+        [Required]
         public virtual Gamer Author  { get; set; }
+        public int AuthorID { get; set; }
         [Required]
         public string Content { get; set; }
         public DateTime Date { get; set; }
-        public virtual int LeagueID { get; set; }
+        public virtual League LeagueID { get; set; }
+        public virtual League League { get; set; }
+        public virtual Ladder LadderID { get; set; }
+        public virtual Ladder Ladder { get; set; }
 
         public int CompareTo(object obj)
         {
@@ -29,6 +36,15 @@ namespace NashGaming.Models
                 return false;
             }
             return a.PostID == this.PostID;
+        }
+    }
+    public class PostConfiguration : EntityTypeConfiguration<Posts>
+    {
+        public PostConfiguration()
+        {
+            HasOptional(o => o.LadderID);
+            HasOptional(o => o.LeagueID);
+
         }
     }
 }

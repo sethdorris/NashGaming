@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 
@@ -34,6 +36,15 @@ namespace NashGaming.Models
                 return false;
             }
             return o.LeagueID == this.LeagueID;
+        }
+    }
+    public class LeagueConfiguration : EntityTypeConfiguration<League>
+    {
+        public LeagueConfiguration()
+        {
+            HasOptional(o => o.Matches);
+            HasOptional(o => o.Teams);
+            HasOptional(o => o.Feed);
         }
     }
 }

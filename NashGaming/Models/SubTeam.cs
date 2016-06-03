@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +11,18 @@ namespace NashGaming.Models
 {
     public class SubTeam : IComparable
     {
+        [Key]
         public int SubTeamID { get; set; }
         public string SubTeamName { get; set; }
+        [Required]
         public MainTeam MainTeam { get; set; }
+        public int MainTeamID { get; set; }
         public virtual Gamer Captain { get; set; }
+        public int CaptainID { get; set; }
         public virtual League League { get; set; }
+        public int LeagueID { get; set; }
+        public virtual Ladder Ladder { get; set; }
+        public int LadderID { get; set; }
         public int Rank { get; set; }
         public int Points { get; set; }
         public int Wins { get; set; }
@@ -33,6 +43,15 @@ namespace NashGaming.Models
                 return false;
             }
             return a.SubTeamID == this.SubTeamID;
+        }
+    }
+    public class SubTeamConfiguration : EntityTypeConfiguration<SubTeam>
+    {
+        public SubTeamConfiguration()
+        {
+            HasOptional(o => o.Ladder);
+            HasOptional(o => o.League);
+            HasOptional(o => o.Roster);
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +11,7 @@ namespace NashGaming.Models
 {
     public class Ladder
     {
+        [Key]
         public int LadderID { get; set; }
         public string LadderName { get; set; }
         public string GameTitle { get; set; }
@@ -27,6 +31,16 @@ namespace NashGaming.Models
                 return false;
             }
             return a.LadderID == this.LadderID;
+        }
+    }
+    public class LadderConfiguration : EntityTypeConfiguration<Ladder>
+    {
+        public LadderConfiguration()
+        {
+            this.HasOptional(o => o.Feed);
+            this.HasOptional(o => o.Challenges);
+            this.HasOptional(o => o.Teams);
+            this.HasOptional(o => o.Matches);
         }
     }
 }
