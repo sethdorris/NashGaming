@@ -12,12 +12,11 @@ namespace NashGaming.Models
 {
     public class Gamer : IdentityUser, IComparable
     {
-        [Key]
+        [Key, ForeignKey("MainTeam")]
         public int GamerID { get; set; }
         public virtual string RealUserID { get; set; }
         public string XB1Gamertag { get; set; }
         public string PSNID { get; set; }
-        [ForeignKey("TeamID")]
         public virtual MainTeam MainTeam { get; set; }
         public virtual List<Posts> Comments { get; set; }
         public virtual List<TeamInvite> TeamInvites { get; set; }
@@ -43,10 +42,8 @@ namespace NashGaming.Models
     {
         public GamerConfiguration()
         {
-            Property(o => o.Active)
-                .IsOptional();
-            this.HasOptional(o => o.Comments);
-            this.HasOptional(o => o.TeamInvites);
+            HasOptional(o => o.MainTeam)
+                .WithRequired();
         }
     }
 }

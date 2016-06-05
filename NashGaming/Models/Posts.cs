@@ -18,9 +18,7 @@ namespace NashGaming.Models
         [Required]
         public string Content { get; set; }
         public DateTime Date { get; set; }
-        public virtual League LeagueID { get; set; }
         public virtual League League { get; set; }
-        public virtual Ladder LadderID { get; set; }
         public virtual Ladder Ladder { get; set; }
 
         public int CompareTo(object obj)
@@ -42,8 +40,12 @@ namespace NashGaming.Models
     {
         public PostConfiguration()
         {
-            HasOptional(o => o.LadderID);
-            HasOptional(o => o.LeagueID);
+            HasOptional(o => o.Ladder)
+                .WithOptionalDependent();
+            HasOptional(o => o.League)
+                .WithOptionalDependent();
+            HasRequired(o => o.Author)
+                .WithRequiredDependent();
 
         }
     }

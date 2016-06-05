@@ -38,7 +38,9 @@ namespace NashGaming.Models
         public LadderConfiguration()
         {
             this.HasOptional(o => o.Feed);
-            this.HasOptional(o => o.Challenges);
+            HasOptional(o => o.Challenges)
+                .WithMany()
+                .HasForeignKey(o => o.Challenges);
             this.HasOptional(o => o.Teams);
             this.HasOptional(o => o.Matches);
         }

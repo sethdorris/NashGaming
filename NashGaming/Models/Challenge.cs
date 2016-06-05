@@ -14,9 +14,15 @@ namespace NashGaming.Models
         [Key]
         public int ChallengeID { get; set; }
         [Required]
-        public SubTeam Initiator { get; set; }
+        public virtual SubTeam Initiator { get; set; }
         [Required]
-        public SubTeam Recipient { get; set; }
+        [ForeignKey("Initiator")]
+        public int InitiatorID { get; set; }
+        [Required]
+        public virtual SubTeam Recipient { get; set; }
+        [Required]
+        [ForeignKey("Recipient")]
+        public int RecipientID { get; set; }
         [Required]
         public DateTime ProposedDate1 { get; set; }
         [Required]
@@ -25,6 +31,7 @@ namespace NashGaming.Models
         public DateTime ProposedDate3 { get; set; }
         public bool Accepted { get; set; }
         public virtual Ladder Ladder { get; set; }
+        [Required]
         public int LadderID { get; set; }
         public override bool Equals(object obj)
         {
@@ -40,7 +47,11 @@ namespace NashGaming.Models
     {
         public ChallengeConfiguration()
         {
-
+            HasRequired(o => o.Initiator);
+            HasRequired(o => o.Recipient);
+            HasRequired(o => o.Ladder)
+                .WithRequiredDependent();
+               
         }
     }
 }

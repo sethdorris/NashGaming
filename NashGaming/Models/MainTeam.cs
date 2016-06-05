@@ -10,18 +10,15 @@ namespace NashGaming.Models
 {
     public class MainTeam : IComparable
     {
-        [Key]
+        [Key, ForeignKey("Founder")]
         public int TeamID { get; set; }
         public string TeamName { get; set; }
         public DateTime DateFounded { get; set; }
-        [Required]
-        [ForeignKey("GamerID")]
-        public Gamer Founder { get; set; }
-        public int FounderID { get; set; }
+        public virtual Gamer Founder { get; set; }
         public string Website { get; set; }
         public bool Active { get; set; }
-        [ForeignKey("SubTeamID")]
-        public List<SubTeam> SubTeams { get; set; }
+        [ForeignKey("SubTeams")]
+        public virtual List<SubTeam> SubTeams { get; set; }
 		public string LogoLink { get; set; }
 
 		public int CompareTo(object obj)
@@ -43,7 +40,10 @@ namespace NashGaming.Models
     {
         public MainTeamConfiguration()
         {
-            HasOptional(o => o.SubTeams);
+            HasRequired(o => o.Founder)
+                .WithRequiredDependent();
+            HasOptional(o => o.SubTeams)
+                .WithOptionalDependent();
         }
     }
 }
