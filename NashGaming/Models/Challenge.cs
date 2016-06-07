@@ -12,8 +12,12 @@ namespace NashGaming.Models
     public class Challenge
     {
         public virtual int ChallengeID { get; set; }
+        [ForeignKey("InitiatorId")]
         public virtual MainTeam Initiator { get; set; }
+        public virtual int InitiatorId { get; set; }
+        [ForeignKey("RecipientId")]
         public virtual MainTeam Recipient { get; set; }
+        public virtual int RecipientId { get; set; }
         public DateTime ProposedDate1 { get; set; }
         public DateTime ProposedDate2 { get; set; }
         public DateTime ProposedDate3 { get; set; }

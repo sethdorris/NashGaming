@@ -3,7 +3,7 @@ namespace NashGaming.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class New : DbMigration
+    public partial class Test : DbMigration
     {
         public override void Up()
         {
@@ -12,28 +12,28 @@ namespace NashGaming.Migrations
                 c => new
                     {
                         ChallengeID = c.Int(nullable: false, identity: true),
+                        InitiatorId = c.Int(nullable: false),
+                        RecipientId = c.Int(nullable: false),
                         ProposedDate1 = c.DateTime(nullable: false),
                         ProposedDate2 = c.DateTime(nullable: false),
                         ProposedDate3 = c.DateTime(nullable: false),
                         Accepted = c.Boolean(nullable: false),
-                        Ladder_LadderID = c.Int(),
-                        Initiator_MainTeamID = c.Int(),
-                        Recipient_MainTeamID = c.Int(),
+                        Ladder_LadderID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ChallengeID)
                 .ForeignKey("dbo.Ladders", t => t.Ladder_LadderID)
-                .ForeignKey("dbo.MainTeams", t => t.Initiator_MainTeamID)
-                .ForeignKey("dbo.MainTeams", t => t.Recipient_MainTeamID)
-                .Index(t => t.Ladder_LadderID)
-                .Index(t => t.Initiator_MainTeamID)
-                .Index(t => t.Recipient_MainTeamID);
+                .ForeignKey("dbo.MainTeams", t => t.InitiatorId, cascadeDelete: false)
+                .ForeignKey("dbo.MainTeams", t => t.RecipientId, cascadeDelete: false)
+                .Index(t => t.InitiatorId)
+                .Index(t => t.RecipientId)
+                .Index(t => t.Ladder_LadderID);
             
             CreateTable(
                 "dbo.MainTeams",
                 c => new
                     {
                         MainTeamID = c.Int(nullable: false, identity: true),
-                        TeamName = c.String(),
+                        TeamName = c.String(nullable: false),
                         DateFounded = c.DateTime(nullable: false),
                         Website = c.String(),
                         Active = c.Boolean(nullable: false),
@@ -65,7 +65,7 @@ namespace NashGaming.Migrations
                         PostsID = c.Int(nullable: false, identity: true),
                         Content = c.String(),
                         Date = c.DateTime(nullable: false),
-                        Author_GamerID = c.Int(),
+                        Author_GamerID = c.Int(nullable: false),
                         Ladder_LadderID = c.Int(),
                         League_LeagueID = c.Int(),
                     })
@@ -82,11 +82,11 @@ namespace NashGaming.Migrations
                 c => new
                     {
                         LadderID = c.Int(nullable: false, identity: true),
-                        LadderName = c.String(),
-                        GameTitle = c.String(),
+                        LadderName = c.String(nullable: false),
+                        GameTitle = c.String(nullable: false),
                         MinPlayers = c.Int(nullable: false),
                         MaxPlayers = c.Int(nullable: false),
-                        Platform = c.String(),
+                        Platform = c.String(nullable: false),
                         Active = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.LadderID);
@@ -101,8 +101,8 @@ namespace NashGaming.Migrations
                         Team1Score = c.Int(nullable: false),
                         Team2Score = c.Int(nullable: false),
                         Completed = c.Boolean(nullable: false),
-                        Ladder_LadderID = c.Int(),
-                        League_LeagueID = c.Int(),
+                        Ladder_LadderID = c.Int(nullable: false),
+                        League_LeagueID = c.Int(nullable: false),
                         Team1_MainTeamID = c.Int(nullable: false),
                         Team2_MainTeamID = c.Int(nullable: false),
                     })
@@ -123,13 +123,13 @@ namespace NashGaming.Migrations
                         LeagueID = c.Int(nullable: false, identity: true),
                         MinPlayers = c.Int(nullable: false),
                         MaxPlayers = c.Int(nullable: false),
-                        LeagueName = c.String(),
+                        LeagueName = c.String(nullable: false),
                         GamesPerWeek = c.Int(nullable: false),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         SeasonLength = c.Int(nullable: false),
-                        LeagueType = c.String(),
-                        GameTitle = c.String(),
+                        LeagueType = c.String(nullable: false),
+                        GameTitle = c.String(nullable: false),
                         Platform = c.String(maxLength: 3),
                         Active = c.Boolean(nullable: false),
                     })
@@ -143,7 +143,7 @@ namespace NashGaming.Migrations
                         DateSent = c.DateTime(nullable: false),
                         DateAccepted = c.DateTime(nullable: false),
                         Accepted = c.Boolean(nullable: false),
-                        InvitedGamer_GamerID = c.Int(),
+                        InvitedGamer_GamerID = c.Int(nullable: false),
                         Team_MainTeamID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TeamInviteID)
@@ -256,8 +256,8 @@ namespace NashGaming.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Challenges", "Recipient_MainTeamID", "dbo.MainTeams");
-            DropForeignKey("dbo.Challenges", "Initiator_MainTeamID", "dbo.MainTeams");
+            DropForeignKey("dbo.Challenges", "RecipientId", "dbo.MainTeams");
+            DropForeignKey("dbo.Challenges", "InitiatorId", "dbo.MainTeams");
             DropForeignKey("dbo.TeamInvites", "Team_MainTeamID", "dbo.MainTeams");
             DropForeignKey("dbo.TeamInvites", "InvitedGamer_GamerID", "dbo.Gamers");
             DropForeignKey("dbo.Gamers", "MainTeam_MainTeamID", "dbo.MainTeams");
@@ -273,6 +273,7 @@ namespace NashGaming.Migrations
             DropForeignKey("dbo.Posts", "Ladder_LadderID", "dbo.Ladders");
             DropForeignKey("dbo.Challenges", "Ladder_LadderID", "dbo.Ladders");
             DropForeignKey("dbo.Posts", "Author_GamerID", "dbo.Gamers");
+            DropForeignKey("dbo.Challenges", "MainTeam_MainTeamID", "dbo.MainTeams");
             DropIndex("dbo.LeagueMainTeams", new[] { "MainTeam_MainTeamID" });
             DropIndex("dbo.LeagueMainTeams", new[] { "League_LeagueID" });
             DropIndex("dbo.LadderMainTeams", new[] { "MainTeam_MainTeamID" });
@@ -293,9 +294,10 @@ namespace NashGaming.Migrations
             DropIndex("dbo.Posts", new[] { "Ladder_LadderID" });
             DropIndex("dbo.Posts", new[] { "Author_GamerID" });
             DropIndex("dbo.Gamers", new[] { "MainTeam_MainTeamID" });
-            DropIndex("dbo.Challenges", new[] { "Recipient_MainTeamID" });
-            DropIndex("dbo.Challenges", new[] { "Initiator_MainTeamID" });
             DropIndex("dbo.Challenges", new[] { "Ladder_LadderID" });
+            DropIndex("dbo.Challenges", new[] { "MainTeam_MainTeamID" });
+            DropIndex("dbo.Challenges", new[] { "RecipientId" });
+            DropIndex("dbo.Challenges", new[] { "InitiatorId" });
             DropTable("dbo.LeagueMainTeams");
             DropTable("dbo.LadderMainTeams");
             DropTable("dbo.AspNetUserLogins");

@@ -18,6 +18,7 @@ namespace NashGaming.Models
         public ICollection<Ladder> Ladders { get; set; }
         public ICollection<League> Leagues { get; set; }
         public ICollection<Gamer> Gamers { get; set; }
+        //public ICollection<Challenge> Challenges { get; set; }
 		public string LogoLink { get; set; }
 
 		public int CompareTo(object obj)

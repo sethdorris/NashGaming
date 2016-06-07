@@ -46,10 +46,19 @@ namespace NashGaming.Migrations
                 };
             List<League> Leaguedb = new List<League>
                 {
-                    new League { LeagueID = 0, GamesPerWeek = 1, GameTitle = "CSGO", Platform = "PC", EndDate = new DateTime(2016, 09, 01), StartDate = new DateTime(2016, 06, 01), LeagueName = "CSGO 4v4 OBJ League", MinPlayers = 2, MaxPlayers = 4, LeagueType = "Open", Active = true, MainTeams = null, Matches = new List<Match>(), Feed = new List<Posts>() },
-                    new League { LeagueID = 1, GamesPerWeek = 2, GameTitle = "Halo", Platform = "XB1", EndDate = new DateTime(2016, 09, 01), StartDate = new DateTime(2016, 06, 01), LeagueName = "Halo 4v4 TDM League", MinPlayers = 2, MaxPlayers = 4, LeagueType = "Intermediate", Active = true, MainTeams = null, Matches = new List<Match>(), Feed = new List<Posts>() },
-                    new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "Rainbow Six: Siege", Platform = "PS4", EndDate = new DateTime(2016, 09, 01), StartDate = new DateTime(2016, 06, 01), LeagueName = "Rainbow6 Siege 5v5 League", MinPlayers = 3, MaxPlayers = 5, LeagueType = "Invite", Active = true, MainTeams = null, Matches = new List<Match>(), Feed = new List<Posts>() }
+                    new League { LeagueID = 0, GamesPerWeek = 1, GameTitle = "CSGO", Platform = "PC", EndDate = new DateTime(2016, 09, 01), StartDate = new DateTime(2016, 06, 01), LeagueName = "CSGO 4v4 OBJ League", MinPlayers = 2, MaxPlayers = 4, LeagueType = "Open", Active = true, MainTeams = new List<MainTeam>(), Matches = new List<Match>(), Feed = new List<Posts>() },
+                    new League { LeagueID = 1, GamesPerWeek = 2, GameTitle = "Halo", Platform = "XB1", EndDate = new DateTime(2016, 09, 01), StartDate = new DateTime(2016, 06, 01), LeagueName = "Halo 4v4 TDM League", MinPlayers = 2, MaxPlayers = 4, LeagueType = "Intermediate", Active = true, MainTeams = new List<MainTeam>(), Matches = new List<Match>(), Feed = new List<Posts>() },
+                    new League { LeagueID = 2, GamesPerWeek = 1, GameTitle = "Rainbow Six: Siege", Platform = "PS4", EndDate = new DateTime(2016, 09, 01), StartDate = new DateTime(2016, 06, 01), LeagueName = "Rainbow6 Siege 5v5 League", MinPlayers = 3, MaxPlayers = 5, LeagueType = "Invite", Active = true, MainTeams = new List<MainTeam>(), Matches = new List<Match>(), Feed = new List<Posts>() }
                 };
+            Leaguedb[0].MainTeams.Add(MainTeamdb[0]);
+            Leaguedb[0].MainTeams.Add(MainTeamdb[1]);
+            Leaguedb[0].MainTeams.Add(MainTeamdb[2]);
+            Leaguedb[1].MainTeams.Add(MainTeamdb[0]);
+            Leaguedb[1].MainTeams.Add(MainTeamdb[1]);
+            Leaguedb[1].MainTeams.Add(MainTeamdb[2]);
+            Leaguedb[2].MainTeams.Add(MainTeamdb[0]);
+            Leaguedb[2].MainTeams.Add(MainTeamdb[1]);
+            Leaguedb[2].MainTeams.Add(MainTeamdb[2]);
             int l1seasonlength = Convert.ToInt16((Leaguedb[0].EndDate - Leaguedb[0].StartDate).Days / 7);
             int l2seasonlength = Convert.ToInt16((Leaguedb[1].EndDate - Leaguedb[1].StartDate).Days / 7);
             int l3seasonlength = Convert.ToInt16((Leaguedb[2].EndDate - Leaguedb[2].StartDate).Days / 7);
@@ -58,20 +67,31 @@ namespace NashGaming.Migrations
             Leaguedb[2].SeasonLength = l3seasonlength;
             List<Ladder> Ladderdb = new List<Ladder>
                 {
-                    new Ladder { LadderID = 0, GameTitle = "CSGO", Platform = "PC", LadderName = "2v2 Pistols Only", MinPlayers = 1, MaxPlayers = 2, Active = true, MainTeams = null, Challenges = new List<Challenge>(), Feed = new List<Posts>(), Matches = new List<Match>() }
+                    new Ladder { LadderID = 0, GameTitle = "CSGO", Platform = "PC", LadderName = "2v2 Pistols Only", MinPlayers = 1, MaxPlayers = 2, Active = true, MainTeams = new List<MainTeam>(), Challenges = new List<Challenge>(), Feed = new List<Posts>(), Matches = new List<Match>() }
                 };
-            
-            TeamInvite ti1 = new TeamInvite { TeamInviteID = 0, InvitedGamer = Gamerdb[8], Team = MainTeamdb[0], Accepted = false, DateSent = new DateTime(2016, 06, 03) };
+            Ladderdb[0].MainTeams.Add(MainTeamdb[0]);
+            Ladderdb[0].MainTeams.Add(MainTeamdb[1]);
+            TeamInvite ti1 = new TeamInvite { TeamInviteID = 0, InvitedGamer = Gamerdb[8], Team = MainTeamdb[0], Accepted = false, DateSent = new DateTime(2016, 06, 03), DateAccepted = new DateTime(2016, 06, 12) };
             List<TeamInvite> TeamInviteDB = new List<TeamInvite> { ti1 };
-            //Challenge challenge1 = new Challenge { ChallengeID = 0, Accepted = false, Ladder = Ladderdb[0], Initiator = ladder1team1, Recipient = ladder1team2, ProposedDate1 = new DateTime(2016, 06, 09, 18, 00, 00), ProposedDate2 = new DateTime(2016, 06, 12, 17, 15, 00), ProposedDate3 = new DateTime(2016, 06, 15, 21, 30, 00) };
-            //List<Challenge> cdb = new List<Challenge> { challenge1 };
-            //Ladderdb[0].Challenges.Add(challenge1);
-            //context.Challenges.AddRange(cdb);
-            context.Gamers.AddRange(Gamerdb);
-            //context.Invites.AddRange(TeamInviteDB);
-            context.Teams.AddRange(MainTeamdb);
-            context.Ladders.AddRange(Ladderdb);
-            context.Leagues.AddRange(Leaguedb);
+            Challenge challenge1 = new Challenge { ChallengeID = 0, Accepted = false, Ladder = Ladderdb[0], Initiator = MainTeamdb[0], Recipient = MainTeamdb[1], ProposedDate1 = new DateTime(2016, 06, 11), ProposedDate2 = new DateTime(2016, 06, 15), ProposedDate3 = new DateTime(2016, 06, 20) };
+            foreach (Gamer g in Gamerdb)
+            {
+                context.Gamers.AddOrUpdate(g);
+            }
+            foreach (MainTeam t in MainTeamdb)
+            {
+                context.Teams.AddOrUpdate(t);
+            }
+            foreach (League lg in Leaguedb)
+            {
+                context.Leagues.AddOrUpdate(lg);
+            }
+            foreach (Ladder ld in Ladderdb)
+            {
+                context.Ladders.AddOrUpdate(ld);
+            }
+            context.Invites.AddOrUpdate(ti1);
+            context.Challenges.AddOrUpdate(challenge1);
             context.SaveChanges();
         }
     }

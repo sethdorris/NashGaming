@@ -11,9 +11,9 @@
             @{  NashGamingRepository nashRepo = new NashGamingRepository();
                 Gamer gamer = new Gamer();
 
-                gamer = nashRepo.GetGamerByAspUserName(User.Identity.GetUserName());
+                gamer = nashRepo.getgamerbyaspusername(User.Identity.GetUserName());
             }
-            @Html.ActionLink("Hello " + gamer.DisplayName + "!", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hello " + gamer.DisplayName + "!", "Index", "Profile");
 
 
         </li>

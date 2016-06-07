@@ -19,7 +19,8 @@ namespace NashGaming.Models
         public virtual DbSet<Challenge> Challenges { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            //modelBuilder.Entity<Challenge>().HasRequired(o => o.Initiator).WithMany(o => o.Challenges).HasForeignKey(o => o.Initiator);
+            //modelBuilder.Entity<Challenge>().HasRequired(o => o.Recipient).WithMany(o => o.Challenges).HasForeignKey(o => o.Recipient);
             base.OnModelCreating(modelBuilder);
 
         }
