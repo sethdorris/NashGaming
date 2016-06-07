@@ -3,10 +3,23 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="jumbotron">
+    <h2>@Model.DisplayName</h2>
+    <p>@Model.PSNID</p>
+    @Html.ActionLink("Manage User Settings", "Index", "Manage")
+</div>
 
-<h2>@Model.DisplayName</h2>
-<p>@Model.PSNID</p>
-@Html.ActionLink("Manage User Settings", "Index", "Manage")
+<div>
+    <h4>Team Invites</h4>
+    @{ if (Model.TeamInvites != null)
+        {
+            foreach (NashGaming.Models.TeamInvite inv in Model.TeamInvites)
+            {
+                <h5>@inv.Team.TeamName has invited you to join their Squad</h5>
+            }
+        }
+     }
+</div>
 
 <div>
     @{
