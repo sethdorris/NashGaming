@@ -17,10 +17,10 @@ namespace NashGaming.Controllers
             _context = new NashGamingContext();
         }
         // GET: Profile
-        public ActionResult Index()
-        {
-            Gamer g = _repo.GetGamerByAspUserName(User.Identity.Name);
-            return View(g);
-        }
+        //public ActionResult Index()
+        //{
+        //    Gamer g = _repo.GetGamerByAspUserName(User.Identity.Name);
+        //    return View(g);
+        //}
     }
 }

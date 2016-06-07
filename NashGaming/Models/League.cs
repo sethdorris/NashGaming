@@ -10,9 +10,8 @@ namespace NashGaming.Models
 {
     public class League
     {
-        [Key]
         public int LeagueID { get; set; }
-        public virtual List<SubTeam> Teams { get; set; }
+        public virtual ICollection<MainTeam> MainTeams { get; set; }
         public int MinPlayers { get; set; }
         public int MaxPlayers { get; set; }
         public string LeagueName { get; set; }
@@ -22,11 +21,11 @@ namespace NashGaming.Models
         public int SeasonLength { get; set; }
         public string LeagueType { get; set; }
         public string GameTitle { get; set; }
-        public virtual List<Match> Matches { get; set; }
+        public virtual ICollection<Match> Matches { get; set; }
         [MaxLength(3)]
         [MinLength(2)]
         public string Platform { get; set; }
-        public virtual List<Posts> Feed { get; set; }
+        public virtual ICollection<Posts> Feed { get; set; }
         public bool Active { get; set; }
         public override bool Equals(object obj)
         {
@@ -36,15 +35,6 @@ namespace NashGaming.Models
                 return false;
             }
             return o.LeagueID == this.LeagueID;
-        }
-    }
-    public class LeagueConfiguration : EntityTypeConfiguration<League>
-    {
-        public LeagueConfiguration()
-        {
-            HasOptional(o => o.Matches);
-            HasOptional(o => o.Teams);
-            HasOptional(o => o.Feed);
         }
     }
 }

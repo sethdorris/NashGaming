@@ -112,12 +112,12 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> gamerdb = new List<Gamer>
             {
-                new Gamer { GamerID = 0, Active = true, UserName = "Steve" },
-                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+                new Gamer { GamerID = 0, Active = true },
+                new Gamer { GamerID = 1, Active = true}
             };
             _gamerSet.Object.AddRange(gamerdb);
             ConnectMocksToDataStore(gamerdb);
-            Gamer expected = new Gamer { GamerID = 0, Active = false, UserName = "Steve" };
+            Gamer expected = new Gamer { GamerID = 0, Active = false};
             bool testcall = _repo.DeleteGamerById(0);
             Gamer actual = _repo.GetGamerById(0);
             Assert.AreEqual(expected, actual);
@@ -128,13 +128,13 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> gamerdb = new List<Gamer>
             {
-                new Gamer { GamerID = 0, Active = true, UserName = "Steve" },
-                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+                new Gamer { GamerID = 0, Active = true },
+                new Gamer { GamerID = 1, Active = true}
             };
-            MainTeam t = new MainTeam { TeamID = 0, TeamName = "stk" };
+            MainTeam t = new MainTeam { MainTeamID = 0, TeamName = "stk" };
             _gamerSet.Object.AddRange(gamerdb);
             ConnectMocksToDataStore(gamerdb);
-            Gamer expected = new Gamer { GamerID = 0, Active = false, UserName = "Steve", MainTeam = t };
+            Gamer expected = new Gamer { GamerID = 0, Active = false, MainTeam = t };
             bool testcall = _repo.UpdateGamerMainTeam(0, t);
             Gamer actual = _repo.GetGamerById(0);
             Assert.AreEqual(expected, actual);
@@ -145,14 +145,14 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> gamerdb = new List<Gamer>
             {
-                new Gamer { GamerID = 0, Active = true, UserName = "Steve", Comments = new List<Posts>() },
-                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+                new Gamer { GamerID = 0, Active = true, Comments = new List<Posts>() },
+                new Gamer { GamerID = 1, Active = true}
             };
-            Posts p = new Posts { PostID = 0, Content = "Hi" };
+            Posts p = new Posts { PostsID = 0, Content = "Hi" };
 
             _gamerSet.Object.AddRange(gamerdb);
             ConnectMocksToDataStore(gamerdb);
-            Gamer expected = new Gamer { GamerID = 0, Active = true, UserName = "Steve", Comments = new List<Posts>() };
+            Gamer expected = new Gamer { GamerID = 0, Active = true, Comments = new List<Posts>() };
             expected.Comments.Add(p);
             bool result = _repo.UpdateGamerComments(0, p);
             Gamer actual = _repo.GetGamerById(0);
@@ -164,14 +164,14 @@ namespace NashGaming.Tests.Models
         {
             List<Gamer> gamerdb = new List<Gamer>
             {
-                new Gamer { GamerID = 0, Active = true, UserName = "Steve", TeamInvites = new List<TeamInvite>() },
-                new Gamer { GamerID = 1, Active = true, UserName = "Jon" }
+                new Gamer { GamerID = 0, Active = true, TeamInvites = new List<TeamInvite>() },
+                new Gamer { GamerID = 1, Active = true}
             };
             TeamInvite i = new TeamInvite { TeamInviteID = 1, Team = new MainTeam() };
 
             _gamerSet.Object.AddRange(gamerdb);
             ConnectMocksToDataStore(gamerdb);
-            Gamer expected = new Gamer { GamerID = 0, Active = true, UserName = "Steve", TeamInvites = new List<TeamInvite>() };
+            Gamer expected = new Gamer { GamerID = 0, Active = true, TeamInvites = new List<TeamInvite>() };
             expected.TeamInvites.Add(i);
             bool result = _repo.UpdateGamerTeamInvites(0, i);
             Gamer actual = _repo.GetGamerById(0);

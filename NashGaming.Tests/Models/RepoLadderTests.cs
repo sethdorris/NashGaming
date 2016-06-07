@@ -90,7 +90,7 @@ namespace NashGaming.Tests.Models
             {
                 new Ladder { LadderID = 0, GameTitle = "Halo", MinPlayers = 2, Feed = new List<Posts>() },
             };
-            Posts p = new Posts { PostID = 0, Content = "Hi" };
+            Posts p = new Posts { PostsID = 0, Content = "Hi" };
             List<Ladder> expected = new List<Ladder>
             {
                 new Ladder { LadderID = 0, GameTitle = "Halo", MinPlayers = 2, Feed = new List<Posts> { p } },
@@ -105,7 +105,7 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void RepoLadderTestsRemovePostFromLadder()
         {
-            Posts p = new Posts { PostID = 0, Content = "Hi" };
+            Posts p = new Posts { PostsID = 0, Content = "Hi" };
             List<Ladder> ladderdb = new List<Ladder>
             {
                 new Ladder { LadderID = 0, GameTitle = "Halo", MinPlayers = 2, Feed = new List<Posts> { p } },
@@ -118,121 +118,6 @@ namespace NashGaming.Tests.Models
             ConnectMocksToDataStore(ladderdb);
             bool result = _repo.RemovePostFromLadder(0, p);
             List<Ladder> actual = _repo.GetAllLadders();
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void RepoLadderTestsRemoveSubTeams()
-        {
-            List<Ladder> l = new List<Ladder>
-            {
-                new Ladder {LadderID = 0, GameTitle = "Halo", Teams = new List<SubTeam>() }
-            };
-            SubTeam t = new SubTeam { SubTeamID = 0, MainTeam = new MainTeam() };
-            l[0].Teams.Add(t);
-            _ladderSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.RemoveTeamFromLadder(0, t);
-            List<Ladder> actual = _repo.GetAllLadders();
-            List<Ladder> expected = new List<Ladder>
-            {
-                new Ladder {LadderID =0, GameTitle = "Halo", Teams = new List<SubTeam>() }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void RepoLadderTestsAddSubTeams()
-        {
-            List<Ladder> l = new List<Ladder>
-            {
-                new Ladder {LadderID = 0, GameTitle = "Halo", Teams = new List<SubTeam>() }
-            };
-            SubTeam t = new SubTeam { SubTeamID = 0, MainTeam = new MainTeam() };
-            _ladderSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.AddTeamToLadder(0, t);
-            List<Ladder> actual = _repo.GetAllLadders();
-            List<Ladder> expected = new List<Ladder>
-            {
-                new Ladder {LadderID =0, GameTitle = "Halo", Teams = new List<SubTeam> { t } }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void RepoLadderTestsAddMatches()
-        {
-            List<Ladder> l = new List<Ladder>
-            {
-                new Ladder {LadderID = 0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match>() }
-            };
-            NashGaming.Models.Match m = new NashGaming.Models.Match { MatchID = 0, Team1 = new SubTeam(), Team2 = new SubTeam() };
-            _ladderSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.AddMatchToLadder(0, m);
-            List<Ladder> actual = _repo.GetAllLadders();
-            List<Ladder> expected = new List<Ladder>
-            {
-                new Ladder {LadderID =0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match> { m } }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void RepoLadderTestsRemoveMatches()
-        {
-            NashGaming.Models.Match m = new NashGaming.Models.Match { MatchID = 0, Team1 = new SubTeam(), Team2 = new SubTeam() };
-            List<Ladder> l = new List<Ladder>
-            {
-                new Ladder {LadderID = 0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match> {m } }
-            };
-            _ladderSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.RemoveMatchFromLadder(0, m);
-            List<Ladder> actual = _repo.GetAllLadders();
-            List<Ladder> expected = new List<Ladder>
-            {
-                new Ladder {LadderID =0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match>() }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void RepoLadderTestsRemoveChallenges()
-        {
-            Challenge c = new Challenge { ChallengeID = 0, Initiator = new SubTeam(), Recipient = new SubTeam() };
-            List<Ladder> l = new List<Ladder>
-            {
-                new Ladder {LadderID = 0, GameTitle = "Halo", MaxPlayers = 2, Challenges = new List<Challenge> { c } }
-            };
-            _ladderSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.RemoveChallengeFromLadder(0, c);
-            List<Ladder> actual = _repo.GetAllLadders();
-            List<Ladder> expected = new List<Ladder>
-            {
-                new Ladder {LadderID =0, GameTitle = "Halo", MaxPlayers = 2, Challenges = new List<Challenge>() }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void RepoLadderTestsAddChallenges()
-        {
-            Challenge c = new Challenge { ChallengeID = 0, Initiator = new SubTeam(), Recipient = new SubTeam() };
-            List<Ladder> l = new List<Ladder>
-            {
-                new Ladder {LadderID = 0, GameTitle = "Halo", MaxPlayers = 2, Challenges = new List<Challenge>()}
-            };
-            _ladderSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.RemoveChallengeFromLadder(0, c);
-            List<Ladder> actual = _repo.GetAllLadders();
-            List<Ladder> expected = new List<Ladder>
-            {
-                new Ladder {LadderID =0, GameTitle = "Halo", MaxPlayers = 2, Challenges = new List<Challenge> { c } }
-            };
             Assert.IsTrue(result);
             CollectionAssert.AreEqual(expected, actual);
         }

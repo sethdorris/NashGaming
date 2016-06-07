@@ -11,17 +11,10 @@ namespace NashGaming.Models
 {
     public class TeamInvite
     {
-        [Key]
         public int TeamInviteID { get; set; }
         [Required]
         public virtual MainTeam Team { get; set; }
-        public int MainTeamID { get; set; }
-        [Required]
-        public virtual List<SubTeam> SubTeams { get; set; }
-        public int SubTeamID { get; set; }
-        [Required]
         public virtual Gamer InvitedGamer { get; set; }
-        public int InvitedGamerID { get; set; }
         public DateTime DateSent { get; set; }
         public DateTime DateAccepted { get; set; }
         public bool Accepted { get; set; }
@@ -38,8 +31,7 @@ namespace NashGaming.Models
     public class TeamInviteConfiguration : EntityTypeConfiguration<TeamInvite> {
         public TeamInviteConfiguration()
         {
-            Property(o => o.DateAccepted)
-                .IsOptional();
+
         }
     }
 }

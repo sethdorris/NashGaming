@@ -221,26 +221,6 @@ namespace NashGaming.Tests.Models
             League actual = _repo.GetLeagueByID(0);
             Assert.AreEqual(expected, actual);
         }
-
-        [TestMethod]
-        public void RepoLeagueTestsAddSubTeams()
-        {
-            List<League> l = new List<League>
-            {
-                new League {LeagueID = 0, GameTitle = "Halo", Teams = new List<SubTeam>() }
-            };
-            SubTeam t = new SubTeam { SubTeamID = 0, MainTeam = new MainTeam() };
-            _leagueSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.AddLeagueTeams(0, t);
-            List<League> actual = _repo.GetAllLeagues();
-            List<League> expected = new List<League>
-            {
-                new League {LeagueID =0, GameTitle = "Halo", Teams = new List<SubTeam> { t } }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
         [TestMethod]
         public void RepoLeagueTestsInactivateALeague()
         {
@@ -256,26 +236,6 @@ namespace NashGaming.Tests.Models
             };
             bool actual = _repo.InactivateLeague(0);
             Assert.IsTrue(actual);
-        }
-        [TestMethod]
-        public void RepoLeagueTestsRemoveSubTeams()
-        {
-            List<League> l = new List<League>
-            {
-                new League {LeagueID = 0, GameTitle = "Halo", Teams = new List<SubTeam>() }
-            };
-            SubTeam t = new SubTeam { SubTeamID = 0, MainTeam = new MainTeam() };
-            l[0].Teams.Add(t);
-            _leagueSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.RemoveLeagueTeams(0, t);
-            List<League> actual = _repo.GetAllLeagues();
-            List<League> expected = new List<League>
-            {
-                new League {LeagueID =0, GameTitle = "Halo", Teams = new List<SubTeam>() }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
         }
         [TestMethod]
         public void RepoLeagueTestsUpdateMinPlayers()
@@ -349,48 +309,11 @@ namespace NashGaming.Tests.Models
             Assert.IsTrue(result);
             CollectionAssert.AreEqual(expected, actual);
         }
-        [TestMethod]
-        public void RepoLeagueTestsAddMatches()
-        {
-            List<League> l = new List<League>
-            {
-                new League {LeagueID = 0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match>() }
-            };
-            NashGaming.Models.Match m = new NashGaming.Models.Match { MatchID = 0, Team1 = new SubTeam(), Team2 = new SubTeam() };
-            _leagueSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.AddMatchToLeague(0, m);
-            List<League> actual = _repo.GetAllLeagues();
-            List<League> expected = new List<League>
-            {
-                new League {LeagueID =0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match> { m } }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void RepoLeagueTestsRemoveMatches()
-        {
-            NashGaming.Models.Match m = new NashGaming.Models.Match { MatchID = 0, Team1 = new SubTeam(), Team2 = new SubTeam() };
-            List<League> l = new List<League>
-            {
-                new League {LeagueID = 0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match> {m } }
-            };
-            _leagueSet.Object.AddRange(l);
-            ConnectMocksToDataStore(l);
-            bool result = _repo.RemoveMatchFromLeague(0, m);
-            List<League> actual = _repo.GetAllLeagues();
-            List<League> expected = new List<League>
-            {
-                new League {LeagueID =0, GameTitle = "Halo", MaxPlayers = 2, Matches = new List<NashGaming.Models.Match>() }
-            };
-            Assert.IsTrue(result);
-            CollectionAssert.AreEqual(expected, actual);
-        }
+
         [TestMethod]
         public void RepoLeagueTestsRemovePosts()
         {
-            Posts p = new Posts { PostID = 0, Author = new Gamer(), Content = "Hi" };
+            Posts p = new Posts { PostsID = 0, Author = new Gamer(), Content = "Hi" };
             List<League> l = new List<League>
             {
                 new League {LeagueID = 0, GameTitle = "Halo", MaxPlayers = 2, Feed = new List<Posts> { p } }
@@ -409,7 +332,7 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void RepoLeagueTestsAddPosts()
         {
-            Posts p = new Posts { PostID = 0, Author = new Gamer(), Content = "Hi" };
+            Posts p = new Posts { PostsID = 0, Author = new Gamer(), Content = "Hi" };
             List<League> l = new List<League>
             {
                 new League {LeagueID = 0, GameTitle = "Halo", MaxPlayers = 2, Feed = new List<Posts>()}

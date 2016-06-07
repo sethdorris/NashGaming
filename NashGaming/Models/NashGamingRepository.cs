@@ -73,7 +73,7 @@ namespace NashGaming.Models
 
         public bool DeletePostById(int id)
         {
-            var query = from post in context.Posts.Where(o => o.PostID == id) select post;
+            var query = from post in context.Posts.Where(o => o.PostsID == id) select post;
             Posts result = query.Single();
             try
             {
@@ -122,7 +122,7 @@ namespace NashGaming.Models
 
         public List<Match> GetMatchesByTeamID(int MainTeamID)
         {
-            var query = from matches in context.Matches.Where(o => o.Team1.MainTeam.TeamID == MainTeamID || o.Team2.MainTeam.TeamID == MainTeamID) orderby matches.League.GameTitle select matches;
+            var query = from matches in context.Matches.Where(o => o.Team1.MainTeamID == MainTeamID || o.Team2.MainTeamID == MainTeamID) orderby matches.League.GameTitle select matches;
             return query.ToList();
         }
 
@@ -148,19 +148,19 @@ namespace NashGaming.Models
 
         public MainTeam getTeamById(int teamID)
         {
-            var query = from teams in context.Teams.Where(o => o.TeamID == teamID) select teams;
+            var query = from teams in context.Teams.Where(o => o.MainTeamID == teamID) select teams;
             return query.FirstOrDefault();
         }
 
-        public List<SubTeam> getTeamsByLeagueId(int LeagueID)
+        public ICollection<MainTeam> getTeamsByLeagueId(int LeagueID)
         {
-            var query = from teams in context.Leagues.Where(o => o.LeagueID == LeagueID) select teams.Teams;
+            var query = from teams in context.Leagues.Where(o => o.LeagueID == LeagueID) select teams.MainTeams;
             return query.FirstOrDefault();
         }
 
         public List<TeamInvite> getInvitesByTeamID(int TeamID)
         {
-            var query = from invites in context.Invites.Where(o => o.Team.TeamID == TeamID) select invites;
+            var query = from invites in context.Invites.Where(o => o.Team.MainTeamID == TeamID) select invites;
             return query.ToList();
         }
 
@@ -186,9 +186,9 @@ namespace NashGaming.Models
             }
         }
 
-        public List<NashGaming.Models.Match> GetMatchesByTeamName(string teamname)
+        public ICollection<NashGaming.Models.Match> GetMatchesByTeamName(string teamname)
         {
-            var query = from matches in context.Matches.Where(o => Regex.IsMatch(o.Team1.MainTeam.TeamName, teamname, RegexOptions.IgnoreCase) || Regex.IsMatch(o.Team2.MainTeam.TeamName, teamname, RegexOptions.IgnoreCase)) select matches;
+            var query = from matches in context.Matches.Where(o => Regex.IsMatch(o.Team1.TeamName, teamname, RegexOptions.IgnoreCase) || Regex.IsMatch(o.Team2.TeamName, teamname, RegexOptions.IgnoreCase)) select matches;
             return query.ToList();
         }
 
@@ -239,15 +239,15 @@ namespace NashGaming.Models
             return query.ToList();
         }
 
-        public List<Challenge> GetChallengesByRecipientTeamID(int teamid)
+        public ICollection<Challenge> GetChallengesByRecipientTeamID(int teamid)
         {
-            var query = from recipient in context.Challenges.Where(o => o.Recipient.MainTeam.TeamID == teamid) orderby recipient.Recipient select recipient;
+            var query = from recipient in context.Challenges.Where(o => o.Recipient.MainTeamID == teamid) orderby recipient.Recipient select recipient;
             return query.ToList();
         }
 
-        public List<Challenge> GetChallengesByInitiatorTeamID(int teamid)
+        public ICollection<Challenge> GetChallengesByInitiatorTeamID(int teamid)
         {
-            var query = from initiator in context.Challenges.Where(o => o.Initiator.MainTeam.TeamID == teamid) orderby initiator.Initiator select initiator;
+            var query = from initiator in context.Challenges.Where(o => o.Initiator.MainTeamID == teamid) orderby initiator.Initiator select initiator;
             return query.ToList();
         }
 
@@ -325,7 +325,7 @@ namespace NashGaming.Models
         }
         public Posts GetPostByID(int id)
         {
-            var query = from posts in context.Posts.Where(o => o.PostID == id) select posts;
+            var query = from posts in context.Posts.Where(o => o.PostsID == id) select posts;
             return query.Single();
         }
         public bool EditPostContent(int id, string content)
@@ -377,12 +377,12 @@ namespace NashGaming.Models
             return query.Single();
         }
 
-        public bool AddLeagueTeams(int leagueid, SubTeam t)
+        public bool AddLeagueTeams(int leagueid, MainTeam t)
         {
             League q = GetLeagueByID(leagueid);
             try
             {
-                q.Teams.Add(t);
+                q.MainTeams.Add(t);
                 context.SaveChanges();
                 return true;
             }
@@ -411,12 +411,12 @@ namespace NashGaming.Models
                 return false;
             }
         }
-        public bool RemoveLeagueTeams(int leagueid, SubTeam t)
+        public bool RemoveLeagueTeams(int leagueid, MainTeam t)
         {
             League l = GetLeagueByID(leagueid);
             try
             {
-                l.Teams.Remove(t);
+                l.MainTeams.Remove(t);
                 context.SaveChanges();
                 return true;
             } catch
@@ -640,12 +640,12 @@ namespace NashGaming.Models
                 return false;
             }
         }
-        public bool RemoveTeamFromLadder(int id, SubTeam t)
+        public bool RemoveTeamFromLadder(int id, MainTeam t)
         {
             Ladder l = this.GetLadderById(id);
             try
             {
-                l.Teams.Remove(t);
+                l.MainTeams.Remove(t);
                 context.SaveChanges();
                 return true;
             }
@@ -654,12 +654,12 @@ namespace NashGaming.Models
                 return false;
             }
         }
-        public bool AddTeamToLadder(int id, SubTeam t)
+        public bool AddTeamToLadder(int id, MainTeam t)
         {
             Ladder l = this.GetLadderById(id);
             try
             {
-                l.Teams.Add(t);
+                l.MainTeams.Add(t);
                 context.SaveChanges();
                 return true;
             }
@@ -784,7 +784,7 @@ namespace NashGaming.Models
         }
         public MainTeam GetMainTeamByID(int id)
         {
-            var query = from Teams in context.Teams.Where(o => o.TeamID == id) select Teams;
+            var query = from Teams in context.Teams.Where(o => o.MainTeamID == id) select Teams;
             return query.Single();
         }
         public bool InactivateMainTeam(int id)
@@ -890,32 +890,6 @@ namespace NashGaming.Models
                 return false;
             }
         }
-        public bool AddSubTeamToMainTeam(int id, SubTeam t)
-        {
-            MainTeam a = this.GetMainTeamByID(id);
-            try
-            {
-                a.SubTeams.Add(t);
-                context.SaveChanges();
-                return true;
-            } catch
-            {
-                return false;
-            }
-        }
-        public bool RemoveSubTeamFromMainTeam(int id, SubTeam t)
-        {
-            MainTeam a = this.GetMainTeamByID(id);
-            try
-            {
-                a.SubTeams.Remove(t);
-                context.SaveChanges();
-                return true;
-            } catch
-            {
-                return false;
-            }
-        }
         public bool AddTeamInvite(TeamInvite invite)
         {
             try
@@ -965,128 +939,11 @@ namespace NashGaming.Models
                 return false;
             }
         }
-
-        public bool UpdateSubTeamCaptain(int MainTeamID, int SubTeamID, Gamer Captain)
+      
+        
+        public Gamer getgamerbyaspusername(string name)
         {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Captain = Captain;
-                context.SaveChanges();
-                return true;
-            } catch
-            {
-                return false;
-            }
-        }
-        public bool UpdateSubTeamRank(int MainTeamID, int SubTeamID, int NewRank)
-        {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Rank = NewRank;
-                context.SaveChanges();
-                return true;
-            } catch
-            {
-                return false;
-            }
-        }
-        public bool UpdateSubTeamPoints(int MainTeamID, int SubTeamID, int Points)
-        {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Points = Points;
-                context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool InactivateSubTeam(int MainTeamID, int SubTeamID)
-        {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Active = false;
-                context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool AddSubTeamWin(int MainTeamID, int SubTeamID)
-        {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Wins++;
-                context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool AddSubTeamLoss(int MainTeamID, int SubTeamID)
-        {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Losses++;
-                context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool AddGamerToSubTeamRoster(int MainTeamID, int SubTeamID, Gamer g)
-        {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Roster.Add(g);
-                context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool RemoveGamerFromSubTeamRoster(int MainTeamID, int SubTeamID, Gamer g)
-        {
-            MainTeam t = this.GetMainTeamByID(MainTeamID);
-            try
-            {
-                SubTeam sub = t.SubTeams.Where(o => o.SubTeamID == SubTeamID).Single();
-                sub.Roster.Remove(g);
-                context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public Gamer GetGamerByAspUserName(string name)
-        {
-            var query = from gamers in Context.Gamers.Where(o => o.Email == name) select gamers;
+            var query = from gamers in context.Gamers.Where(o => o.Email == name) select gamers;
             return query.Single();
         }
     }

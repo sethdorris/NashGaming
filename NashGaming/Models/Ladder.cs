@@ -11,7 +11,6 @@ namespace NashGaming.Models
 {
     public class Ladder
     {
-        [Key]
         public int LadderID { get; set; }
         public string LadderName { get; set; }
         public string GameTitle { get; set; }
@@ -19,7 +18,7 @@ namespace NashGaming.Models
         public int MaxPlayers { get; set; }
         public string Platform { get; set; }
         public virtual List<Posts> Feed { get; set; }
-        public virtual List<SubTeam> Teams { get; set; }
+        public virtual ICollection<MainTeam> MainTeams { get; set; }
         public virtual List<Match> Matches { get; set; }
         public virtual List<Challenge> Challenges { get; set; }
         public bool Active { get; set; }
@@ -37,12 +36,7 @@ namespace NashGaming.Models
     {
         public LadderConfiguration()
         {
-            this.HasOptional(o => o.Feed);
-            HasOptional(o => o.Challenges)
-                .WithMany()
-                .HasForeignKey(o => o.Challenges);
-            this.HasOptional(o => o.Teams);
-            this.HasOptional(o => o.Matches);
+
         }
     }
 }

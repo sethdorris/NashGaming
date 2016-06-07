@@ -10,12 +10,8 @@ namespace NashGaming.Models
 {
     public class Posts : IComparable 
     {
-        [Key]
-        public int PostID { get; set; }
-        [Required]
+        public int PostsID { get; set; }
         public virtual Gamer Author  { get; set; }
-        public int AuthorID { get; set; }
-        [Required]
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public virtual League League { get; set; }
@@ -33,20 +29,7 @@ namespace NashGaming.Models
             {
                 return false;
             }
-            return a.PostID == this.PostID;
-        }
-    }
-    public class PostConfiguration : EntityTypeConfiguration<Posts>
-    {
-        public PostConfiguration()
-        {
-            HasOptional(o => o.Ladder)
-                .WithOptionalDependent();
-            HasOptional(o => o.League)
-                .WithOptionalDependent();
-            HasRequired(o => o.Author)
-                .WithRequiredDependent();
-
+            return a.PostsID == this.PostsID;
         }
     }
 }

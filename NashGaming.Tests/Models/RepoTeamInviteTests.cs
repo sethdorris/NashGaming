@@ -43,7 +43,7 @@ namespace NashGaming.Tests.Models
         [TestMethod]
         public void RepoTeamInviteTestsGetTeamInvitesByTeamID()
         {
-            MainTeam mt = new MainTeam { TeamID = 0 };
+            MainTeam mt = new MainTeam { MainTeamID = 0 };
             TeamInvite invite = new TeamInvite { Team = mt, Accepted = true };
             TeamInvite invite2 = new TeamInvite { Team = mt, Accepted = false };
             List<TeamInvite> expected = new List<TeamInvite>
@@ -55,7 +55,7 @@ namespace NashGaming.Tests.Models
             {
                 invite,
                 invite2,
-                new TeamInvite { Team = new MainTeam { TeamID = 1 } }
+                new TeamInvite { Team = new MainTeam { MainTeamID = 1 } }
             };
             _inviteSet.Object.AddRange(inviteDB);
             ConnectMocksToDataStore(inviteDB);
@@ -70,7 +70,7 @@ namespace NashGaming.Tests.Models
         {
             Gamer g = new Gamer { GamerID = 0 };
             Gamer g2 = new Gamer { GamerID = 1 };
-            MainTeam t = new MainTeam { TeamID = 0 };
+            MainTeam t = new MainTeam { MainTeamID = 0 };
             List<TeamInvite> db = new List<TeamInvite>
             {
                 new TeamInvite { TeamInviteID = 0, Team = t, InvitedGamer = g },
@@ -155,7 +155,7 @@ namespace NashGaming.Tests.Models
         {
             Gamer g = new Gamer { GamerID = 0 };
             Gamer g2 = new Gamer { GamerID = 1 };
-            MainTeam t = new MainTeam { TeamID = 0 };
+            MainTeam t = new MainTeam { MainTeamID = 0 };
 
             List<TeamInvite> inviteDB = new List<TeamInvite>
             {
@@ -179,7 +179,7 @@ namespace NashGaming.Tests.Models
         {
             Gamer g = new Gamer { GamerID = 0 };
             Gamer g2 = new Gamer { GamerID = 1 };
-            MainTeam t = new MainTeam { TeamID = 0 };
+            MainTeam t = new MainTeam { MainTeamID = 0 };
 
             List<TeamInvite> inviteDB = new List<TeamInvite>
             {
