@@ -28,10 +28,4 @@ namespace NashGaming.Models
             return i.TeamInviteID == this.TeamInviteID;
         }
     }
-    public class TeamInviteConfiguration : EntityTypeConfiguration<TeamInvite> {
-        public TeamInviteConfiguration()
-        {
-
-        }
-    }
 }

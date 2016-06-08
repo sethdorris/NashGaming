@@ -1,6 +1,7 @@
 ﻿var main = angular.module("app", [], function () { });
 
 main.controller("leaguecontroller", function ($scope, leagues) {
+    console.log("FOOF")
     $scope.leagues;
     leagues.getleagues().then(function (data) {
         $scope.leagues = data.data;
@@ -14,6 +15,10 @@ main.controller("leaguecontroller", function ($scope, leagues) {
     })
 });
 
+main.controller("profilecontroller", function () {
+    console.log("Profile Controller Bitch!")
+})
+
 main.service("leagues", function ($http) {
 
     this.getleagues = function () {
@@ -26,7 +31,6 @@ main.service("leagues", function ($http) {
 
     this.getSingleLeague = function () {
         return $http.post('/League/JsonGetLeagueById', { id: 28 });
-    }
-    
+    }  
 })
 

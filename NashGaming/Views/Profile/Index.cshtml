@@ -3,33 +3,36 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="jumbotron">
-    <h2>@Model.DisplayName</h2>
-    <p>@Model.PSNID</p>
-    @Html.ActionLink("Manage User Settings", "Index", "Manage")
-</div>
+<div ng-controller="profilecontroller">
+    <div class="jumbotron">
+        <h2>@Model.DisplayName</h2>
+        <p>@Model.PSNID</p>
+        @Html.ActionLink("Manage User Settings", "Index", "Manage")
+    </div>
 
-<div>
-    <h4>Team Invites</h4>
-    @{ if (Model.TeamInvites != null)
-        {
-            foreach (NashGaming.Models.TeamInvite inv in Model.TeamInvites)
+    <div>
+        <h4>Team Invites</h4>
+        @{ if (Model.TeamInvites != null)
             {
-                <h5>@inv.Team.TeamName has invited you to join their Squad</h5>
+                foreach (NashGaming.Models.TeamInvite inv in Model.TeamInvites)
+                {
+                    <h5>@inv.Team.TeamName has invited you to join their Squad</h5>
+                    <button id="profileAcceptInvite">Accept</button><button id="profileDeclineInvite">Decline</button>
+                }
+            }
+         }
+    </div>
+
+    <div>
+        @{
+            if (Model.MainTeam != null)
+            {
+                <h1>Team: @Model.MainTeam.TeamName</h1>
+            }
+            else
+            {
+                <h1>Team: Not Assigned</h1>
             }
         }
-     }
-</div>
-
-<div>
-    @{
-        if (Model.MainTeam != null)
-        {
-            <h1>Team: @Model.MainTeam.TeamName</h1>
-        }
-        else
-        {
-            <h1>Team: Not Assigned</h1>
-        }
-    }
+    </div>
 </div>

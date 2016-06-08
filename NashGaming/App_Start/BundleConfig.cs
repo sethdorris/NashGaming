@@ -29,6 +29,7 @@ namespace NashGaming
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                       "~/Scripts/angular.min.js",
+                      "~/Scripts/angular-route.min.js",
                       "~/Content/app.js"));
         }
     }
