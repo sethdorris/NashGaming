@@ -198,6 +198,7 @@
     <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\Gamer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JsonReturnLeagues.cs" />
     <Compile Include="Models\Ladder.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

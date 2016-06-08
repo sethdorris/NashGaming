@@ -7,6 +7,8 @@ using NashGaming.Models;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace NashGaming.Controllers
 {
@@ -31,7 +33,18 @@ namespace NashGaming.Controllers
         public ActionResult JsonLeagues()
         {
             List<League> l = _repo.GetAllLeagues();
-            return Json(l, JsonRequestBehavior.AllowGet);
+            JsonReturnLeagues JSONLeagues = new JsonReturnLeagues(l);
+            List<JsonReturnLeagues> result = JSONLeagues.ReturnLeaguesAsJson();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult EditGamesPerWeek(int lid, int gpw)
+        {
+            _repo.UpdateLeagueGamesPerWeek(lid, gpw);
+            List<League> l = _repo.GetAllLeagues();
+            JsonReturnLeagues JSONLeagues = new JsonReturnLeagues(l);
+            List<JsonReturnLeagues> result = JSONLeagues.ReturnLeaguesAsJson();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

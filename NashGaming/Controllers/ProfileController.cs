@@ -11,6 +11,7 @@ namespace NashGaming.Controllers
     {
         private NashGamingRepository _repo;
         private NashGamingContext _context;
+        private Gamer currentGamer;
         public ProfileController()
         {
             _repo = new NashGamingRepository();
@@ -20,7 +21,14 @@ namespace NashGaming.Controllers
         public ActionResult Index()
         {
             Gamer g = _repo.getgamerbyaspusername(User.Identity.Name);
+            currentGamer = g;
             return View(g);
+        }
+        [HttpGet]
+        public JsonResult GetInvites()
+        {
+            List<TeamInvite> result = _repo.GetAllTeamInvites();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
