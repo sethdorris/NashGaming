@@ -9,6 +9,9 @@ main.controller("leaguecontroller", function ($scope, leagues) {
     leagues.editLeagueGPW().then(function (data) {
         console.log(data.data);
     })
+    leagues.getSingleLeague().then(function (data) {
+        console.log(data.data);
+    })
 });
 
 main.service("leagues", function ($http) {
@@ -20,6 +23,10 @@ main.service("leagues", function ($http) {
     this.editLeagueGPW = function () {
         return $http.post('/League/EditGamesPerWeek', { lid: 28, gpw: 6 })
     };
+
+    this.getSingleLeague = function () {
+        return $http.post('/League/JsonGetLeagueById', { id: 28 });
+    }
     
 })
 

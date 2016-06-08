@@ -46,5 +46,14 @@ namespace NashGaming.Controllers
             List<JsonReturnLeagues> result = JSONLeagues.ReturnLeaguesAsJson();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult JsonGetLeagueById(int id)
+        {
+            League l = _repo.GetLeagueByID(id);
+            JsonReturnLeagues jsonreturner = new JsonReturnLeagues(l);
+            JsonReturnLeagues result = jsonreturner.ReturnLeagueAsJson();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

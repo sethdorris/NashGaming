@@ -24,6 +24,7 @@ namespace NashGaming.Models
         public virtual ICollection<Posts> Feed { get; set; }
         public bool Active { get; set; }
         public List<League> _LeagueList { get; set; }
+        public League _League { get; set; }
 
         public JsonReturnLeagues()
         {
@@ -33,6 +34,11 @@ namespace NashGaming.Models
         public JsonReturnLeagues(List<League> leagues)
         {
             _LeagueList = leagues;
+        }
+
+        public JsonReturnLeagues(League l)
+        {
+            _League = l;
         }
         public override bool Equals(object obj)
         {
@@ -65,6 +71,25 @@ namespace NashGaming.Models
                 row.StartDate = _LeagueList[i].StartDate;
                 result.Add(row);
             }
+            return result;
+        }
+
+        public JsonReturnLeagues ReturnLeagueAsJson()
+        {
+            JsonReturnLeagues result = new JsonReturnLeagues();      
+            result.Active = _League.Active;
+            result.EndDate = _League.EndDate;
+            result.Feed = _League.Feed;
+            result.GamesPerWeek = _League.GamesPerWeek;
+            result.GameTitle = _League.GameTitle;
+            result.LeagueID = _League.LeagueID;
+            result.LeagueType = _League.LeagueType;
+            result.Matches = _League.Matches;
+            result.MaxPlayers = _League.MaxPlayers;
+            result.MaxPlayers = _League.MinPlayers;
+            result.Platform = _League.Platform;
+            result.SeasonLength = _League.SeasonLength;
+            result.StartDate = _League.StartDate;
             return result;
         }
 
