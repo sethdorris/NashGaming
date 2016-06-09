@@ -1,6 +1,8 @@
 ﻿using NashGaming.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -35,16 +37,14 @@ namespace NashGaming.Controllers
         public ActionResult AcceptInvite(int id)
         {
             bool UpdatedTeamInviteToAcceptedTrue = _repo.UpdateTeamInviteAccepted(id, true);
-            return RedirectToRoute("/Profile");
+            return RedirectToAction("/Index");
         }
         [HttpGet]
         public ActionResult GetInvitesForLoggedInUser()
         {
             currentGamer = _repo.getgamerbyaspusername(User.Identity.Name);
-            List<TeamInvite> allmyinvites = _repo.GetTeamInvitesByGamerID(currentGamer.GamerID);
-            JsonReturnInvites helper = new JsonReturnInvites(allmyinvites);
-            List<JsonReturnInvites> result = helper.ReturnTeamInvitesAsJson();
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var query = from invites in _context.Invites.Where(o => o.InvitedGamer.GamerID == currentGamer.GamerID) select new { invites.Team.TeamName, invites.DateSent, invites.Accepted, invites.TeamInviteID };
+            return Json(query.Distinct(), JsonRequestBehavior.AllowGet);
         }
     }
 }

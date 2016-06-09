@@ -10,7 +10,7 @@ namespace NashGaming
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
             // Web API routes
             config.MapHttpAttributeRoutes();
 

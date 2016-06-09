@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Data.Entity.Migrations;
 using System.Data.Entity;
+using Newtonsoft.Json;
 
 namespace NashGaming.Models
 {

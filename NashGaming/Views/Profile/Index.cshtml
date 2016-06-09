@@ -14,19 +14,13 @@
         <h4>Team Invites</h4>
         @{ if (Model.TeamInvites != null)
             {
-                foreach (NashGaming.Models.TeamInvite inv in Model.TeamInvites)
-                {
-                    {
-                        if (!inv.Accepted)
-                        {
-                            <div id="teaminvitecontainerforinv" + "@inv.TeamInviteID">
-                                <h5>@inv.Team.TeamName has invited you to join their Squad</h5>
-                                <button name="AcceptButton" ng-click="acceptinvite(@inv.TeamInviteID)">Accept</button>
-                                <button name="DeclineButton" ng-click="declineinvite(@inv.TeamInviteID)">Decline</button>
-                            </div>
-                        }
-                    }       
-                }
+               <div ng-repeat="invite in myinvites" ng-if="!invite.Accepted">
+                 <div id="teaminvitecontainerforinv" >
+                    <h5>{{invite.TeamName}} has invited you to join their Squad</h5>
+                    <button name="AcceptButton" id={{invite.TeamInviteID}} ng-click="acceptinvite(invite)">Accept</button>
+                    <button name="DeclineButton" ng-click="declineinvite()">Decline</button>
+                </div>
+               </div>      
             }
          }
     </div>

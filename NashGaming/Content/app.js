@@ -16,15 +16,18 @@ main.controller("leaguecontroller", function ($scope, leagues) {
 });
 
 main.controller("profilecontroller", function ($scope, profiles) {
+    $scope.myinvites;
     profiles.GetAllUsersTeamInvites().then(function (data) {
-        console.log(data.data);
+        $scope.myinvites = data.data;
+        console.log($scope.myinvites);
     });
 
-    $scope.acceptinvite = function (id) {
-        console.log("ID of invite", id)
-        profiles.AcceptTeamInvite(id).then(function (data) {
-            console.log("Data");
-            var containingHTML = document.getElementById("teaminvitecontainerforinv" + id).remove();
+    $scope.acceptinvite = function (invite) {
+        console.log("ID of invite", invite.TeamInviteID)
+        profiles.AcceptTeamInvite(invite.TeamInviteID).then(function (data) {
+            console.log("Data", data);
+            invite.Accepted = true;
+            console.log(invite);
         });
     }
     $scope.declineinvite = function (id) {
