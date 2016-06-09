@@ -15,8 +15,21 @@ main.controller("leaguecontroller", function ($scope, leagues) {
     })
 });
 
-main.controller("profilecontroller", function () {
-    console.log("Profile Controller Bitch!")
+main.controller("profilecontroller", function ($scope, profiles) {
+    profiles.GetAllUsersTeamInvites().then(function (data) {
+        console.log(data.data);
+    });
+
+    $scope.acceptinvite = function (id) {
+        console.log("ID of invite", id)
+        profiles.AcceptTeamInvite(id).then(function (data) {
+            console.log("Data");
+            var containingHTML = document.getElementById("teaminvitecontainerforinv" + id).remove();
+        });
+    }
+    $scope.declineinvite = function (id) {
+        console.log("You've declined this team invite!")
+    }
 })
 
 main.service("leagues", function ($http) {
@@ -31,6 +44,16 @@ main.service("leagues", function ($http) {
 
     this.getSingleLeague = function () {
         return $http.post('/League/JsonGetLeagueById', { id: 28 });
-    }  
+    }
+});
+
+main.service("profiles", function ($http) {
+    this.AcceptTeamInvite = function (tid) {
+        return $http.post('/Profile/AcceptInvite', { id: tid });
+    }
+
+    this.GetAllUsersTeamInvites = function () {
+        return $http.get('/Profile/GetInvitesForLoggedInUser');
+    }
 })
 

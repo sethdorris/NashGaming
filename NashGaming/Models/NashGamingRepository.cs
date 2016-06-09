@@ -5,6 +5,8 @@ using System.Web;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Data.Entity.Migrations;
+using System.Data.Entity;
 
 namespace NashGaming.Models
 {
@@ -906,7 +908,7 @@ namespace NashGaming.Models
 
         public TeamInvite GetTeamInviteById(int id)
         {
-            var query = from invites in context.Invites.Where(o => o.TeamInviteID == id) select invites;
+            var query = from invites in context.Invites.Where(o => o.TeamInviteID == id).Include(x => x.Team) select invites;
             return query.Single();
         }
 
@@ -934,7 +936,7 @@ namespace NashGaming.Models
                 context.SaveChanges();
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }

@@ -16,8 +16,16 @@
             {
                 foreach (NashGaming.Models.TeamInvite inv in Model.TeamInvites)
                 {
-                    <h5>@inv.Team.TeamName has invited you to join their Squad</h5>
-                    <button id="profileAcceptInvite">Accept</button><button id="profileDeclineInvite">Decline</button>
+                    {
+                        if (!inv.Accepted)
+                        {
+                            <div id="teaminvitecontainerforinv" + "@inv.TeamInviteID">
+                                <h5>@inv.Team.TeamName has invited you to join their Squad</h5>
+                                <button name="AcceptButton" ng-click="acceptinvite(@inv.TeamInviteID)">Accept</button>
+                                <button name="DeclineButton" ng-click="declineinvite(@inv.TeamInviteID)">Decline</button>
+                            </div>
+                        }
+                    }       
                 }
             }
          }
