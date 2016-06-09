@@ -30,8 +30,11 @@ main.controller("profilecontroller", function ($scope, profiles) {
             console.log(invite);
         });
     }
-    $scope.declineinvite = function (id) {
-        console.log("You've declined this team invite!")
+    $scope.declineinvite = function (invite) {
+        profiles.DeleteTeamInvite(invite.TeamInviteID).then(function (data) {
+            var indextocut = $scope.myinvites.indexOf(invite);
+            $scope.myinvites.splice(indextocut, 1);
+        })
     }
 })
 
@@ -57,6 +60,10 @@ main.service("profiles", function ($http) {
 
     this.GetAllUsersTeamInvites = function () {
         return $http.get('/Profile/GetInvitesForLoggedInUser');
+    }
+
+    this.DeleteTeamInvite = function (tid) {
+        return $http.post('/Profile/DeclineInvite', { id: tid });
     }
 })
 

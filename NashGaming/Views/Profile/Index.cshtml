@@ -18,7 +18,7 @@
                  <div id="teaminvitecontainerforinv" >
                     <h5>{{invite.TeamName}} has invited you to join their Squad</h5>
                     <button name="AcceptButton" id={{invite.TeamInviteID}} ng-click="acceptinvite(invite)">Accept</button>
-                    <button name="DeclineButton" ng-click="declineinvite()">Decline</button>
+                    <button name="DeclineButton" ng-click="declineinvite(invite)">Decline</button>
                 </div>
                </div>      
             }

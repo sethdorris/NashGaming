@@ -46,5 +46,11 @@ namespace NashGaming.Controllers
             var query = from invites in _context.Invites.Where(o => o.InvitedGamer.GamerID == currentGamer.GamerID) select new { invites.Team.TeamName, invites.DateSent, invites.Accepted, invites.TeamInviteID };
             return Json(query.Distinct(), JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public bool DeclineInvite(int id)
+        {
+            bool DeclinedInvite = _repo.DeleteTeamInviteByID(id);
+            return DeclinedInvite;
+        }
     }
 }
