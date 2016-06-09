@@ -25,16 +25,9 @@
          }
     </div>
 
-    <div>
-        @{
-            if (Model.MainTeam != null)
-            {
-                <h1>Team: @Model.MainTeam.TeamName</h1>
-            }
-            else
-            {
-                <h1>Team: Not Assigned</h1>
-            }
-        }
+    <div ng-model="myteam">
+        <h2>Team Name: {{myteam.TeamName}}</h2>
+        <h5>Website: {{myteam.Website}}</h5>
+        <h5>DateFounded: {{myteam.DateFounded}}</h5>
     </div>
 </div>

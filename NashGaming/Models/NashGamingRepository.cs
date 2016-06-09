@@ -949,5 +949,11 @@ namespace NashGaming.Models
             var query = from gamers in context.Gamers.Where(o => o.Email == name) select gamers;
             return query.Single();
         }
+
+        public MainTeam GetMainTeamByGamerID(int id)
+        {
+            var query = from teams in context.Gamers.Where(o => o.GamerID == id).Include(x => x.MainTeam) select teams.MainTeam;
+            return query.Single();
+        }
     }
 }

@@ -52,5 +52,12 @@ namespace NashGaming.Controllers
             bool DeclinedInvite = _repo.DeleteTeamInviteByID(id);
             return DeclinedInvite;
         }
+        [HttpGet]
+        public ActionResult GetUsersTeamInfo()
+        {
+            currentGamer = _repo.getgamerbyaspusername(User.Identity.Name);
+            var query = from gamer in _context.Gamers.Where(o => o.GamerID == currentGamer.GamerID) select new { gamer.MainTeam.TeamName, gamer.MainTeam.LogoLink, gamer.MainTeam.Website, gamer.MainTeam.DateFounded };
+            return Json(query.Distinct(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

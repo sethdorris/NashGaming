@@ -17,10 +17,16 @@ main.controller("leaguecontroller", function ($scope, leagues) {
 
 main.controller("profilecontroller", function ($scope, profiles) {
     $scope.myinvites;
+    $scope.myteam;
     profiles.GetAllUsersTeamInvites().then(function (data) {
         $scope.myinvites = data.data;
         console.log($scope.myinvites);
     });
+    profiles.GetUserTeam().then(function (data) {
+        console.log("Success", data.data);
+        $scope.myteam = data.data[0];
+        console.log("scope my team", $scope.myteam)
+    })
 
     $scope.acceptinvite = function (invite) {
         console.log("ID of invite", invite.TeamInviteID)
@@ -64,6 +70,10 @@ main.service("profiles", function ($http) {
 
     this.DeleteTeamInvite = function (tid) {
         return $http.post('/Profile/DeclineInvite', { id: tid });
+    }
+
+    this.GetUserTeam = function () {
+        return $http.get('Profile/GetUsersTeamInfo');
     }
 })
 
