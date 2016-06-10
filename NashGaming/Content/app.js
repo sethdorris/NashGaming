@@ -19,12 +19,16 @@ main.controller("profilecontroller", function ($scope, profiles) {
     $scope.myinvites;
     $scope.myteam;
     $scope.ladders;
+    $scope.leagues;
+    $scope.matches;
 
     profiles.PopulateProfile().then(function (data) {
         console.log("Profile Data", data.data);
         $scope.myinvites = data.data.Invites;
         $scope.myteam = data.data.TeamInfo;
         $scope.ladders = data.data.Ladders;
+        $scope.leagues = data.data.Leagues;
+        $scope.Matches = data.data.Matches;
     })
 
     $scope.acceptinvite = function (invite) {
@@ -63,20 +67,8 @@ main.service("profiles", function ($http) {
         return $http.post('/Profile/AcceptInvite', { id: tid });
     }
 
-    this.GetAllUsersTeamInvites = function () {
-        return $http.get('/Profile/GetInvitesForLoggedInUser');
-    }
-
     this.DeleteTeamInvite = function (tid) {
         return $http.post('/Profile/DeclineInvite', { id: tid });
-    }
-
-    this.GetUserTeam = function () {
-        return $http.get('Profile/GetUsersTeamInfo');
-    }
-
-    this.GetUsersLadders = function () {
-        return $http.get('Profile/GetUsersLadders');
     }
 
     this.PopulateProfile = function () {

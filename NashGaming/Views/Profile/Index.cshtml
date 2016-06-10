@@ -12,22 +12,30 @@
 
     <div>
         <h4>Team Invites</h4>
-        @{ if (Model.TeamInvites != null)
-            {
-               <div ng-repeat="invite in myinvites" ng-if="!invite.Accepted">
-                 <div id="teaminvitecontainerforinv" >
-                    <h5>{{invite.TeamName}} has invited you to join their Squad</h5>
-                    <button name="AcceptButton" id={{invite.TeamInviteID}} ng-click="acceptinvite(invite)">Accept</button>
-                    <button name="DeclineButton" ng-click="declineinvite(invite)">Decline</button>
-                </div>
-               </div>      
-            }
-         }
+            <div ng-repeat="invite in myinvites" ng-if="!invite.Accepted">
+                <div id="teaminvitecontainerforinv" >
+                <h5>{{invite.TeamName}} has invited you to join their Squad</h5>
+                <button name="AcceptButton" id={{invite.TeamInviteID}} ng-click="acceptinvite(invite)">Accept</button>
+                <button name="DeclineButton" ng-click="declineinvite(invite)">Decline</button>
+            </div>
+            </div>      
     </div>
 
     <div ng-model="myteam">
         <h2>Team Name: {{myteam.TeamName}}</h2>
         <h5>Website: {{myteam.Website}}</h5>
         <h5>DateFounded: {{myteam.DateFounded}}</h5>
+    </div>
+
+    <div>
+        <h3>Competitions</h3>
+        <h5>Ladders</h5>
+        <div ng-repeat="ladder in ladders">
+            <p>Game Title: {{ladder.GameTitle}} - Ladder: {{ladder.LadderName}} - Platform: {{ladder.Platform}} - Wins: 0 Losses: 0 Rank: NR</p>
+        </div>
+        <h5>Leagues</h5>
+        <div ng-repeat="league in leagues">
+            <p>Game Title: {{league.GameTitle}} - League Name: {{league.LeagueName}}({{league.LeagueType}}) - Platform {{league.Platform}} </p>
+        </div>
     </div>
 </div>

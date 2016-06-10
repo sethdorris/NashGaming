@@ -40,39 +40,11 @@ namespace NashGaming.Controllers
             bool UpdatedTeamInviteToAcceptedTrue = _repo.UpdateTeamInviteAccepted(id, true);
             return RedirectToAction("/Index");
         }
-        [HttpGet]
-        public ActionResult GetInvitesForLoggedInUser()
-        {
-            currentGamer = _repo.getgamerbyaspusername(User.Identity.Name);
-            var query = from invites in _context.Invites.Where(o => o.InvitedGamer.GamerID == currentGamer.GamerID) select new { invites.Team.TeamName, invites.DateSent, invites.Accepted, invites.TeamInviteID };
-            return Json(query.Distinct(), JsonRequestBehavior.AllowGet);
-        }
         [HttpPost]
         public bool DeclineInvite(int id)
         {
             bool DeclinedInvite = _repo.DeleteTeamInviteByID(id);
             return DeclinedInvite;
-        }
-        [HttpGet]
-        public ActionResult GetUsersTeamInfo()
-        {
-            currentGamer = _repo.getgamerbyaspusername(User.Identity.Name);
-            var query = from gamer in _context.Gamers.Where(o => o.GamerID == currentGamer.GamerID) select new { gamer.MainTeam.TeamName, gamer.MainTeam.LogoLink, gamer.MainTeam.Website, gamer.MainTeam.DateFounded };
-            return Json(query.Distinct(), JsonRequestBehavior.AllowGet);
-        }
-        [HttpGet]
-        public ActionResult GetUsersLadders()
-        {
-            currentGamer = _repo.getgamerbyaspusername(User.Identity.Name);
-            var query = _context.Database.SqlQuery<int>("SELECT LadderId FROM dbo.LadderMainTeams WHERE MainTeamID =" + currentGamer.MainTeam.MainTeamID).ToList();
-            List<Ladder> result = new List<Ladder>();
-            for (int x = 0; x < query.Count; x++)
-            {
-                result.Add(_repo.GetLadderById(query[x]));
-            }
-            JsonConverterLadder converter = new JsonConverterLadder(result);
-            List<JsonConverterLadder> JSONtoSend = converter.ConvertLadderList();
-            return Json(JSONtoSend, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult PopulateProfile()
