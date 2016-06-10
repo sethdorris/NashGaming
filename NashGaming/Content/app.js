@@ -18,14 +18,13 @@ main.controller("leaguecontroller", function ($scope, leagues) {
 main.controller("profilecontroller", function ($scope, profiles) {
     $scope.myinvites;
     $scope.myteam;
-    profiles.GetAllUsersTeamInvites().then(function (data) {
-        $scope.myinvites = data.data;
-        console.log($scope.myinvites);
-    });
-    profiles.GetUserTeam().then(function (data) {
-        console.log("Success", data.data);
-        $scope.myteam = data.data[0];
-        console.log("scope my team", $scope.myteam)
+    $scope.ladders;
+
+    profiles.PopulateProfile().then(function (data) {
+        console.log("Profile Data", data.data);
+        $scope.myinvites = data.data.Invites;
+        $scope.myteam = data.data.TeamInfo;
+        $scope.ladders = data.data.Ladders;
     })
 
     $scope.acceptinvite = function (invite) {
@@ -74,6 +73,14 @@ main.service("profiles", function ($http) {
 
     this.GetUserTeam = function () {
         return $http.get('Profile/GetUsersTeamInfo');
+    }
+
+    this.GetUsersLadders = function () {
+        return $http.get('Profile/GetUsersLadders');
+    }
+
+    this.PopulateProfile = function () {
+        return $http.get('Profile/PopulateProfile');
     }
 })
 

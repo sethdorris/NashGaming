@@ -52,6 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -185,21 +187,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606071552029_Test.cs" />
-    <Compile Include="Migrations\201606071552029_Test.Designer.cs">
-      <DependentUpon>201606071552029_Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606071724385_test2.cs" />
-    <Compile Include="Migrations\201606071724385_test2.Designer.cs">
-      <DependentUpon>201606071724385_test2.cs</DependentUpon>
+    <Compile Include="Helpers\JsonConverterLadder.cs" />
+    <Compile Include="Helpers\JsonConverterLeague.cs" />
+    <Compile Include="Helpers\JsonConverterMatches.cs" />
+    <Compile Include="Helpers\ProfileJSONTeam.cs" />
+    <Compile Include="Helpers\ProfileJsonHelper.cs" />
+    <Compile Include="Migrations\201606101742063_Remodel.cs" />
+    <Compile Include="Migrations\201606101742063_Remodel.Designer.cs">
+      <DependentUpon>201606101742063_Remodel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\Gamer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\JsonReturnInvites.cs" />
-    <Compile Include="Models\JsonReturnLeagues.cs" />
+    <Compile Include="Helpers\JsonReturnInvites.cs" />
+    <Compile Include="Helpers\JsonReturnLeagues.cs" />
     <Compile Include="Models\Ladder.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -290,11 +293,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606071552029_Test.resx">
-      <DependentUpon>201606071552029_Test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606071724385_test2.resx">
-      <DependentUpon>201606071724385_test2.cs</DependentUpon>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606101742063_Remodel.resx">
+      <DependentUpon>201606101742063_Remodel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

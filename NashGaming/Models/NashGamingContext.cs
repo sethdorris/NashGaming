@@ -19,10 +19,9 @@ namespace NashGaming.Models
         public virtual DbSet<Challenge> Challenges { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Challenge>().HasRequired(o => o.Initiator).WithMany(o => o.Challenges).HasForeignKey(o => o.Initiator);
-            //modelBuilder.Entity<Challenge>().HasRequired(o => o.Recipient).WithMany(o => o.Challenges).HasForeignKey(o => o.Recipient);
+            modelBuilder.Entity<Ladder>().HasMany(o => o.MainTeams).WithMany(x => x.Ladders).Map(ox => { ox.MapLeftKey("MainTeamID"); ox.MapRightKey("LadderID"); ox.ToTable("LadderMainTeams"); });
+            modelBuilder.Entity<League>().HasMany(o => o.MainTeams).WithMany(x => x.Leagues).Map(ox => { ox.MapLeftKey("MainTeamID"); ox.MapRightKey("LeagueID"); ox.ToTable("LeagueMainTeams"); });
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }

@@ -613,7 +613,7 @@ namespace NashGaming.Models
         public Ladder GetLadderById(int id)
         {
             var query = from ladders in context.Ladders.Where(o => o.LadderID == id) select ladders;
-            return query.Single();
+            return query.FirstOrDefault();
         }
         public bool AddPostToLadder(int id, Posts p)
         {
@@ -942,12 +942,11 @@ namespace NashGaming.Models
                 return false;
             }
         }
-      
-        
+
         public Gamer getgamerbyaspusername(string name)
         {
             var query = from gamers in context.Gamers.Where(o => o.Email == name) select gamers;
-            return query.Single();
+            return query.FirstOrDefault();
         }
 
         public MainTeam GetMainTeamByGamerID(int id)
