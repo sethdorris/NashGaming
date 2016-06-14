@@ -26,16 +26,32 @@
         <h5>Website: {{myteam.Website}}</h5>
         <h5>DateFounded: {{myteam.DateFounded}}</h5>
     </div>
+    <div ng-model="record">
+        <h3>Record and Statistics</h3>
+        <h5>Total Wins: {{record.wins}}</h5>
+        <h5>Total Losses: {{record.losses}}</h5>
+        <h5>Total Games Played: {{record.gp}}</h5>
+        <h5>Franchise Win %: {{record.wp}}</h5>
+    </div>
 
     <div>
         <h3>Competitions</h3>
         <h5>Ladders</h5>
         <div ng-repeat="ladder in ladders">
-            <p>Game Title: {{ladder.GameTitle}} - Ladder: {{ladder.LadderName}} - Platform: {{ladder.Platform}} - Wins: 0 Losses: 0 Rank: NR</p>
+            <p>Game Title: {{ladder.GameTitle}} - Ladder: {{ladder.LadderName}} - Platform: {{ladder.Platform}}</p>
         </div>
         <h5>Leagues</h5>
         <div ng-repeat="league in leagues">
             <p>Game Title: {{league.GameTitle}} - League Name: {{league.LeagueName}}({{league.LeagueType}}) - Platform {{league.Platform}} </p>
+        </div>
+    </div>
+
+    <div ng-model="Matches">
+        <h3>Match History</h3>
+        <div ng-repeat="match in Matches">
+            <div ng-show="match.LadderId">
+                <p>Date Played: {{match.DatePlayed}} - LadderName: {{match.LadderTitle}} {{match.LadderName}} Platform: {{match.LadderPlatform}}- {{match.Team1}}({{match.Team1Score}}) - {{match.Team2}}({{match.Team2Score}}) - Result: {{match.Result}}</p>
+            </div>
         </div>
     </div>
 </div>

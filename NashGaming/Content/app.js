@@ -20,15 +20,38 @@ main.controller("profilecontroller", function ($scope, profiles) {
     $scope.ladders;
     $scope.leagues;
     $scope.matches;
+    $scope.record = {
+        wins: 0,
+        losses: 0,
+        gp: 0,
+        wp: 0
+    };
 
     profiles.PopulateProfile().then(function (data) {
         console.log("Profile Data", data.data);
         $scope.myinvites = data.data.Invites;
         $scope.myteam = data.data.TeamInfo;
         $scope.ladders = data.data.Ladders;
+        console.log($scope.ladderidandname);
         $scope.leagues = data.data.Leagues;
         $scope.Matches = data.data.Matches;
+        $scope.Matches.forEach(function (item) {
+            item.Result == "W" ? $scope.record.wins++ : $scope.record.losses++;
+            item.DatePlayed = dateConverter(item.DatePlayed);
+            $scope.record.gp++;
+        })
+        $scope.record.gp = $scope.record.wins + $scope.record.losses;
+        $scope.record.wp = Math.floor(($scope.record.wins / $scope.record.gp) * 100);
     })
+
+    function dateConverter(string) {
+        var date = string;
+        date = date.split("\(");
+        date = date[1].split("\)");
+        date = date[0];
+        date = new Date(parseInt(date)).toLocaleString();
+        return date;
+    }
 
     $scope.acceptinvite = function (invite) {
         console.log("ID of invite", invite.TeamInviteID)
