@@ -1,7 +1,6 @@
 ﻿var main = angular.module("app", [], function () { });
 
 main.controller("leaguecontroller", function ($scope, leagues) {
-    console.log("FOOF")
     $scope.leagues;
     leagues.getleagues().then(function (data) {
         $scope.leagues = data.data;
