@@ -14,6 +14,16 @@ main.controller("leaguecontroller", function ($scope, leagues) {
     })
 });
 
+main.controller("competitionscontroller", function ($scope, $http, competitions) {
+    $scope.leagues;
+    $scope.ViewLeaguesButton = function () {
+        competitions.getLeagues().then(function (data) {
+            $scope.leagues = data.data;
+            console.log($scope.leagues)
+        })
+    }
+})
+
 main.controller("profilecontroller", function ($scope, profiles) {
     $scope.myinvites;
     $scope.myteam;
@@ -95,6 +105,12 @@ main.service("profiles", function ($http) {
 
     this.PopulateProfile = function () {
         return $http.get('Profile/PopulateProfile');
+    }
+})
+
+main.service("competitions", function ($http) {
+    this.getLeagues = function () {
+        return $http.get('Competitions/JsonLeagues');
     }
 })
 

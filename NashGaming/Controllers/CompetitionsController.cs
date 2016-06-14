@@ -12,12 +12,12 @@ using Newtonsoft.Json;
 
 namespace NashGaming.Controllers
 {
-    public class LeagueController : Controller
+    public class CompetitionsController : Controller
     {
         public NashGamingContext _context { get; set; }
         public NashGamingRepository _repo { get; set; }
 
-        public LeagueController()
+        public CompetitionsController()
         {
             _context = new NashGamingContext();
             _repo = new NashGamingRepository();
@@ -25,8 +25,7 @@ namespace NashGaming.Controllers
         // GET: League
         public ActionResult Index()
         {
-            List<League> l = _repo.GetAllLeagues();
-            return View(l);
+            return View();
         }
 
         [HttpGet]
