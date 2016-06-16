@@ -16,11 +16,32 @@ main.controller("leaguecontroller", function ($scope, leagues) {
 
 main.controller("competitionscontroller", function ($scope, $http, competitions) {
     $scope.leagues;
+    $scope.ladders;
     $scope.ViewLeaguesButton = function () {
         competitions.getLeagues().then(function (data) {
             $scope.leagues = data.data;
+            $scope.leagues.forEach(function (item) {
+                item.StartDate = dateConverter(item.StartDate);
+                item.EndDate = dateConverter(item.EndDate);
+            })
             console.log($scope.leagues)
         })
+    }
+
+    $scope.ViewLaddersButton = function () {
+        competitions.getLadders().then(function (data) {
+            $scope.ladders = data.data;
+            console.log($scope.ladders);
+        })
+    }
+
+    function dateConverter(string) {
+        var date = string;
+        date = date.split("\(");
+        date = date[1].split("\)");
+        date = date[0];
+        date = new Date(parseInt(date)).toLocaleString();
+        return date;
     }
 })
 
@@ -41,8 +62,8 @@ main.controller("profilecontroller", function ($scope, profiles) {
         console.log("Profile Data", data.data);
         $scope.myinvites = data.data.Invites;
         $scope.myteam = data.data.TeamInfo;
+        $scope.myteam.DateFounded = dateConverter($scope.myteam.DateFounded);
         $scope.ladders = data.data.Ladders;
-        console.log($scope.ladderidandname);
         $scope.leagues = data.data.Leagues;
         $scope.Matches = data.data.Matches;
         $scope.Matches.forEach(function (item) {
@@ -111,6 +132,9 @@ main.service("profiles", function ($http) {
 main.service("competitions", function ($http) {
     this.getLeagues = function () {
         return $http.get('Competitions/JsonLeagues');
+    }
+    this.getLadders = function () {
+        return $http.get('Competitions/GetAllLadders');
     }
 })
 
