@@ -2,7 +2,23 @@
     ViewBag.Title = "Index";
 }
 
-<div ng-controller="competitionscontroller">
-    <button ng-click="ViewLeaguesButton()">VIEW LEAGUES</button><button>VIEW LADDERS</button>
+<div ng-controller="competitionscontroller" class="maincontainer">
+    
+    <div class="CompetitionsBtnGroup text-center">
+        <button ng-click="ViewLeaguesButton()">VIEW LEAGUES</button><button ng-click="ViewLaddersButton()">VIEW LADDERS</button>
+    </div>
+
+    <div ng-if="leagues">
+        <h1>Leagues</h1>
+        <div ng-repeat="league in leagues">
+            League Name: {{league.LeagueName}} - Game Title: {{league.GameTitle}} - Platform: {{league.Platform}} - Start Date: {{league.StartDate}} - End Date: {{league.EndDate}} - Games Per Week: {{league.GamesPerWeek}}
+        </div>
+    </div>
+    <div ng-if="ladders">
+        <h1>Ladders</h1>
+        <div ng-repeat="ladder in ladders">
+            Ladder Name: {{ladder.ladderName}} - Game Title: {{ladder.GameTitle}} - Platform: {{ladder.Platform}} 
+        </div>
+    </div>
 </div>
 
