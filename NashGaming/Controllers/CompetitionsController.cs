@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using NashGaming.Helpers;
 
 namespace NashGaming.Controllers
 {
@@ -54,5 +55,12 @@ namespace NashGaming.Controllers
             JsonReturnLeagues result = jsonreturner.ReturnLeagueAsJson();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public ActionResult GetAllLadders()
+        {
+            List<Ladder> l = _repo.GetAllLadders();
+            JsonConverterLadder results = new JsonConverterLadder(l);
+            List<JsonConverterLadder> value = results.ConvertLadderList();
+            return Json(value, JsonRequestBehavior.AllowGet);        }
     }
 }
